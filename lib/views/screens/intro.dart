@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import '../../routes/app_routes.dart';
 
 class IntroPage extends StatefulWidget {
   const IntroPage({super.key});
@@ -197,7 +198,7 @@ class _IntroPageState extends State<IntroPage>
             flex: 3,
             child: Center(
               child: Image.asset(
-                'assets/images/intro.png',
+                'assets/images/intro1.png',
                 fit: BoxFit.contain,
               ),
             ),
@@ -322,8 +323,9 @@ class _IntroPageState extends State<IntroPage>
     onPressed:
     _showGetStartedButton
     ? () {
-    // Navigate to next screen
-    // Navigator.pushReplacementNamed(context, '/home');
+
+      // Navigate to signup screen
+      Navigator.pushNamed(context, AppRoutes.signup);
     }
         : null,
     style: ElevatedButton.styleFrom(
