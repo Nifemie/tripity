@@ -1,0 +1,383 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'dart:async';
+
+// Providers for OTP verification state
+final otpControllersProvider = Provider<List<TextEditingController>>((ref) {
+  final controllers = List.generate(6, (index) => TextEditingController());
+
+  // Dispose controllers when provider is disposed
+  ref.onDispose(() {
+    for (var controller in controllers) {
+      controller.dispose();
+    }
+  });
+
+  return controllers;
+});
+
+final otpFocusNodesProvider = Provider<List<FocusNode>>((ref) {
+  final focusNodes = List.generate(6, (index) => FocusNode());
+
+  // Dispose focus nodes when provider is disposed
+  ref.onDispose(() {
+    for (var focusNode in focusNodes) {
+      focusNode.dispose();
+    }
+  });
+
+  return focusNodes;
+});
+
+final timerSecondsProvider = StateNotifierProvider<TimerNotifier, int>((ref) {
+  return TimerNotifier();
+});
+
+final otpCodeProvider = StateProvider<String>((ref) => '');
+
+final isCodeCompleteProvider = StateProvider<bool>((ref) => false);
+
+// Timer State Notifier
+class TimerNotifier extends StateNotifier<int> {
+  TimerNotifier() : super(59) {
+    _startTimer();
+  }
+
+  Timer? _timer;
+
+  void _startTimer() {
+    _timer?.cancel();
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (state > 0) {
+        state = state - 1;
+      } else {
+        timer.cancel();
+      }
+    });
+  }
+
+  void resendCode() {
+    state = 59;
+    _startTimer();
+  }
+
+  String get formattedTime {
+    int minutes = state ~/ 60;
+    int seconds = state % 60;
+    return '${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
+}
+
+class OtpVerification extends ConsumerWidget {
+  final String email;
+
+  const OtpVerification({Key? key, required this.email}) : super(key: key);
+
+  void _onCodeChanged(String value, int index, WidgetRef ref) {
+    final controllers = ref.read(otpControllersProvider);
+    final focusNodes = ref.read(otpFocusNodesProvider);
+
+    if (value.isNotEmpty && index < 5) {
+      focusNodes[index + 1].requestFocus();
+    }
+    if (value.isEmpty && index > 0) {
+      focusNodes[index - 1].requestFocus();
+    }
+
+    // Update the OTP code
+    final code = controllers.map((controller) => controller.text).join();
+    ref.read(otpCodeProvider.notifier).state = code;
+
+    // Update the completion status
+    final isComplete = controllers.every(
+      (controller) => controller.text.isNotEmpty,
+    );
+    ref.read(isCodeCompleteProvider.notifier).state = isComplete;
+  }
+
+  void _resendCode(WidgetRef ref) {
+    ref.read(timerSecondsProvider.notifier).resendCode();
+    // Add your resend OTP logic here
+  }
+
+  void _verifyCode(WidgetRef ref) {
+    final code = ref.read(otpCodeProvider);
+    // Add your verification logic here
+    print('Verifying code: $code');
+  }
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final controllers = ref.watch(otpControllersProvider);
+    final focusNodes = ref.watch(otpFocusNodesProvider);
+    final remainingSeconds = ref.watch(timerSecondsProvider);
+    final timerNotifier = ref.watch(timerSecondsProvider.notifier);
+    final isCodeComplete = ref.watch(isCodeCompleteProvider);
+
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        leading: IconButton(
+          onPressed: () => Navigator.pop(context),
+          icon: const Icon(
+            Icons.arrow_back_ios,
+            color: Colors.black87,
+            size: 20,
+          ),
+        ),
+        centerTitle: true,
+        title: const Text(
+          'Verify your email',
+          style: TextStyle(
+            color: Color(0xFF111827), // Text-Primary
+            fontFamily: 'Instrument Sans', // Font-Primary
+            fontSize: 20, // Font-Size-xl
+            fontWeight: FontWeight.w600, // Font-Weight-semibold
+            height: 27.5 / 20, // 137.5% line-height
+          ),
+        ),
+      ),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 32.0),
+          child: Column(
+            children: [
+              const SizedBox(height: 80),
+
+              // Title
+              const Text(
+                'Enter Verification Code',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Color(0xFF111827), // Text-Primary
+                  fontFamily: 'Instrument Sans', // Font-Primary
+                  fontSize: 20, // Font-Size-xl
+                  fontWeight: FontWeight.w600, // Font-Weight-semibold
+                  height: 27.5 / 20, // 137.5% line-height
+                ),
+              ),
+
+              const SizedBox(height: 16),
+
+              // Subtitle
+              const Text(
+                'We\'ve sent a 6-digit code to your email',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Color(0xFF4B5563), // Text-Secondary
+                  fontFamily: 'Instrument Sans', // Font-Primary
+                  fontSize: 16, // Font-Size-base
+                  fontWeight: FontWeight.w400, // Font-Weight-normal
+                  height: 24 / 16, // 150% line-height
+                ),
+              ),
+
+              const SizedBox(height: 8),
+
+              // Email
+              Text(
+                email,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  color: Color(0xFF3B82F6), // Primary-Blue-500
+                  fontFamily: 'Instrument Sans', // Font-Primary
+                  fontSize: 16, // Font-Size-base
+                  fontWeight: FontWeight.w500, // Font-Weight-medium
+                  height: 24 / 16, // line-height
+                  letterSpacing: 0, // Letter-Spacing-normal
+                ),
+              ),
+
+              const SizedBox(height: 48),
+
+              // OTP Input Fields
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: List.generate(
+                  6,
+                  (index) => _buildOtpField(index, ref),
+                ),
+              ),
+
+              const SizedBox(height: 32),
+
+              // Timer and Resend
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    'Code expires in ',
+                    style: TextStyle(
+                      color: Color(0xFF4B5563), // Text-Secondary
+                      fontFamily: 'Instrument Sans', // Font-Primary
+                      fontSize: 16, // Font-Size-base
+                      fontWeight: FontWeight.w400, // Font-Weight-normal
+                      height: 24 / 16, // 150% line-height
+                    ),
+                  ),
+                  Text(
+                    timerNotifier.formattedTime,
+                    style: const TextStyle(
+                      color: Color(0xFF4B5563), // Text-Secondary
+                      fontFamily: 'Instrument Sans', // Font-Primary
+                      fontSize: 16, // Font-Size-base
+                      fontWeight: FontWeight.w400, // Font-Weight-normal
+                      height: 24 / 16, // 150% line-height
+                    ),
+                  ),
+                ],
+              ),
+
+              const SizedBox(height: 16),
+
+              // Resend Code
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    'Didn\'t receive any code? ',
+                    style: TextStyle(
+                      color: Color(0xFF4B5563), // Text-Secondary
+                      fontFamily: 'Instrument Sans', // Font-Primary
+                      fontSize: 16, // Font-Size-base
+                      fontWeight: FontWeight.w400, // Font-Weight-normal
+                      height: 24 / 16, // 150% line-height
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap:
+                        remainingSeconds == 0 ? () => _resendCode(ref) : null,
+                    child: Text(
+                      'Resend',
+                      style: TextStyle(
+                        color:
+                            remainingSeconds == 0
+                                ? const Color(
+                                  0xFF3B82F6,
+                                ) // Primary-Blue-500 when enabled
+                                : const Color(0xFF9CA3AF), // Gray when disabled
+                        fontFamily: 'Instrument Sans', // Font-Primary
+                        fontSize: 16, // Font-Size-base
+                        fontWeight: FontWeight.w500, // Font-Weight-medium
+                        height: 24 / 16, // line-height
+                        letterSpacing: 0, // Letter-Spacing-normal
+                        decoration: TextDecoration.underline,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+
+              const Spacer(),
+
+              // Verify Button
+              Container(
+                width: double.infinity,
+                height: 52,
+                margin: const EdgeInsets.only(bottom: 40),
+                decoration:
+                    isCodeComplete
+                        ? BoxDecoration(
+                          borderRadius: BorderRadius.circular(
+                            9999,
+                          ), // Border-Radius-full
+                          gradient: const LinearGradient(
+                            begin: Alignment(
+                              -0.0421,
+                              -1.0,
+                            ), // 109deg equivalent
+                            end: Alignment(1.0712, 1.0),
+                            colors: [
+                              Color(0xFF3B82F6), // Primary-Blue-500
+                              Color(0xFF2563EB), // Primary-Blue-600
+                              Color(0xFF1E40AF), // Primary-Blue-800
+                            ],
+                            stops: [0.0, 0.5145, 1.0712],
+                          ),
+                        )
+                        : BoxDecoration(
+                          borderRadius: BorderRadius.circular(9999),
+                          color: const Color(0xFFE5E7EB), // Gray when disabled
+                        ),
+                child: ElevatedButton(
+                  onPressed: isCodeComplete ? () => _verifyCode(ref) : null,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.transparent,
+                    foregroundColor: Colors.white,
+                    elevation: 0,
+                    shadowColor: Colors.transparent,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(
+                        9999,
+                      ), // Full border radius
+                    ),
+                    disabledBackgroundColor: Colors.transparent,
+                    disabledForegroundColor: const Color(0xFF9CA3AF),
+                  ),
+                  child: const Text(
+                    'Verify',
+                    style: TextStyle(
+                      fontFamily: 'Instrument Sans', // Font-Primary
+                      fontSize: 16, // Font-Size-base
+                      fontWeight: FontWeight.w500, // Font-Weight-medium
+                      height: 24 / 16, // line-height
+                      letterSpacing: 0, // Letter-Spacing-normal
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildOtpField(int index, WidgetRef ref) {
+    final controllers = ref.watch(otpControllersProvider);
+    final focusNodes = ref.watch(otpFocusNodesProvider);
+
+    return Container(
+      width: 52,
+      height: 52,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12), // Border-Radius-xl
+        border: Border.all(
+          color: const Color(0xFFD1D5DB), // Neutral-Gray-300
+          width: 1,
+        ),
+        color: const Color(0xFFF9FAFB), // Neutral-Gray-50
+      ),
+      child: TextField(
+        controller: controllers[index],
+        focusNode: focusNodes[index],
+        keyboardType: TextInputType.number,
+        textAlign: TextAlign.center,
+        maxLength: 1,
+        style: const TextStyle(
+          fontSize: 24,
+          fontWeight: FontWeight.w600,
+          color: Color(0xFF111827),
+        ),
+        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+        decoration: const InputDecoration(
+          counterText: '',
+          border: InputBorder.none,
+          contentPadding: EdgeInsets.zero,
+        ),
+        onChanged: (value) {
+          _onCodeChanged(value, index, ref);
+        },
+      ),
+    );
+  }
+}
