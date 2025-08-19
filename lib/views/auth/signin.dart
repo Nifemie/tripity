@@ -162,7 +162,7 @@ class _SignInPageState extends State<SignInPage> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          // Handle forgot password
+                          Navigator.pushNamed(context, '/forgot-password');
                         },
                         child: const Text(
                           'Forgot password?',
@@ -346,24 +346,25 @@ class _SignInPageState extends State<SignInPage> {
               const SizedBox(height: 24),
 
               // Social Login Buttons
+              // Social Login Buttons
               Column(
                 children: [
-                  // Continue with Google - Using image asset
+                  // Continue with Google
                   Container(
                     width: double.infinity,
                     height: 52,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: const Color(0xFFE5E7EB)),
-                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(9999), // Border-Radius-full
+                      color: const Color(0xFFF3F4F6), // Neutral-Gray-100
                     ),
                     child: Material(
                       color: Colors.transparent,
+                      borderRadius: BorderRadius.circular(9999),
                       child: InkWell(
                         onTap: () {},
-                        borderRadius: BorderRadius.circular(12),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                        borderRadius: BorderRadius.circular(9999),
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -372,17 +373,14 @@ class _SignInPageState extends State<SignInPage> {
                                 width: 20,
                                 height: 20,
                               ),
-                              const SizedBox(width: 12),
-                              const Flexible(
-                                child: Text(
-                                  'Continue with Google',
-                                  style: TextStyle(
-                                    color: Color(0xFF374151),
-                                    fontFamily: 'Instrument Sans',
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                  overflow: TextOverflow.ellipsis,
+                              const SizedBox(width: 8), // gap: 8px
+                              const Text(
+                                'Continue with Google',
+                                style: TextStyle(
+                                  color: Color(0xFF374151),
+                                  fontFamily: 'Instrument Sans',
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
                                 ),
                               ),
                             ],
@@ -394,22 +392,22 @@ class _SignInPageState extends State<SignInPage> {
 
                   const SizedBox(height: 12),
 
-                  // Continue with Apple - Using image asset
+                  // Continue with Apple
                   Container(
                     width: double.infinity,
                     height: 52,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: const Color(0xFFE5E7EB)),
-                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(9999), // Border-Radius-full
+                      color: const Color(0xFFF3F4F6), // Neutral-Gray-100
                     ),
                     child: Material(
                       color: Colors.transparent,
+                      borderRadius: BorderRadius.circular(9999),
                       child: InkWell(
                         onTap: () {},
-                        borderRadius: BorderRadius.circular(12),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                        borderRadius: BorderRadius.circular(9999),
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -418,17 +416,14 @@ class _SignInPageState extends State<SignInPage> {
                                 width: 20,
                                 height: 20,
                               ),
-                              const SizedBox(width: 12),
-                              const Flexible(
-                                child: Text(
-                                  'Continue with Apple',
-                                  style: TextStyle(
-                                    color: Color(0xFF374151),
-                                    fontFamily: 'Instrument Sans',
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                  overflow: TextOverflow.ellipsis,
+                              const SizedBox(width: 8), // gap: 8px
+                              const Text(
+                                'Continue with Apple',
+                                style: TextStyle(
+                                  color: Color(0xFF374151),
+                                  fontFamily: 'Instrument Sans',
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
                                 ),
                               ),
                             ],
@@ -440,22 +435,22 @@ class _SignInPageState extends State<SignInPage> {
 
                   const SizedBox(height: 12),
 
-                  // Continue with Facebook - Using SVG asset
+                  // Continue with Facebook
                   Container(
                     width: double.infinity,
                     height: 52,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: const Color(0xFFE5E7EB)),
-                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(9999), // Border-Radius-full
+                      color: const Color(0xFFF3F4F6), // Neutral-Gray-100
                     ),
                     child: Material(
                       color: Colors.transparent,
+                      borderRadius: BorderRadius.circular(9999),
                       child: InkWell(
                         onTap: () {},
-                        borderRadius: BorderRadius.circular(12),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                        borderRadius: BorderRadius.circular(9999),
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -464,17 +459,14 @@ class _SignInPageState extends State<SignInPage> {
                                 width: 20,
                                 height: 20,
                               ),
-                              const SizedBox(width: 12),
-                              const Flexible(
-                                child: Text(
-                                  'Continue with Facebook',
-                                  style: TextStyle(
-                                    color: Color(0xFF374151),
-                                    fontFamily: 'Instrument Sans',
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                  overflow: TextOverflow.ellipsis,
+                              const SizedBox(width: 8), // gap: 8px
+                              const Text(
+                                'Continue with Facebook',
+                                style: TextStyle(
+                                  color: Color(0xFF374151),
+                                  fontFamily: 'Instrument Sans',
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
                                 ),
                               ),
                             ],
