@@ -6,8 +6,8 @@ enum UserRole { none, personal, serviceProvider, both }
 
 final userRoleProvider = StateProvider<UserRole>((ref) => UserRole.none);
 
-class TripitifyOnboardingScreen extends ConsumerWidget {
-  const TripitifyOnboardingScreen({super.key});
+class RoleSelectionScreen extends ConsumerWidget {
+  const RoleSelectionScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -170,40 +170,62 @@ class TripitifyOnboardingScreen extends ConsumerWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 24),
-              // Continue button
-              SizedBox(
-                width: double.infinity,
-                height: 52,
-                child: ElevatedButton(
-                  onPressed:
-                      selectedRole != UserRole.none
-                          ? () {
-                            // Handle continue action
-                            print('Continue with role: $selectedRole');
-                          }
-                          : null,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor:
-                        selectedRole != UserRole.none
-                            ? const Color(0xFF3B82F6) // Primary Blue 500
-                            : const Color(0xFFD1D5DB), // Disabled Gray
-                    foregroundColor: Colors.white,
-                    elevation: 0,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(9999),
-                    ),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 24,
-                      vertical: 16,
-                    ),
-                  ),
-                  child: const Text(
-                    'Continue',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-                  ),
-                ),
-              ),
+              // Replace the Continue button section in TripitifyOnboardingScreen with this:
+
+const SizedBox(height: 24),
+// Continue button
+SizedBox(
+  width: double.infinity,
+  height: 52,
+  child: ElevatedButton(
+    onPressed: selectedRole != UserRole.none
+        ? () {
+            // Handle navigation based on selected role
+            switch (selectedRole) {
+              case UserRole.personal:
+                // Navigate to account setup for personal users
+                Navigator.pushNamed(context, '/explore-setup');
+                break;
+              case UserRole.serviceProvider:
+                // You can create a separate route for service providers
+                // For now, let's use the same account setup
+                Navigator.pushNamed(context, '/explore-setup');
+                break;
+              case UserRole.both:
+                // Navigate to account setup for users who want both
+                Navigator.pushNamed(context, '/explore-setup');
+                break;
+              case UserRole.none:
+                // This shouldn't happen due to the null check
+                break;
+            }
+            
+            // Optional: Store the selected role for use in the next screen
+            // You can pass it as arguments or store it in a global state
+            print('Navigating with role: $selectedRole');
+          }
+        : null,
+    style: ElevatedButton.styleFrom(
+      backgroundColor: selectedRole != UserRole.none
+          ? const Color(0xFF3B82F6) // Primary Blue 500
+          : const Color(0xFFD1D5DB), // Disabled Gray
+      foregroundColor: Colors.white,
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(9999),
+      ),
+      padding: const EdgeInsets.symmetric(
+        horizontal: 24,
+        vertical: 16,
+      ),
+    ),
+    child: const Text(
+      'Continue',
+      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+    ),
+  ),
+),
+const SizedBox(height: 32),
               const SizedBox(height: 32),
             ],
           ),

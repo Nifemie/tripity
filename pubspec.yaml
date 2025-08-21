@@ -67,6 +67,7 @@ flutter:
     - assets/images/
     - assets/fonts/
     - assets/images/signup_icons/
+    - assets/images/account_setup/
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
