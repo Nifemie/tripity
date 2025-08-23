@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:geolocator/geolocator.dart';
 import '../../routes/app_routes.dart';
 
@@ -64,12 +65,13 @@ class _IntroPageState extends State<IntroPage>
             mainAxisSize: MainAxisSize.min,
             children: [
               // Blue dot indicator
-              Container(
-                width: 12,
-                height: 12,
-                decoration: const BoxDecoration(
-                  color: Color(0xFF3B82F6),
-                  shape: BoxShape.circle,
+              SvgPicture.asset(
+                'assets/images/signup_icons/Map.svg',
+                width: 24,
+                height: 24,
+                colorFilter: const ColorFilter.mode(
+                  Color(0xFF3B82F6),
+                  BlendMode.srcIn,
                 ),
               ),
               const SizedBox(height: 16),
@@ -136,7 +138,7 @@ class _IntroPageState extends State<IntroPage>
                     child: TextButton(
                       onPressed: () => _handleLocationPermission(null),
                       style: TextButton.styleFrom(
-                        foregroundColor: const Color(0xFF6B7280),
+                        foregroundColor: const Color(0xFF3B82F6),
                         padding: const EdgeInsets.symmetric(vertical: 12),
                       ),
                       child: const Text(
@@ -152,7 +154,7 @@ class _IntroPageState extends State<IntroPage>
               ),
               const SizedBox(height: 16),
             ],
-          ),
+          )
         ),
       ),
     );

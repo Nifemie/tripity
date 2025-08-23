@@ -33,7 +33,7 @@ class TravelPreferencesScreen extends ConsumerWidget {
     print('Budget Range: $budgetRange');
 
     // Navigate to next screen
-    // Navigator.pushNamed(context, '/dashboard');
+    Navigator.pushNamed(context, '/purpose');
   }
 
   @override
@@ -254,7 +254,7 @@ class TravelPreferencesScreen extends ConsumerWidget {
       {'title': 'Photography', 'svgPath': 'assets/images/account_setup/Camera.svg'},
       {'title': 'Wellness & Relaxation', 'svgPath': 'assets/images/account_setup/Meditation.svg'},
       {'title': 'Business Travel', 'svgPath': 'assets/images/account_setup/Case.svg'},
-      {'title': 'Family Friendly', 'svgPath': 'assets/images/account_setup/Users Group Two Rounded.svg'},
+      {'title': 'Family Friendly', 'svgPath': 'assets/images/account_setup/Users.svg'},
     ];
 
     return GridView.builder(

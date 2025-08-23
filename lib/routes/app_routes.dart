@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:tripitify/views/screens/explore/PurposeScreen.dart';
+import 'package:tripitify/views/screens/explore/SetupComplete.dart';
 import '../views/splash/splash_screen.dart';
 import '../views/screens/intro.dart';
 import '../views/auth/signup.dart';
@@ -19,6 +21,8 @@ class AppRoutes {
   static const String accountSetup = '/account-setup';
   static const String exploreSetup = '/explore-setup';
   static const String travelPreferences = '/travel-preferences';
+  static const String purpose = '/purpose';
+  static const String setupComplete = '/setup-complete';
 
 
   static Map<String, WidgetBuilder> getRoutes() {
@@ -32,6 +36,9 @@ class AppRoutes {
       accountSetup: (context) => const RoleSelectionScreen(),
       exploreSetup: (context) => const ExploreSetupScreen(),
       travelPreferences: (context) => const TravelPreferencesScreen(),
+      purpose: (context) => const LastAccountSetupPage(),
+      setupComplete: (context) => const AccountSetupCompleteScreen(),
     };
   }
 }
+

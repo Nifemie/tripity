@@ -23,6 +23,8 @@ class _SignInPageState extends State<SignInPage> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
+        scrolledUnderElevation: 0,
+        surfaceTintColor: Colors.transparent,
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
           icon: const Icon(
@@ -34,7 +36,6 @@ class _SignInPageState extends State<SignInPage> {
       ),
       body: SafeArea(
         child: SingleChildScrollView(
-          // Added to handle vertical overflow
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
           child: Column(
             children: [
@@ -52,7 +53,7 @@ class _SignInPageState extends State<SignInPage> {
                 ),
               ),
 
-              const SizedBox(height: 48),
+              const SizedBox(height: 18),
 
               // Welcome back
               const Text(
@@ -100,44 +101,7 @@ class _SignInPageState extends State<SignInPage> {
                     ),
                   ),
                   const SizedBox(height: 6),
-                  Container(
-                    height: 52,
-                    padding: const EdgeInsets.fromLTRB(12, 8, 16, 8),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(
-                        color: const Color(0xFFD1D5DB),
-                        width: 1,
-                      ),
-                      color: const Color(0xFFF9FAFB),
-                    ),
-                    child: Row(
-                      children: [
-                        const Icon(
-                          Icons.email_outlined,
-                          color: Color(0xFF6B7280),
-                          size: 20,
-                        ),
-                        const SizedBox(width: 8),
-                        Expanded(
-                          child: TextField(
-                            controller: _emailController,
-                            style: const TextStyle(
-                              color: Color(0xFF111827),
-                              fontFamily: 'Instrument Sans',
-                              fontSize: 16,
-                              fontWeight: FontWeight.w400,
-                            ),
-                            decoration: const InputDecoration(
-                              border: InputBorder.none,
-                              isDense: true,
-                              contentPadding: EdgeInsets.zero,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                  _buildEmailInputWithDivider(),
                 ],
               ),
 
@@ -180,62 +144,7 @@ class _SignInPageState extends State<SignInPage> {
                     ],
                   ),
                   const SizedBox(height: 6),
-                  Container(
-                    height: 52,
-                    padding: const EdgeInsets.fromLTRB(12, 8, 16, 8),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(
-                        color: const Color(0xFFD1D5DB),
-                        width: 1,
-                      ),
-                      color: const Color(0xFFF9FAFB),
-                    ),
-                    child: Row(
-                      children: [
-                        const Icon(
-                          Icons.lock_outline,
-                          color: Color(0xFF6B7280),
-                          size: 20,
-                        ),
-                        const SizedBox(width: 8),
-                        Expanded(
-                          child: TextField(
-                            controller: _passwordController,
-                            obscureText: !_isPasswordVisible,
-                            style: const TextStyle(
-                              color: Color(0xFF111827),
-                              fontFamily: 'Instrument Sans',
-                              fontSize: 16,
-                              fontWeight: FontWeight.w400,
-                            ),
-                            decoration: const InputDecoration(
-                              border: InputBorder.none,
-                              isDense: true,
-                              contentPadding: EdgeInsets.zero,
-                              hintText: '••••••••••••',
-                              hintStyle: TextStyle(color: Color(0xFF9CA3AF)),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: 8),
-                        GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              _isPasswordVisible = !_isPasswordVisible;
-                            });
-                          },
-                          child: Icon(
-                            _isPasswordVisible
-                                ? Icons.visibility_off_outlined
-                                : Icons.visibility_outlined,
-                            color: const Color(0xFF6B7280),
-                            size: 20,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                  _buildPasswordInputWithDivider(),
                 ],
               ),
 
@@ -346,7 +255,6 @@ class _SignInPageState extends State<SignInPage> {
               const SizedBox(height: 24),
 
               // Social Login Buttons
-              // Social Login Buttons
               Column(
                 children: [
                   // Continue with Google
@@ -354,8 +262,8 @@ class _SignInPageState extends State<SignInPage> {
                     width: double.infinity,
                     height: 52,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(9999), // Border-Radius-full
-                      color: const Color(0xFFF3F4F6), // Neutral-Gray-100
+                      borderRadius: BorderRadius.circular(9999),
+                      color: const Color(0xFFF3F4F6),
                     ),
                     child: Material(
                       color: Colors.transparent,
@@ -373,7 +281,7 @@ class _SignInPageState extends State<SignInPage> {
                                 width: 20,
                                 height: 20,
                               ),
-                              const SizedBox(width: 8), // gap: 8px
+                              const SizedBox(width: 8),
                               const Text(
                                 'Continue with Google',
                                 style: TextStyle(
@@ -397,8 +305,8 @@ class _SignInPageState extends State<SignInPage> {
                     width: double.infinity,
                     height: 52,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(9999), // Border-Radius-full
-                      color: const Color(0xFFF3F4F6), // Neutral-Gray-100
+                      borderRadius: BorderRadius.circular(9999),
+                      color: const Color(0xFFF3F4F6),
                     ),
                     child: Material(
                       color: Colors.transparent,
@@ -416,7 +324,7 @@ class _SignInPageState extends State<SignInPage> {
                                 width: 20,
                                 height: 20,
                               ),
-                              const SizedBox(width: 8), // gap: 8px
+                              const SizedBox(width: 8),
                               const Text(
                                 'Continue with Apple',
                                 style: TextStyle(
@@ -440,8 +348,8 @@ class _SignInPageState extends State<SignInPage> {
                     width: double.infinity,
                     height: 52,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(9999), // Border-Radius-full
-                      color: const Color(0xFFF3F4F6), // Neutral-Gray-100
+                      borderRadius: BorderRadius.circular(9999),
+                      color: const Color(0xFFF3F4F6),
                     ),
                     child: Material(
                       color: Colors.transparent,
@@ -459,7 +367,7 @@ class _SignInPageState extends State<SignInPage> {
                                 width: 20,
                                 height: 20,
                               ),
-                              const SizedBox(width: 8), // gap: 8px
+                              const SizedBox(width: 8),
                               const Text(
                                 'Continue with Facebook',
                                 style: TextStyle(
@@ -529,6 +437,136 @@ class _SignInPageState extends State<SignInPage> {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  // Email input with divider (similar to SignUp page style)
+  Widget _buildEmailInputWithDivider() {
+    return Container(
+      height: 52,
+      decoration: BoxDecoration(
+        color: const Color(0xFFF9FAFB),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: const Color(0xFFD1D5DB), width: 1),
+      ),
+      padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+    SvgPicture.asset('assets/images/signin_icons/Letter.svg', width: 20, height: 20, color: Colors.grey.shade400),
+
+          const SizedBox(width: 12),
+
+          // Vertical divider
+          Container(
+            width: 1,
+            height: 24,
+            decoration: const BoxDecoration(color: Color(0xFFD1D5DB)),
+          ),
+
+          const SizedBox(width: 12),
+
+          // Text field
+          Expanded(
+            child: TextField(
+              controller: _emailController,
+              keyboardType: TextInputType.emailAddress,
+              style: const TextStyle(
+                color: Colors.black87,
+                fontSize: 16,
+                fontWeight: FontWeight.w400,
+                fontFamily: 'Instrument Sans',
+              ),
+              decoration: const InputDecoration(
+                hintText: 'John.doe@email.com',
+                hintStyle: TextStyle(
+                  color: Color(0xFF6B7280),
+                  fontSize: 16,
+                  fontWeight: FontWeight.w400,
+                  fontFamily: 'Instrument Sans',
+                ),
+                border: InputBorder.none,
+                contentPadding: EdgeInsets.zero,
+                isDense: false,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Password input with divider and visibility toggle
+  Widget _buildPasswordInputWithDivider() {
+    return Container(
+      height: 52,
+      decoration: BoxDecoration(
+        color: const Color(0xFFF9FAFB),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: const Color(0xFFD1D5DB), width: 1),
+      ),
+      padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+  SvgPicture.asset('assets/images/signin_icons/Key.svg', width: 20, height: 20, color: Colors.grey.shade400),
+
+          const SizedBox(width: 12),
+
+          // Vertical divider
+          Container(
+            width: 1,
+            height: 24,
+            decoration: const BoxDecoration(color: Color(0xFFD1D5DB)),
+          ),
+
+          const SizedBox(width: 12),
+
+          // Text field
+          Expanded(
+            child: TextField(
+              controller: _passwordController,
+              obscureText: !_isPasswordVisible,
+              style: const TextStyle(
+                color: Colors.black87,
+                fontSize: 16,
+                fontWeight: FontWeight.w400,
+                fontFamily: 'Instrument Sans',
+              ),
+              decoration: const InputDecoration(
+                hintText: '•••••••••••••',
+                hintStyle: TextStyle(
+                  color: Color(0xFF6B7280),
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                  fontFamily: 'Instrument Sans',
+                ),
+                border: InputBorder.none,
+                contentPadding: EdgeInsets.zero,
+                isDense: false,
+              ),
+            ),
+          ),
+
+          const SizedBox(width: 12),
+
+          // Visibility toggle button
+          GestureDetector(
+            onTap: () {
+              setState(() {
+                _isPasswordVisible = !_isPasswordVisible;
+              });
+            },
+            child: Icon(
+              _isPasswordVisible
+                  ? Icons.visibility_off_outlined
+                  : Icons.visibility_outlined,
+              color: Colors.grey.shade400,
+              size: 20,
+            ),
+          ),
+        ],
       ),
     );
   }

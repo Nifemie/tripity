@@ -4,6 +4,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'otp_verification.dart';
 import '../../routes/app_routes.dart';
+import '../../utils/validators.dart';
 // DON'T import signin.dart - this is causing the crash
 
 class SignUp extends StatefulWidget {
@@ -16,12 +17,6 @@ class SignUp extends StatefulWidget {
 class _SignUpState extends State<SignUp> {
   final TextEditingController _emailController = TextEditingController();
 
-  bool _isValidEmail(String email) {
-    return RegExp(
-      r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
-    ).hasMatch(email);
-  }
-
   void _navigateToOtpVerification() {
     String email = _emailController.text.trim();
 
@@ -32,7 +27,7 @@ class _SignUpState extends State<SignUp> {
       return;
     }
 
-    if (!_isValidEmail(email)) {
+    if (!Validators.isValidEmail(email)) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Please enter a valid email address')),
       );
@@ -69,6 +64,8 @@ class _SignUpState extends State<SignUp> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
+        scrolledUnderElevation: 0,
+        surfaceTintColor: Colors.transparent,
         systemOverlayStyle: const SystemUiOverlayStyle(
           statusBarColor: Colors.white,
           statusBarIconBrightness: Brightness.dark,
@@ -124,7 +121,7 @@ class _SignUpState extends State<SignUp> {
                       height: 24 / 16,
                     ),
                   ),
-                  const SizedBox(height: 48),
+                  const SizedBox(height: 38),
 
                   // Social Login Buttons
                   _buildSocialButton(
@@ -177,7 +174,7 @@ class _SignUpState extends State<SignUp> {
                   ),
                   const SizedBox(height: 12),
                   _buildEmailInputWithDivider(),
-                  const SizedBox(height: 32),
+                  const SizedBox(height: 22),
 
                   // Continue Button
                   Container(
@@ -301,7 +298,7 @@ class _SignUpState extends State<SignUp> {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 40),
+                  const SizedBox(height: 80),
 
                   Text(
                     'Version 1.0 (Build 457)',
