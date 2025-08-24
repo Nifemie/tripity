@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import '../../screens/role_selection_screen.dart';
 
 // State providers for travel preferences
 final selectedInterestsProvider = StateProvider<Set<String>>((ref) => {});
@@ -27,13 +28,15 @@ class TravelPreferencesScreen extends ConsumerWidget {
     final travelFrequency = ref.read(travelFrequencyProvider);
     final budgetRange = ref.read(budgetRangeProvider);
 
+    final role = ModalRoute.of(context)!.settings.arguments as UserRole?;
+
     print('Travel Preferences:');
     print('Interests: $selectedInterests');
     print('Travel Frequency: $travelFrequency');
     print('Budget Range: $budgetRange');
 
     // Navigate to next screen
-    Navigator.pushNamed(context, '/purpose');
+    Navigator.pushNamed(context, '/purpose', arguments: role);
   }
 
   @override

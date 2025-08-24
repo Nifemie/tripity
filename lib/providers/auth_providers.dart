@@ -101,3 +101,12 @@ final isFormValidProvider = Provider<bool>((ref) {
       Validators.isValidEmail(email) &&
       (useOneTimePasscode || Validators.isPasswordValid(password));
 });
+
+// Providers for travel preferences
+final selectedInterestsProvider = StateProvider<Set<String>>((ref) => {});
+
+// Form validation provider - now only checks if at least one interest is selected
+final isPreferencesValidProvider = Provider<bool>((ref) {
+  final selectedInterests = ref.watch(selectedInterestsProvider);
+  return selectedInterests.isNotEmpty;
+});

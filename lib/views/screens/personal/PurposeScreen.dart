@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import '../../screens/role_selection_screen.dart';
+
 
 // State provider for selected purpose
 final selectedPurposeProvider = StateProvider<int?>((ref) => null);
@@ -12,6 +14,7 @@ class LastAccountSetupPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final selectedPurpose = ref.watch(selectedPurposeProvider);
+    final role = ModalRoute.of(context)!.settings.arguments as UserRole?;
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -151,7 +154,12 @@ class LastAccountSetupPage extends ConsumerWidget {
                   ),
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, '/setup-complete');
+                      final role = ModalRoute.of(context)!.settings.arguments as UserRole?;
+                      if (role == UserRole.both) {
+                        Navigator.pushNamed(context, '/planner-profile-setup');
+                      } else {
+                        Navigator.pushNamed(context, '/setup-complete');
+                      }
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.transparent,
@@ -161,7 +169,7 @@ class LastAccountSetupPage extends ConsumerWidget {
                       ),
                     ),
                     child: const Text(
-                      'Complete Setup',
+                      'Continue',
                       style: TextStyle(
                         color: Colors.white,
                         fontFamily: 'Instrument Sans',

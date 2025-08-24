@@ -184,16 +184,16 @@ SizedBox(
             switch (selectedRole) {
               case UserRole.personal:
                 // Navigate to account setup for personal users
-                Navigator.pushNamed(context, '/explore-setup');
+                Navigator.pushNamed(context, '/explore-setup', arguments: selectedRole);
                 break;
               case UserRole.serviceProvider:
                 // You can create a separate route for service providers
                 // For now, let's use the same account setup
-                Navigator.pushNamed(context, '/explore-setup');
+                Navigator.pushNamed(context, '/planner-account-setup', arguments: selectedRole);
                 break;
               case UserRole.both:
                 // Navigate to account setup for users who want both
-                Navigator.pushNamed(context, '/explore-setup');
+                Navigator.pushNamed(context, '/explore-setup', arguments: selectedRole);
                 break;
               case UserRole.none:
                 // This shouldn't happen due to the null check
