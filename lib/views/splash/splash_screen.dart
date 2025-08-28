@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../screens/intro.dart';
+import '/views/onboarding_screens/screens/intro.dart';
 import '../../routes/app_routes.dart';
 
 class SplashScreen extends ConsumerStatefulWidget {

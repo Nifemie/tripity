@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/services.dart';
-import '../../../providers/auth_providers.dart';
+import '../../../../providers/auth_providers.dart';
 
-import 'package:tripitify/views/screens/role_selection_screen.dart';
-
-class ExploreSetupScreen extends ConsumerWidget {
-  const ExploreSetupScreen({super.key});
+class PlannerAccountSetupScreen extends ConsumerWidget {
+  const PlannerAccountSetupScreen({super.key});
 
   void _handleContinue(BuildContext context, WidgetRef ref) {
     // Handle form submission
@@ -17,8 +15,7 @@ class ExploreSetupScreen extends ConsumerWidget {
     final countryCode = ref.read(countryCodeProvider);
     final password = ref.read(passwordProvider);
     final useOneTimePasscode = ref.read(useOneTimePasscodeProvider);
-    final role = ModalRoute.of(context)!.settings.arguments as UserRole?;
-
+    
     print('Form Data:');
     print('Name: $firstName $lastName');
     print('Email: $email');
@@ -26,7 +23,7 @@ class ExploreSetupScreen extends ConsumerWidget {
     print('Use One-Time Passcode: $useOneTimePasscode');
     
     // Navigate to next screen or submit data
-    Navigator.pushNamed(context, '/travel-preferences', arguments: role);
+    Navigator.pushNamed(context, '/planner-profile-setup');
   }
 
   @override

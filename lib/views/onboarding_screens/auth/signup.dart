@@ -3,8 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'otp_verification.dart';
-import '../../routes/app_routes.dart';
-import '../../utils/validators.dart';
+import '../../../routes/app_routes.dart';
+import '../../../utils/validators.dart';
 // DON'T import signin.dart - this is causing the crash
 
 class SignUp extends StatefulWidget {

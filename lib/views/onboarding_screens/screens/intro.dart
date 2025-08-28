@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:geolocator/geolocator.dart';
-import '../../routes/app_routes.dart';
+import '../../../routes/app_routes.dart';
 
 class IntroPage extends StatefulWidget {
   const IntroPage({super.key});

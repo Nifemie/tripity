@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
-import '../views/screens/personal/PurposeScreen.dart';
-import 'package:tripitify/views/screens/personal/SetupComplete.dart';
+import '../views/onboarding_screens/screens/personal/PurposeScreen.dart';
+import 'package:tripitify/views/onboarding_screens/screens/personal/SetupComplete.dart';
 import '../views/splash/splash_screen.dart';
-import '../views/screens/intro.dart';
-import '../views/auth/signup.dart';
-import '../views/auth/signin.dart';
-import '../views/auth/otp_verification.dart';
-import '../views/auth/forgot_password_screen.dart';
-import '../views/screens/role_selection_screen.dart';
-import '../views/screens/personal/account_setup_screen.dart';
-import '../views/screens/personal/TravelPreferencesScreen.dart';
-import '../views/screens/Trip_planner/PlannerAccount_setup_screen.dart';
-import '../views/screens/Trip_planner/PlannerProfileSetupPage.dart';
-import '../views/screens/Trip_planner/PlannerTravelPreferencesScreen.dart';
-import '../views/screens/Trip_planner/PlannerSetupComplete.dart';
+import '../views/onboarding_screens/screens/intro.dart';
+import '../views/onboarding_screens/auth/signup.dart';
+import '../views/onboarding_screens/auth/signin.dart';
+import '../views/onboarding_screens/auth/otp_verification.dart';
+import '../views/onboarding_screens/auth/forgot_password_screen.dart';
+import '../views/onboarding_screens/screens/role_selection_screen.dart';
+import '../views/onboarding_screens/screens/personal/account_setup_screen.dart';
+import '../views/onboarding_screens/screens/personal/TravelPreferencesScreen.dart';
+import '../views/onboarding_screens/screens/Trip_planner/PlannerAccount_setup_screen.dart';
+import '../views/onboarding_screens/screens/Trip_planner/PlannerProfileSetupPage.dart';
+import '../views/onboarding_screens/screens/Trip_planner/PlannerTravelPreferencesScreen.dart';
+import '../views/onboarding_screens/screens/Trip_planner/PlannerSetupComplete.dart';
+import '../views/home_screens/HomeScreen.dart';
 
 class AppRoutes {
   static const String splash = '/';
@@ -34,6 +35,7 @@ class AppRoutes {
   static const String plannerTravelPreferences =
       '/planner-travel-preferences';
   static const String plannerSetupComplete = '/planner-setup-complete';
+  static const String  home = '/HomeScreen';
 
   static Map<String, WidgetBuilder> getRoutes() {
     return {
@@ -57,6 +59,7 @@ class AppRoutes {
       plannerTravelPreferences: (context) =>
           const PlannerTravelPreferencesScreen(),
       plannerSetupComplete: (context) => const PlannerAccountSetupCompleteScreen(),
+      home: (context) => HomeScreen(),
     };
   }
 }

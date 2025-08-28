@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import '/views/Home_screens/HomeScreen.dart';
+import '../../../routes/app_routes.dart';
+
 
 class SignInPage extends StatefulWidget {
   const SignInPage({Key? key}) : super(key: key);
@@ -204,7 +207,7 @@ class _SignInPageState extends State<SignInPage> {
                 ),
                 child: ElevatedButton(
                   onPressed: () {
-                    // Handle sign in
+                    Navigator.pushNamedAndRemoveUntil(context, AppRoutes.home, (route) => false); // Handle sign in
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.transparent,

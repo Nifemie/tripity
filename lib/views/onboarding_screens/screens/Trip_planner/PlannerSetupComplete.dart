@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import '../../../../routes/app_routes.dart';
 
 class PlannerAccountSetupCompleteScreen extends ConsumerWidget {
   const PlannerAccountSetupCompleteScreen({Key? key}) : super(key: key);
@@ -87,8 +88,7 @@ class PlannerAccountSetupCompleteScreen extends ConsumerWidget {
                 ),
                 child: ElevatedButton(
                   onPressed: () {
-                    // Handle go to dashboard
-                    // Navigator.pushAndRemoveUntil(...) to navigate to dashboard
+                    Navigator.pushNamedAndRemoveUntil(context, AppRoutes.home, (route) => false);
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.transparent,

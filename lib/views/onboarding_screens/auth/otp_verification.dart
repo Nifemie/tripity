@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'dart:async';
 
-import '../../providers/auth_providers.dart';
+import '../../../providers/auth_providers.dart';
 
 class OtpVerification extends ConsumerWidget {
   final String email;
