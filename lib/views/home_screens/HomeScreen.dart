@@ -4,6 +4,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tripitify/views/home_screens/buttom_nav.dart';
+import 'package:tripitify/views/home_screens/search_screen.dart';
 
 // Models
 class LocationState {
@@ -284,65 +285,63 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Top Bar with Location, Notification, and Traveller
-                _buildTopBar(context, ref, locationState),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Top Bar with Location, Notification, and Traveller
+              _buildTopBar(context, ref, locationState),
 
-                const SizedBox(height: 20),
+              const SizedBox(height: 20),
 
-                // Welcome Banner
-                _buildWelcomeBanner(userName),
+              // Welcome Banner
+              _buildWelcomeBanner(userName),
 
-                const SizedBox(height: 24),
+              const SizedBox(height: 24),
 
-                // Quick Actions Title
-                const Text(
-                  "Quick Actions",
-                  style: TextStyle(
-                    fontFamily: 'Instrument Sans',
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black87,
-                  ),
+              // Quick Actions Title
+              const Text(
+                "Quick Actions",
+                style: TextStyle(
+                  fontFamily: 'Instrument Sans',
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.black87,
                 ),
+              ),
 
-                const SizedBox(height: 16),
+              const SizedBox(height: 16),
 
-                // Quick Actions Grid
-                _buildQuickActionsGrid(),
+              // Quick Actions Grid
+              _buildQuickActionsGrid(),
 
-                const SizedBox(height: 24),
+              const SizedBox(height: 24),
 
-                // Trip Countdown Card
-                _buildTripCountdownCard(currentTrip),
+              // Trip Countdown Card
+              _buildTripCountdownCard(currentTrip),
 
-                const SizedBox(height: 32),
+              const SizedBox(height: 32),
 
-                // Popular Destinations Section
-                _buildPopularDestinationsSection(destinations),
+              // Popular Destinations Section
+              _buildPopularDestinationsSection(destinations),
 
-                const SizedBox(height: 32),
+              const SizedBox(height: 32),
 
-                // Upcoming Trips Section
-                _buildUpcomingTripsSection(upcomingTrips),
+              // Upcoming Trips Section
+              _buildUpcomingTripsSection(upcomingTrips),
 
-                const SizedBox(height: 32),
+              const SizedBox(height: 32),
 
-                // Quick Tip Section
-                _buildQuickTipSection(),
+              // Quick Tip Section
+              _buildQuickTipSection(),
 
-                const SizedBox(height: 32),
+              const SizedBox(height: 32),
 
-                // Trip Planner Section
-                _buildTripPlannerSection(),
-              ],
-            ),
+              // Trip Planner Section
+              _buildTripPlannerSection(),
+            ],
           ),
         ),
       ),
@@ -402,7 +401,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               fontFamily: 'Instrument Sans',
               fontSize: 14,
               fontWeight: FontWeight.w400,
-              color: Color(0xFF4B5563), // Text Secondary
+              color: Color(0xFF4B5563),
+              // Text Secondary
               height: 1.5, // 150% line height
             ),
           ),
@@ -425,7 +425,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   fontFamily: 'Instrument Sans',
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
-                  color: Color(0xFF2563EB), // Text Link
+                  color: Color(0xFF2563EB),
+                  // Text Link
                   height: 1.25, // 125% line height
                 ),
               ),
@@ -447,7 +448,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             fontFamily: 'Instrument Sans',
             fontSize: 16,
             fontWeight: FontWeight.w500,
-            color: Color(0xFF111827), // Text Primary
+            color: Color(0xFF111827),
+            // Text Primary
             height: 1.5, // 150% line height
           ),
         ),
@@ -460,7 +462,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             fontFamily: 'Instrument Sans',
             fontSize: 14,
             fontWeight: FontWeight.w400,
-            color: Color(0xFF6B7280), // Text Tertiary
+            color: Color(0xFF6B7280),
+            // Text Tertiary
             height: 1.5, // 150% line height
           ),
         ),
@@ -472,7 +475,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           height: 52,
           padding: const EdgeInsets.fromLTRB(12, 8, 16, 8),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12), // var(--Border-Radius-xl, 12px)
+            borderRadius: BorderRadius.circular(12),
+            // var(--Border-Radius-xl, 12px)
             color: const Color(0xFFF9FAFB), // var(--Neutral-Gray-50, #F9FAFB)
           ),
           child: Row(
@@ -492,7 +496,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     fontFamily: 'Instrument Sans',
                     fontSize: 14,
                     fontWeight: FontWeight.w400,
-                    color: Color(0xFF6B7280), // Text Tertiary
+                    color: Color(0xFF6B7280),
+                    // Text Tertiary
                     height: 1.5, // 150% line height
                   ),
                 ),
@@ -567,7 +572,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 width: 44, // width: 44px
                 height: 44, // height: 44px
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(44), // border-radius: 44px
+                  borderRadius: BorderRadius.circular(44),
+                  // border-radius: 44px
                   color: Colors.grey[300], // placeholder background
                   // You can replace this with:
                   // image: imagePath != null
@@ -608,7 +614,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                             width: 16,
                             height: 16,
                             decoration: const BoxDecoration(
-                              color: Colors.blue, // Placeholder - replace with your blue verify SVG
+                              color: Colors.blue,
+                              // Placeholder - replace with your blue verify SVG
                               shape: BoxShape.circle,
                             ),
                           ),
@@ -643,7 +650,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                           ),
                         ),
                         const SizedBox(width: 8),
-                        const Icon(Icons.location_on, color: Color(0xFF6B7280), size: 16),
+                        const Icon(Icons.location_on, color: Color(0xFF6B7280),
+                            size: 16),
                         const SizedBox(width: 4),
                         Text(
                           location,
@@ -663,22 +671,24 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     Wrap(
                       spacing: 8,
                       runSpacing: 4,
-                      children: specialties.map((specialty) => Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(6),
-                          color: const Color(0xFFF3F4F6),
-                        ),
-                        child: Text(
-                          specialty,
-                          style: const TextStyle(
-                            fontFamily: 'Instrument Sans',
-                            fontSize: 12,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xFF374151),
-                          ),
-                        ),
-                      )).toList(),
+                      children: specialties.map((specialty) =>
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 8, vertical: 4),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(6),
+                              color: const Color(0xFFF3F4F6),
+                            ),
+                            child: Text(
+                              specialty,
+                              style: const TextStyle(
+                                fontFamily: 'Instrument Sans',
+                                fontSize: 12,
+                                fontWeight: FontWeight.w400,
+                                color: Color(0xFF374151),
+                              ),
+                            ),
+                          )).toList(),
                     ),
 
                     const SizedBox(height: 8),
@@ -715,8 +725,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       Container(
                         padding: const EdgeInsets.all(4), // padding: 4px
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(9999), // border-radius: var(--Border-Radius-full, 9999px)
-                          color: const Color(0xFFDCFCE7), // background: var(--Success-Green-100, #DCFCE7)
+                          borderRadius: BorderRadius.circular(9999),
+                          // border-radius: var(--Border-Radius-full, 9999px)
+                          color: const Color(
+                              0xFFDCFCE7), // background: var(--Success-Green-100, #DCFCE7)
                         ),
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
@@ -727,18 +739,24 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                               width: 12,
                               height: 12,
                               decoration: const BoxDecoration(
-                                color: Color(0xFF22C55E), // Placeholder - replace with your green verify SVG
+                                color: Color(0xFF22C55E),
+                                // Placeholder - replace with your green verify SVG
                                 shape: BoxShape.circle,
                               ),
                             ),
-                            const SizedBox(width: 8), // gap: 8px
+                            const SizedBox(width: 8),
+                            // gap: 8px
                             const Text(
                               'Accepting Clients',
                               style: TextStyle(
-                                color: Color(0xFF22C55E), // color: var(--Success-Green-500, #22C55E)
-                                fontFamily: 'Instrument Sans', // font-family: var(--Font-Primary, "Instrument Sans")
-                                fontSize: 12, // font-size: var(--Font-Size-xs, 12px)
-                                fontWeight: FontWeight.w400, // font-weight: var(--Font-Weight-normal, 400)
+                                color: Color(0xFF22C55E),
+                                // color: var(--Success-Green-500, #22C55E)
+                                fontFamily: 'Instrument Sans',
+                                // font-family: var(--Font-Primary, "Instrument Sans")
+                                fontSize: 12,
+                                // font-size: var(--Font-Size-xs, 12px)
+                                fontWeight: FontWeight.w400,
+                                // font-weight: var(--Font-Weight-normal, 400)
                                 height: 1.5, // line-height: 18px (150%)
                               ),
                             ),
@@ -898,7 +916,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
                       // Status badge
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 8, vertical: 4),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(9999),
                           color: trip.status == 'Confirmed'
@@ -1034,7 +1053,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   },
                   child: Container(
                     height: 44,
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 8),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(9999),
                       color: const Color(0xFFF3F4F6),
@@ -1060,7 +1080,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     );
   }
 
-  Widget _buildTopBar(BuildContext context, WidgetRef ref, LocationState locationState) {
+  Widget _buildTopBar(BuildContext context, WidgetRef ref,
+      LocationState locationState) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -1111,16 +1132,36 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            // Notification Icon
-            IconButton(
-              icon: const Icon(Icons.notifications_outlined),
-              onPressed: () {
+            // Notification Icon - Updated to use SVG
+            GestureDetector(
+              onTap: () {
                 // Handle notifications
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(content: Text('Notifications clicked!')),
                 );
               },
+              child: Container(
+                width: 44,
+                height: 44,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(9999),
+                  color: const Color(0xFFF3F4F6),
+                ),
+                child: Center(
+                  child: SvgPicture.asset(
+                    'assets/images/Home/Bell_notification.svg',
+                    // Replace with your SVG file path
+                    width: 24, // Adjust icon size as needed
+                    height: 24,
+                    // You can add color if needed:
+                    // colorFilter: const ColorFilter.mode(Colors.black54, BlendMode.srcIn),
+                  ),
+                ),
+              ),
             ),
+
+            const SizedBox(width: 8),
+            // Add some spacing between notification and traveller
 
             // Traveller Box
             Container(
@@ -1234,31 +1275,47 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   Widget _buildQuickActionsGrid() {
     return Column(
       children: [
+        // First Row
         Row(
           children: [
             Expanded(
               child: _buildQuickActionCard(
-                icon: Icons.calendar_today_outlined,
+                iconPath: 'assets/images/Home/calender.svg',
+                // Replace with your SVG path
                 title: "Plan a Trip",
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const SearchScreen()),
+                  );
+                },
               ),
             ),
             const SizedBox(width: 12),
             Expanded(
               child: _buildQuickActionCard(
-                icon: Icons.person_outline,
+                iconPath: 'assets/images/Home/user.svg',
+                // Replace with your SVG path
                 title: "Find Trip Planner",
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                    context,
+                  MaterialPageRoute(builder: (context) => const SearchScreen()),
+                  );
+                },
               ),
             ),
           ],
         ),
         const SizedBox(height: 12),
+
+        // Second Row
         Row(
           children: [
             Expanded(
               child: _buildQuickActionCard(
-                icon: Icons.flight_outlined,
+                iconPath: 'assets/images/Home/plane.svg',
+                // Replace with your SVG path
                 title: "Book Flights",
                 onTap: () {},
               ),
@@ -1266,8 +1323,33 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             const SizedBox(width: 12),
             Expanded(
               child: _buildQuickActionCard(
-                icon: Icons.home_outlined,
+                iconPath: 'assets/images/Home/Home.svg',
+                // Replace with your SVG path
                 title: "Find Accommodation",
+                onTap: () {},
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 12),
+
+        // Third Row (New)
+        Row(
+          children: [
+            Expanded(
+              child: _buildQuickActionCard(
+                iconPath: 'assets/images/Home/Dialog.svg',
+                // Replace with your SVG path
+                title: "TripTalk",
+                onTap: () {},
+              ),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: _buildQuickActionCard(
+                iconPath: 'assets/images/Home/Lightbulb.svg',
+                // Replace with your SVG path
+                title: "Travel Tips",
                 onTap: () {},
               ),
             ),
@@ -1276,6 +1358,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       ],
     );
   }
+
 
   Widget _buildTripCountdownCard(Trip trip) {
     return Container(
@@ -1335,7 +1418,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Your ${trip.destination} trip starts in ${trip.daysUntilStart} days",
+                  "Your ${trip.destination} trip starts in ${trip
+                      .daysUntilStart} days",
                   style: const TextStyle(
                     fontFamily: 'Instrument Sans',
                     fontSize: 16,
@@ -1346,13 +1430,17 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 const SizedBox(height: 4),
                 Row(
                   children: [
-                    const Icon(Icons.calendar_today, size: 14, color: Colors.grey),
+                    const Icon(
+                        Icons.calendar_today, size: 14, color: Colors.grey),
                     const SizedBox(width: 4),
-                    const Text("Jul 27 - Jul 31, 2025", style: TextStyle(fontSize: 12, color: Colors.grey)),
+                    const Text("Jul 27 - Jul 31, 2025",
+                        style: TextStyle(fontSize: 12, color: Colors.grey)),
                     const SizedBox(width: 12),
                     const Icon(Icons.location_on, size: 14, color: Colors.grey),
                     const SizedBox(width: 4),
-                    Text("${trip.destination}, ${trip.country}", style: const TextStyle(fontSize: 12, color: Colors.grey)),
+                    Text("${trip.destination}, ${trip.country}",
+                        style: const TextStyle(
+                            fontSize: 12, color: Colors.grey)),
                   ],
                 ),
                 const SizedBox(height: 8),
@@ -1369,9 +1457,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               ],
             ),
           ),
-          ],
-        ),
-      );
+        ],
+      ),
+    );
   }
 
   Widget _buildPopularDestinationsSection(List<Destination> destinations) {
@@ -1386,18 +1474,18 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Popular Destinations",
+                  "Recommended for You",
                   style: TextStyle(
                     fontFamily: 'Instrument Sans',
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
                     color: Color(0xFF111827),
                     height: 1.5,
                   ),
                 ),
                 SizedBox(height: 4),
                 Text(
-                  "Handpicked for your interests",
+                  "Destinations that match your travel interests and style.",
                   style: TextStyle(
                     fontFamily: 'Instrument Sans',
                     fontSize: 14,
@@ -1416,11 +1504,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           ],
         ),
 
-        const SizedBox(height: 16),
+        const SizedBox(height: 20),
 
         // Horizontal Scrollable Destinations
         SizedBox(
-          height: 440,
+          height: 480,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: destinations.length,
@@ -1436,16 +1524,17 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   Widget _buildDestinationCard(Destination destination) {
     return Container(
-      width: 280,
+      width: 318,
       margin: const EdgeInsets.only(right: 16),
+      padding: const EdgeInsets.fromLTRB(12, 16, 16, 24),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(24),
+        borderRadius: BorderRadius.circular(20),
         color: Colors.white,
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.08),
-            blurRadius: 16,
-            offset: const Offset(0, 4),
+            color: Colors.black.withOpacity(0.04),
+            blurRadius: 8,
+            offset: const Offset(0, 1),
           ),
         ],
       ),
@@ -1456,8 +1545,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           // Image Container
           Container(
             height: 200,
+            width: double.infinity,
             decoration: BoxDecoration(
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
+              borderRadius: BorderRadius.circular(16),
               color: const Color(0xFFD3D3D3),
             ),
             child: Stack(
@@ -1468,7 +1558,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   width: double.infinity,
                   height: double.infinity,
                   decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
+                    borderRadius: BorderRadius.circular(16),
                     image: DecorationImage(
                       image: AssetImage(destination.imagePath!),
                       fit: BoxFit.cover,
@@ -1479,7 +1569,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   width: double.infinity,
                   height: double.infinity,
                   decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
+                    borderRadius: BorderRadius.circular(16),
                     gradient: LinearGradient(
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
@@ -1513,8 +1603,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 ),
                 // Heart icon
                 Positioned(
-                  top: 16,
-                  right: 16,
+                  top: 12,
+                  right: 12,
                   child: Container(
                     width: 32,
                     height: 32,
@@ -1533,150 +1623,184 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             ),
           ),
 
-          // Content Container
-          Flexible(
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  // Title and Weather
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Flexible(
-                        child: Text(
-                          destination.name,
-                          style: const TextStyle(
-                            fontFamily: 'Instrument Sans',
-                            fontSize: 18,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.black87,
-                          ),
-                        ),
-                      ),
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const Icon(Icons.wb_sunny, size: 16, color: Colors.orange),
-                          const SizedBox(width: 4),
-                          Text(
-                            destination.temperature,
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.grey[600],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+          const SizedBox(height: 16),
 
-                  const SizedBox(height: 8),
-
-                  // Description
-                  Text(
-                    destination.description,
-                    style: const TextStyle(
-                      fontFamily: 'Instrument Sans',
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.black54,
-                      height: 1.4,
-                    ),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-
-                  const SizedBox(height: 12),
-
-                  // Rating, Country, Duration
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: [
-                        const Icon(Icons.star, size: 14, color: Colors.amber),
-                        const SizedBox(width: 4),
-                        Text(destination.rating, style: TextStyle(fontSize: 12, color: Colors.grey[600])),
-                        const SizedBox(width: 12),
-                        const Icon(Icons.location_on, size: 14, color: Colors.grey),
-                        const SizedBox(width: 4),
-                        Text(destination.country, style: TextStyle(fontSize: 12, color: Colors.grey[600])),
-                        const SizedBox(width: 12),
-                        const Icon(Icons.access_time, size: 14, color: Colors.grey),
-                        const SizedBox(width: 4),
-                        Text(destination.duration, style: TextStyle(fontSize: 12, color: Colors.grey[600])),
-                      ],
-                    ),
-                  ),
-
-                  const SizedBox(height: 12),
-
-                  // Tags
-                  Wrap(
-                    spacing: 8,
-                    runSpacing: 4,
-                    children: destination.tags.map<Widget>((tag) => Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                      decoration: BoxDecoration(
-                        color: Colors.grey[100],
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Text(
-                        tag,
-                        style: TextStyle(
-                          fontSize: 11,
-                          color: Colors.grey[600],
-                        ),
-                      ),
-                    )).toList(),
-                  ),
-
-                  const SizedBox(height: 16),
-
-                  // Price and View Details
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "From ${destination.price}",
-                        style: const TextStyle(
-                          fontFamily: 'Instrument Sans',
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.blue,
-                        ),
-                      ),
-                      TextButton(
-                        onPressed: () {},
-                        style: TextButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                          minimumSize: const Size(0, 0),
-                        ),
-                        child: const Text(
-                          "View Details",
-                          style: TextStyle(
-                            fontFamily: 'Instrument Sans',
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.black87,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+          // Destination Name
+          Text(
+            destination.name,
+            style: const TextStyle(
+              fontFamily: 'Instrument Sans',
+              fontSize: 20,
+              fontWeight: FontWeight.w600,
+              color: Color(0xFF111827),
+              height: 1.2,
             ),
           ),
+
+          const SizedBox(height: 8),
+
+          // Description
+          Text(
+            destination.description,
+            style: const TextStyle(
+              fontFamily: 'Instrument Sans',
+              fontSize: 14,
+              fontWeight: FontWeight.w400,
+              color: Color(0xFF6B7280),
+              height: 1.4,
+            ),
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+          ),
+
+          const SizedBox(height: 16),
+
+          // Location, Temperature, and Rating Row
+          Row(
+            children: [
+              // Location
+              const Icon(
+                Icons.location_on,
+                size: 16,
+                color: Color(0xFF6B7280),
+              ),
+              const SizedBox(width: 4),
+              Text(
+                destination.country,
+                style: const TextStyle(
+                  fontFamily: 'Instrument Sans',
+                  fontSize: 13,
+                  fontWeight: FontWeight.w400,
+                  color: Color(0xFF6B7280),
+                ),
+              ),
+
+              const SizedBox(width: 16),
+
+              // Temperature
+              const Icon(
+                Icons.wb_sunny,
+                size: 16,
+                color: Colors.orange,
+              ),
+              const SizedBox(width: 4),
+              Text(
+                destination.temperature,
+                style: const TextStyle(
+                  fontFamily: 'Instrument Sans',
+                  fontSize: 13,
+                  fontWeight: FontWeight.w400,
+                  color: Color(0xFF6B7280),
+                ),
+              ),
+
+              const Spacer(),
+
+              // Rating
+              const Icon(
+                Icons.star,
+                size: 16,
+                color: Colors.amber,
+              ),
+              const SizedBox(width: 4),
+              Text(
+                destination.rating,
+                style: const TextStyle(
+                  fontFamily: 'Instrument Sans',
+                  fontSize: 13,
+                  fontWeight: FontWeight.w600,
+                  color: Color(0xFF111827),
+                ),
+              ),
+            ],
+          ),
+
+          const SizedBox(height: 16),
+
+          // Tags
+          if (destination.tags.isNotEmpty)
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: destination.tags.take(3).map<Widget>((tag) => Container(
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFF3F4F6),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Text(
+                  tag,
+                  style: const TextStyle(
+                    fontFamily: 'Instrument Sans',
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                    color: Color(0xFF6B7280),
+                  ),
+                ),
+              )).toList(),
+            ),
+
+          const SizedBox(height: 16),
+
+          // Plan a Trip Button
+          Container(
+            width: double.infinity,
+            height: 44,
+            child: ElevatedButton(
+                onPressed: () {
+                  // Add your navigation or action here
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.transparent,
+                  shadowColor: Colors.transparent,
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(9999),
+                  ),
+                ),
+                child: Container(
+                  width: double.infinity,
+                  height: double.infinity,
+                  decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment(-0.04, -1.0),
+                      end: Alignment(1.07, 1.0),
+                      colors: [
+                        Color(0xFF3B82F6), // Primary Blue 500
+                        Color(0xFF2563EB), // Primary Blue 600
+                        Color(0xFF1E40AF), // Primary Blue 800
+                      ],
+                      stops: [0.0, 0.51, 1.07],
+                    ),
+                    borderRadius: BorderRadius.all(Radius.circular(9999)),
+                  ),
+                  child: const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      // Add your calendar icon here
+                      // Icon(Icons.calendar_today, size: 16, color: Colors.white),
+                      // SizedBox(width: 8),
+                      Text(
+                        "Plan a Trip Here",
+                        style: TextStyle(
+                          fontFamily: 'Instrument Sans',
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.white,
+                          height: 1.25,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
         ],
       ),
     );
   }
-
   Widget _buildQuickActionCard({
-    required IconData icon,
+    required String iconPath, // Changed from IconData to String for SVG path
     required String title,
     required VoidCallback onTap,
   }) {
@@ -1702,16 +1826,27 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     color: Colors.grey[100],
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: Icon(
-                    icon,
-                    size: 18,
-                    color: Colors.black87,
+                  child: Center(
+                    child: SvgPicture.asset(
+                      iconPath,
+                      width: 18,
+                      height: 18,
+                      colorFilter: const ColorFilter.mode(
+                        Colors.black87,
+                        BlendMode.srcIn,
+                      ),
+                    ),
                   ),
                 ),
-                Icon(
-                  Icons.arrow_forward_ios,
-                  size: 16,
-                  color: Colors.grey[400],
+                SvgPicture.asset(
+                  'assets/images/Home/ArrowRightUp.svg',
+                  // Replace with your arrow SVG path
+                  width: 16,
+                  height: 16,
+                  colorFilter: ColorFilter.mode(
+                    Colors.grey[400]!,
+                    BlendMode.srcIn,
+                  ),
                 ),
               ],
             ),
