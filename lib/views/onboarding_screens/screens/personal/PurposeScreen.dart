@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../screens/role_selection_screen.dart';
+import 'package:tripitify/widgets/progress_bar.dart';
+import 'package:tripitify/providers/progress_provider.dart';
 
 
 // State provider for selected purpose
 final selectedPurposeProvider = StateProvider<int?>((ref) => null);
-final currentStepProvider = StateProvider<int>((ref) => 4); // Step 3 for preferences
+
 
 class LastAccountSetupPage extends ConsumerWidget {
   const LastAccountSetupPage({Key? key}) : super(key: key);
@@ -55,7 +57,7 @@ class LastAccountSetupPage extends ConsumerWidget {
                 const SizedBox(height: 16),
 
                 // Progress bar - all steps completed
-                _buildProgressBar(ref),
+                const ProgressBar(),
                 const SizedBox(height: 32),
 
                 // Title
@@ -155,6 +157,7 @@ class LastAccountSetupPage extends ConsumerWidget {
                   child: ElevatedButton(
                     onPressed: () {
                       final role = ModalRoute.of(context)!.settings.arguments as UserRole?;
+                      ref.read(progressProvider.notifier).increment(); // Increment before navigation
                       if (role == UserRole.both) {
                         Navigator.pushNamed(context, '/planner-profile-setup');
                       } else {
@@ -190,38 +193,7 @@ class LastAccountSetupPage extends ConsumerWidget {
   }
 }
 
-Widget _buildProgressBar(WidgetRef ref) {
-  final currentStep = ref.watch(currentStepProvider);
-  const totalSteps = 4;
 
-  return Container(
-    height: 8,
-    child: Row(
-      children: List.generate(totalSteps, (index) {
-        final isActive = index < currentStep;
-        final isFirst = index == 0;
-        final isLast = index == totalSteps - 1;
-
-        return Expanded(
-          child: Container(
-            height: 8,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(
-                topLeft: isFirst ? const Radius.circular(100) : Radius.zero,
-                bottomLeft: isFirst ? const Radius.circular(100) : Radius.zero,
-                topRight: isLast ? const Radius.circular(100) : Radius.zero,
-                bottomRight: isLast ? const Radius.circular(100) : Radius.zero,
-              ),
-              color: isActive
-                  ? const Color(0xFF3B82F6) // Primary Blue 500 for completed/active steps
-                  : const Color(0xFFE5E7EB), // Gray for inactive steps
-            ),
-          ),
-        );
-      }),
-    ),
-  );
-}
 
 class PurposeOption extends StatelessWidget {
   final int index;

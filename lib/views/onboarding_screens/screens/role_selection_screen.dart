@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tripitify/providers/progress_provider.dart';
+import 'package:tripitify/widgets/progress_bar.dart';
 
 // State management with Riverpod
 enum UserRole { none, personal, serviceProvider, both }
@@ -47,43 +49,7 @@ class RoleSelectionScreen extends ConsumerWidget {
               ),
               const SizedBox(height: 16),
               // Progress bar - connected segments
-              Container(
-                height: 8,
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Container(
-                        height: 8,
-                        decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(100),
-                            bottomLeft: Radius.circular(100),
-                          ),
-                          color: Color(0xFF3B82F6), // Primary Blue 500
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Container(
-                        height: 8,
-                        color: const Color(0xFFE5E7EB), // Gray for inactive
-                      ),
-                    ),
-                    Expanded(
-                      child: Container(
-                        height: 8,
-                        decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(100),
-                            bottomRight: Radius.circular(100),
-                          ),
-                          color: Color(0xFFE5E7EB), // Gray for inactive
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              const ProgressBar(),
               const SizedBox(height: 24),
               // Main question
               const Text(
@@ -200,6 +166,7 @@ SizedBox(
                 break;
             }
             
+            ref.read(progressProvider.notifier).increment();
             // Optional: Store the selected role for use in the next screen
             // You can pass it as arguments or store it in a global state
             print('Navigating with role: $selectedRole');

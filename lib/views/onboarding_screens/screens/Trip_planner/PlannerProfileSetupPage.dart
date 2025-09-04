@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:tripitify/widgets/progress_bar.dart';
+import 'package:tripitify/providers/progress_provider.dart';
 
 // Providers
-final currentStepProvider = StateProvider<int>((ref) => 3); // Second to last step
+
 final destinationSpecialtiesProvider = StateProvider<String>((ref) => '');
 final yearsOfExperienceProvider = StateProvider<String?>((ref) => null);
 final customYearsProvider = StateProvider<String>((ref) => '');
@@ -19,6 +22,9 @@ class PlannerProfileSetupPage extends ConsumerWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
+        scrolledUnderElevation: 0,
+        surfaceTintColor: Colors.transparent,
+        shadowColor: Colors.transparent,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios, color: Colors.black, size: 20),
           onPressed: () => Navigator.pop(context),
@@ -40,7 +46,7 @@ class PlannerProfileSetupPage extends ConsumerWidget {
           // Progress Bar
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24),
-            child: _buildProgressBar(ref),
+            child: const ProgressBar(),
           ),
           const SizedBox(height: 32),
 
@@ -69,45 +75,14 @@ class PlannerProfileSetupPage extends ConsumerWidget {
           // Continue Button
           Padding(
             padding: const EdgeInsets.all(24),
-            child: _buildContinueButton(context),
+            child: _buildContinueButton(context, ref),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildProgressBar(WidgetRef ref) {
-    final currentStep = ref.watch(currentStepProvider);
-    const totalSteps = 4;
-
-    return Container(
-      height: 8,
-      child: Row(
-        children: List.generate(totalSteps, (index) {
-          final isActive = index < currentStep;
-          final isFirst = index == 0;
-          final isLast = index == totalSteps - 1;
-
-          return Expanded(
-            child: Container(
-              height: 8,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  topLeft: isFirst ? const Radius.circular(100) : Radius.zero,
-                  bottomLeft: isFirst ? const Radius.circular(100) : Radius.zero,
-                  topRight: isLast ? const Radius.circular(100) : Radius.zero,
-                  bottomRight: isLast ? const Radius.circular(100) : Radius.zero,
-                ),
-                color: isActive
-                    ? const Color(0xFF3B82F6) // Primary Blue 500 for completed/active steps
-                    : const Color(0xFFE5E7EB), // Gray for inactive steps
-              ),
-            ),
-          );
-        }),
-      ),
-    );
-  }
+  
 
   Widget _buildTitle() {
     return Text(
@@ -159,10 +134,22 @@ class PlannerProfileSetupPage extends ConsumerWidget {
             color: Color(0xFFF9FAFB),
           ),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              SvgPicture.asset(
+                'assets/images/Home/calender.svg',
+                width: 24,
+                height: 24,
+              ),
+              const SizedBox(width: 12),
+              Container(
+                width: 1,
+                height: 24,
+                color: const Color(0xFFD1D5DB),
+              ),
+              const SizedBox(width: 12),
               Expanded(
                 child: TextFormField(
+                  textAlignVertical: TextAlignVertical.center,
                   decoration: InputDecoration(
                     hintText: 'Choose from list or type custom',
                     hintStyle: TextStyle(
@@ -244,6 +231,7 @@ class PlannerProfileSetupPage extends ConsumerWidget {
             color: Color(0xFFF9FAFB),
           ),
           child: TextFormField(
+            textAlignVertical: TextAlignVertical.center,
             decoration: InputDecoration(
               hintText: 'Enter no. of years',
               hintStyle: TextStyle(
@@ -359,6 +347,7 @@ class PlannerProfileSetupPage extends ConsumerWidget {
             color: Color(0xFFF9FAFB),
           ),
           child: TextFormField(
+            textAlignVertical: TextAlignVertical.center,
             decoration: InputDecoration(
               hintText: 'Enter Amount',
               hintStyle: TextStyle(
@@ -377,7 +366,7 @@ class PlannerProfileSetupPage extends ConsumerWidget {
     );
   }
 
-  Widget _buildContinueButton(BuildContext context) {
+  Widget _buildContinueButton(BuildContext context, WidgetRef ref) {
     return Container(
       height: 52,
       width: double.infinity,
@@ -395,6 +384,7 @@ class PlannerProfileSetupPage extends ConsumerWidget {
       ),
       child: ElevatedButton(
         onPressed: () {
+          ref.read(progressProvider.notifier).increment();
           Navigator.pushNamed(context, '/planner-travel-preferences');
         },
         style: ElevatedButton.styleFrom(

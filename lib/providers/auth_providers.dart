@@ -76,31 +76,7 @@ class TimerNotifier extends StateNotifier<int> {
   }
 }
 
-// Providers for account setup form
-final currentStepProvider = StateProvider<int>((ref) => 2); // Step 2 for account setup
 
-final firstNameProvider = StateProvider<String>((ref) => '');
-final lastNameProvider = StateProvider<String>((ref) => '');
-final emailProvider = StateProvider<String>((ref) => '');
-final phoneNumberProvider = StateProvider<String>((ref) => '');
-final countryCodeProvider = StateProvider<String>((ref) => '+1');
-final passwordProvider = StateProvider<String>((ref) => '');
-final useOneTimePasscodeProvider = StateProvider<bool>((ref) => false);
-final isPasswordVisibleProvider = StateProvider<bool>((ref) => false);
-
-// Form validation provider
-final isFormValidProvider = Provider<bool>((ref) {
-  final firstName = ref.watch(firstNameProvider);
-  final lastName = ref.watch(lastNameProvider);
-  final email = ref.watch(emailProvider);
-  final password = ref.watch(passwordProvider);
-  final useOneTimePasscode = ref.watch(useOneTimePasscodeProvider);
-
-  return Validators.isNotEmpty(firstName) &&
-      Validators.isNotEmpty(lastName) &&
-      Validators.isValidEmail(email) &&
-      (useOneTimePasscode || Validators.isPasswordValid(password));
-});
 
 // Providers for travel preferences
 final selectedInterestsProvider = StateProvider<Set<String>>((ref) => {});

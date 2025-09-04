@@ -42,10 +42,6 @@ class _SearchScreenState extends State<SearchScreen> {
                 'assets/icons/back_arrow.svg', // Add your own back arrow SVG here
                 width: 24,
                 height: 24,
-                colorFilter: const ColorFilter.mode(
-                  Colors.white,
-                  BlendMode.srcIn,
-                ), // This will tint the SVG white
               ),
             ),
           ),
