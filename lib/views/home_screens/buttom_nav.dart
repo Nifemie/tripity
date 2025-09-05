@@ -42,7 +42,6 @@ class _BottomNavigationComponentState extends State<BottomNavigationComponent> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 430,
       padding: const EdgeInsets.fromLTRB(20, 16, 20, 20),
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.only(
@@ -64,51 +63,52 @@ class _BottomNavigationComponentState extends State<BottomNavigationComponent> {
           NavigationItem item = entry.value;
           bool isSelected = index == widget.currentIndex;
 
-          return GestureDetector(
-            onTap: () => widget.onTap(index),
-            child: Container(
-              width: 65,
-              height: 64,
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
-                color: isSelected
-                    ? const Color(0xFFEFF6FF) // --Primary-Blue-50
-                    : Colors.transparent,
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    width: 24,
-                    height: 24,
-                    child: SvgPicture.asset(
-                      item.svgPath,
-                      colorFilter: ColorFilter.mode(
-                        isSelected
-                            ? const Color(0xFF3B82F6) // --Primary-Blue-500
-                            : const Color(0xFF6B7280), // --Text-Tertiary
-                        BlendMode.srcIn,
+          return Expanded(
+            child: GestureDetector(
+              onTap: () => widget.onTap(index),
+              child: Container(
+                height: 64,
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  color: isSelected
+                      ? const Color(0xFFEFF6FF) // --Primary-Blue-50
+                      : Colors.transparent,
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      width: 24,
+                      height: 24,
+                      child: SvgPicture.asset(
+                        item.svgPath,
+                        colorFilter: ColorFilter.mode(
+                          isSelected
+                              ? const Color(0xFF3B82F6) // --Primary-Blue-500
+                              : const Color(0xFF6B7280), // --Text-Tertiary
+                          BlendMode.srcIn,
+                        ),
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    item.label,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: isSelected
-                          ? const Color(0xFF3B82F6) // --Primary-Blue-500
-                          : const Color(0xFF6B7280), // --Text-Tertiary
-                      fontFamily: 'Instrument Sans',
-                      fontSize: 14,
-                      fontWeight: isSelected
-                          ? FontWeight.w600 // --Font-Weight-semibold
-                          : FontWeight.w400, // --Font-Weight-normal
-                      height: 1.5, // 150% line height (21px / 14px = 1.5)
+                    const SizedBox(height: 4),
+                    Text(
+                      item.label,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: isSelected
+                            ? const Color(0xFF3B82F6) // --Primary-Blue-500
+                            : const Color(0xFF6B7280), // --Text-Tertiary
+                        fontFamily: 'Instrument Sans',
+                        fontSize: 14,
+                        fontWeight: isSelected
+                            ? FontWeight.w600 // --Font-Weight-semibold
+                            : FontWeight.w400, // --Font-Weight-normal
+                        height: 1.5, // 150% line height (21px / 14px = 1.5)
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           );

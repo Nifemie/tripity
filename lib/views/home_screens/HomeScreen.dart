@@ -215,63 +215,65 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Top Bar with Location, Notification, and Traveller
-              const TopBar(),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Top Bar with Location, Notification, and Traveller
+                const TopBar(),
 
-              const SizedBox(height: 20),
+                const SizedBox(height: 20),
 
-              // Welcome Banner
-              WelcomeBanner(userName: userName),
+                // Welcome Banner
+                WelcomeBanner(userName: userName),
 
-              const SizedBox(height: 24),
+                const SizedBox(height: 24),
 
-              // Quick Actions Title
-              const Text(
-                "Quick Actions",
-                style: TextStyle(
-                  fontFamily: 'Instrument Sans',
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.black87,
+                // Quick Actions Title
+                const Text(
+                  "Quick Actions",
+                  style: TextStyle(
+                    fontFamily: 'Instrument Sans',
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black87,
+                  ),
                 ),
-              ),
 
-              const SizedBox(height: 16),
+                const SizedBox(height: 16),
 
-              // Quick Actions Grid
-              _buildQuickActionsGrid(),
+                // Quick Actions Grid
+                _buildQuickActionsGrid(),
 
-              const SizedBox(height: 24),
+                const SizedBox(height: 24),
 
-              // Trip Countdown Card
-              TripCountdownCard(trip: currentTrip),
+                // Trip Countdown Card
+                TripCountdownCard(trip: currentTrip),
 
-              const SizedBox(height: 32),
+                const SizedBox(height: 32),
 
-              // Popular Destinations Section
-              _buildPopularDestinationsSection(destinations),
+                // Popular Destinations Section
+                _buildPopularDestinationsSection(destinations),
 
-              const SizedBox(height: 32),
+                const SizedBox(height: 32),
 
-              // Upcoming Trips Section
-              _buildUpcomingTripsSection(upcomingTrips),
+                // Upcoming Trips Section
+                _buildUpcomingTripsSection(upcomingTrips),
 
-              const SizedBox(height: 32),
+                const SizedBox(height: 32),
 
-              // Quick Tip Section
-              const QuickTipSection(),
+                // Quick Tip Section
+                const QuickTipSection(),
 
-              const SizedBox(height: 32),
+                const SizedBox(height: 32),
 
-              // Trip Planner Section
-              _buildTripPlannerSection(),
-            ],
+                // Trip Planner Section
+                _buildTripPlannerSection(),
+              ],
+            ),
           ),
         ),
       ),

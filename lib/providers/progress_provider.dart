@@ -30,6 +30,12 @@ class ProgressNotifier extends StateNotifier<ProgressState> {
       state = state.copyWith(currentStep: state.currentStep + 1);
     }
   }
+
+  void decrement() {
+    if (state.currentStep > 1) {
+      state = state.copyWith(currentStep: state.currentStep - 1);
+    }
+  }
 }
 
 final progressProvider = StateNotifierProvider<ProgressNotifier, ProgressState>((ref) {

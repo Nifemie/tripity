@@ -33,7 +33,26 @@ class PlannerAccountSetupScreen extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 16),
-              const AccountSetupScreenHeader(),
+              Row(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      ref.read(progressProvider.notifier).decrement();
+                      Navigator.pop(context);
+                    },
+                    child: const Icon(
+                      Icons.arrow_back_ios,
+                      size: 20,
+                      color: Colors.black,
+                    ),
+                  ),
+                  const SizedBox(width: 16),
+                  const Text(
+                    'Account setup',
+                    style: AppStyles.titleTextStyle,
+                  ),
+                ],
+              ),
               const SizedBox(height: 16),
               const ProgressBar(),
               const SizedBox(height: 32),

@@ -28,7 +28,10 @@ class RoleSelectionScreen extends ConsumerWidget {
               Row(
                 children: [
                   GestureDetector(
-                    onTap: () => Navigator.pop(context),
+                    onTap: () {
+                      ref.read(progressProvider.notifier).decrement();
+                      Navigator.pop(context);
+                    },
                     child: const Icon(
                       Icons.arrow_back_ios,
                       size: 20,

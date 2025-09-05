@@ -11,81 +11,118 @@ class DestinationCard extends StatelessWidget {
     return Container(
       width: 318,
       margin: const EdgeInsets.only(right: 16),
-      padding: const EdgeInsets.fromLTRB(12, 16, 16, 24),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.04),
-            blurRadius: 8,
-            offset: const Offset(0, 1),
-          ),
-        ],
+        border: Border.all(
+          color: Colors.grey.shade300,
+          width: 1.5,
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          // Image Container
+          // Image Container with exact specs
           Container(
-            height: 200,
+            height: 160,
             width: double.infinity,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16),
-              color: const Color(0xFFD3D3D3),
-            ),
             child: Stack(
               children: [
-                // Image or placeholder
+                // Image
                 destination.hasImage && destination.imagePath != null
-                    ? Container(
+                    ? ClipRRect(
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20),
+                  ),
+                  child: Image.asset(
+                    destination.imagePath!,
+                    width: double.infinity,
+                    height: 160,
+                    fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) {
+                      return Container(
                         width: double.infinity,
-                        height: double.infinity,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(16),
-                          image: DecorationImage(
-                            image: AssetImage(destination.imagePath!),
-                            fit: BoxFit.cover,
+                        height: 160,
+                        decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(20),
+                            topRight: Radius.circular(20),
                           ),
-                        ),
-                      )
-                    : Container(
-                        width: double.infinity,
-                        height: double.infinity,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(16),
                           gradient: LinearGradient(
                             begin: Alignment.topLeft,
                             end: Alignment.bottomRight,
                             colors: [
-                              Colors.blue.shade300,
-                              Colors.purple.shade300,
+                              Color(0xFF93C5FD),
+                              Color(0xFFC4B5FD),
                             ],
                           ),
                         ),
-                        child: Center(
+                        child: const Center(
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const Icon(
-                                Icons.image,
+                              Icon(
+                                Icons.image_not_supported,
                                 size: 48,
                                 color: Colors.white,
                               ),
-                              const SizedBox(height: 8),
+                              SizedBox(height: 8),
                               Text(
-                                destination.name,
-                                style: const TextStyle(
+                                'Image not found',
+                                style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
                                 ),
                               ),
                             ],
                           ),
                         ),
-                      ),
+                      );
+                    },
+                  ),
+                )
+                    : Container(
+                  width: double.infinity,
+                  height: 10,
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      topRight: Radius.circular(20),
+                    ),
+                    gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [
+                        Color(0xFF93C5FD),
+                        Color(0xFFC4B5FD),
+                      ],
+                    ),
+                  ),
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(
+                          Icons.image,
+                          size: 48,
+                          color: Colors.white,
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          destination.name,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
                 // Heart icon
                 Positioned(
                   top: 12,
@@ -100,7 +137,7 @@ class DestinationCard extends StatelessWidget {
                     child: const Icon(
                       Icons.favorite_border,
                       size: 18,
-                      color: Colors.black54,
+                      color: Color(0xFF6B7280),
                     ),
                   ),
                 ),
@@ -108,181 +145,165 @@ class DestinationCard extends StatelessWidget {
             ),
           ),
 
-          const SizedBox(height: 16),
-
-          // Destination Name
-          Text(
-            destination.name,
-            style: const TextStyle(
-              fontFamily: 'Instrument Sans',
-              fontSize: 20,
-              fontWeight: FontWeight.w600,
-              color: Color(0xFF111827),
-              height: 1.2,
-            ),
-          ),
-
-          const SizedBox(height: 8),
-
-          // Description
-          Text(
-            destination.description,
-            style: const TextStyle(
-              fontFamily: 'Instrument Sans',
-              fontSize: 14,
-              fontWeight: FontWeight.w400,
-              color: Color(0xFF6B7280),
-              height: 1.4,
-            ),
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-          ),
-
-          const SizedBox(height: 16),
-
-          // Location, Temperature, and Rating Row
-          Row(
-            children: [
-              // Location
-              const Icon(
-                Icons.location_on,
-                size: 16,
-                color: Color(0xFF6B7280),
-              ),
-              const SizedBox(width: 4),
-              Text(
-                destination.country,
-                style: const TextStyle(
-                  fontFamily: 'Instrument Sans',
-                  fontSize: 13,
-                  fontWeight: FontWeight.w400,
-                  color: Color(0xFF6B7280),
-                ),
-              ),
-
-              const SizedBox(width: 16),
-
-              // Temperature
-              const Icon(
-                Icons.wb_sunny,
-                size: 16,
-                color: Colors.orange,
-              ),
-              const SizedBox(width: 4),
-              Text(
-                destination.temperature,
-                style: const TextStyle(
-                  fontFamily: 'Instrument Sans',
-                  fontSize: 13,
-                  fontWeight: FontWeight.w400,
-                  color: Color(0xFF6B7280),
-                ),
-              ),
-
-              const Spacer(),
-
-              // Rating
-              const Icon(
-                Icons.star,
-                size: 16,
-                color: Colors.amber,
-              ),
-              const SizedBox(width: 4),
-              Text(
-                destination.rating,
-                style: const TextStyle(
-                  fontFamily: 'Instrument Sans',
-                  fontSize: 13,
-                  fontWeight: FontWeight.w600,
-                  color: Color(0xFF111827),
-                ),
-              ),
-            ],
-          ),
-
-          const SizedBox(height: 16),
-
-          // Tags
-          if (destination.tags.isNotEmpty)
-            Wrap(
-              spacing: 8,
-              runSpacing: 8,
-              children: destination.tags
-                  .take(3)
-                  .map<Widget>((tag) => Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 6),
-                        decoration: BoxDecoration(
-                          color: const Color(0xFFF3F4F6),
-                          borderRadius: BorderRadius.circular(8),
+          // Content Container with exact specs
+          Container(
+            padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Title and Rating Row
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        destination.name,
+                        style: const TextStyle(
+                          fontFamily: 'Instrument Sans',
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                          color: Color(0xFF111827),
+                          height: 1.5, // 24px / 16px = 1.5
+                          letterSpacing: 0,
                         ),
-                        child: Text(
-                          tag,
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    // Rating
+                    Row(
+                      children: [
+                        const Icon(
+                          Icons.star,
+                          size: 16,
+                          color: Color(0xFFFBBF24),
+                        ),
+                        const SizedBox(width: 4),
+                        Text(
+                          destination.rating,
                           style: const TextStyle(
                             fontFamily: 'Instrument Sans',
-                            fontSize: 12,
+                            fontSize: 14,
                             fontWeight: FontWeight.w500,
-                            color: Color(0xFF6B7280),
+                            color: Color(0xFF111827),
                           ),
                         ),
-                      ))
-                  .toList(),
-            ),
-
-          const SizedBox(height: 16),
-
-          // Plan a Trip Button
-          Container(
-            width: double.infinity,
-            height: 44,
-            child: ElevatedButton(
-              onPressed: () {
-                // Add your navigation or action here
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.transparent,
-                shadowColor: Colors.transparent,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(9999),
+                      ],
+                    ),
+                  ],
                 ),
-              ),
-              child: Container(
-                width: double.infinity,
-                height: double.infinity,
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment(-0.04, -1.0),
-                    end: Alignment(1.07, 1.0),
-                    colors: [
-                      Color(0xFF3B82F6), // Primary Blue 500
-                      Color(0xFF2563EB), // Primary Blue 600
-                      Color(0xFF1E40AF), // Primary Blue 800
-                    ],
-                    stops: [0.0, 0.51, 1.07],
+
+                const SizedBox(height: 16),
+
+                // Description with exact specs
+                Text(
+                  destination.description,
+                  style: const TextStyle(
+                    fontFamily: 'Instrument Sans',
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
+                    color: Color(0xFF4B5563),
+                    height: 1.5, // 18px / 12px = 1.5
+                    overflow: TextOverflow.ellipsis,
                   ),
-                  borderRadius: BorderRadius.all(Radius.circular(9999)),
+                  maxLines: 1,
                 ),
-                child: const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    // Add your calendar icon here
-                    // Icon(Icons.calendar_today, size: 16, color: Colors.white),
-                    // SizedBox(width: 8),
-                    Text(
-                      "Plan a Trip Here",
+
+                const SizedBox(height: 16),
+
+                // Tags with exact specs
+                if (destination.tags.isNotEmpty)
+                  Row(
+                    children: [
+                      // Regular tags
+                      ...destination.tags.take(3).map<Widget>((tag) =>
+                          Container(
+                            margin: const EdgeInsets.only(right: 8),
+                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                            decoration: const BoxDecoration(
+                              color: Color(0xFFF3F4F6),
+                              borderRadius: BorderRadius.all(Radius.circular(9999)),
+                            ),
+                            child: Text(
+                              tag,
+                              style: const TextStyle(
+                                fontFamily: 'Instrument Sans',
+                                fontSize: 12,
+                                fontWeight: FontWeight.w400,
+                                color: Color(0xFF4B5563),
+                              ),
+                            ),
+                          ),
+                      ),
+                      // +1 tag if there are more than 3 tags
+                      if (destination.tags.length > 3)
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                          decoration: BoxDecoration(
+                            color: Colors.transparent,
+                            borderRadius: const BorderRadius.all(Radius.circular(9999)),
+                            border: Border.all(
+                              color: const Color(0xFFF3F4F6),
+                              width: 1,
+                            ),
+                          ),
+                          child: Text(
+                            '+${destination.tags.length - 3}',
+                            style: const TextStyle(
+                              fontFamily: 'Instrument Sans',
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400,
+                              color: Color(0xFF4B5563),
+                            ),
+                          ),
+                        ),
+                    ],
+                  ),
+
+                const SizedBox(height: 16),
+
+                // Button with exact specs
+                Container(
+                  width: 318,
+                  height: 44,
+                  decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment(-0.04, -1.0),
+                      end: Alignment(1.07, 1.0),
+                      colors: [
+                        Color(0xFF3B82F6), // Primary Blue 500
+                        Color(0xFF2563EB), // Primary Blue 600
+                        Color(0xFF1E40AF), // Primary Blue 800
+                      ],
+                      stops: [0.0, 0.5145, 1.0712],
+                    ),
+                    borderRadius: BorderRadius.all(Radius.circular(9999)),
+                  ),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      // Add your navigation or action here
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.transparent,
+                      shadowColor: Colors.transparent,
+                      elevation: 0,
+                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(9999)),
+                      ),
+                    ),
+                    child: const Text(
+                      "Discover Destination",
                       style: TextStyle(
                         fontFamily: 'Instrument Sans',
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
                         color: Colors.white,
-                        height: 1.25,
+                        height: 1.25, // 17.5px / 14px = 1.25
                       ),
                     ),
-                  ],
+                  ),
                 ),
-              ),
+              ],
             ),
           ),
         ],
