@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tripitify/providers/progress_provider.dart';
 import 'package:tripitify/widgets/progress_bar.dart';
@@ -14,6 +15,7 @@ class RoleSelectionScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final selectedRole = ref.watch(userRoleProvider);
+    final progressState = ref.watch(progressProvider);
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -30,7 +32,7 @@ class RoleSelectionScreen extends ConsumerWidget {
                   GestureDetector(
                     onTap: () {
                       ref.read(progressProvider.notifier).decrement();
-                      Navigator.pop(context);
+                      context.pop();
                     },
                     child: const Icon(
                       Icons.arrow_back_ios,
@@ -52,7 +54,10 @@ class RoleSelectionScreen extends ConsumerWidget {
               ),
               const SizedBox(height: 16),
               // Progress bar - connected segments
-              const ProgressBar(),
+              ProgressBar(
+                currentStep: progressState.currentStep,
+                totalSteps: progressState.totalSteps,
+              ),
               const SizedBox(height: 24),
               // Main question
               const Text(
@@ -153,16 +158,16 @@ SizedBox(
             switch (selectedRole) {
               case UserRole.personal:
                 // Navigate to account setup for personal users
-                Navigator.pushNamed(context, '/explore-setup', arguments: selectedRole);
+                context.push('/account-setup-details', extra: selectedRole.name);
                 break;
               case UserRole.serviceProvider:
                 // You can create a separate route for service providers
                 // For now, let's use the same account setup
-                Navigator.pushNamed(context, '/planner-account-setup', arguments: selectedRole);
+                context.push('/planner-account-setup', extra: selectedRole.name);
                 break;
               case UserRole.both:
                 // Navigate to account setup for users who want both
-                Navigator.pushNamed(context, '/explore-setup', arguments: selectedRole);
+                context.push('/account-setup-details', extra: selectedRole.name);
                 break;
               case UserRole.none:
                 // This shouldn't happen due to the null check

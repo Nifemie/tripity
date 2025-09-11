@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import '../../screens/role_selection_screen.dart';
 import 'package:tripitify/widgets/progress_bar.dart';
 import 'package:tripitify/providers/progress_provider.dart';
@@ -10,13 +11,14 @@ import 'package:tripitify/providers/progress_provider.dart';
 final selectedPurposeProvider = StateProvider<int?>((ref) => null);
 
 
-class LastAccountSetupPage extends ConsumerWidget {
-  const LastAccountSetupPage({Key? key}) : super(key: key);
+class PurposeScreen extends ConsumerWidget {
+  final UserRole? role;
+  const PurposeScreen({Key? key, this.role}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final selectedPurpose = ref.watch(selectedPurposeProvider);
-    final role = ModalRoute.of(context)!.settings.arguments as UserRole?;
+    final progressState = ref.watch(progressProvider);
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -35,7 +37,7 @@ class LastAccountSetupPage extends ConsumerWidget {
                     GestureDetector(
                       onTap: () {
                         ref.read(progressProvider.notifier).decrement();
-                        Navigator.pop(context);
+                        context.pop();
                       },
                       child: const Icon(
                         Icons.arrow_back_ios,
@@ -60,7 +62,10 @@ class LastAccountSetupPage extends ConsumerWidget {
                 const SizedBox(height: 16),
 
                 // Progress bar - all steps completed
-                const ProgressBar(),
+                ProgressBar(
+                  currentStep: progressState.currentStep,
+                  totalSteps: progressState.totalSteps,
+                ),
                 const SizedBox(height: 32),
 
                 // Title
@@ -159,12 +164,11 @@ class LastAccountSetupPage extends ConsumerWidget {
                   ),
                   child: ElevatedButton(
                     onPressed: () {
-                      final role = ModalRoute.of(context)!.settings.arguments as UserRole?;
                       ref.read(progressProvider.notifier).increment(); // Increment before navigation
                       if (role == UserRole.both) {
-                        Navigator.pushNamed(context, '/planner-profile-setup');
+                        context.go('/planner-profile-setup');
                       } else {
-                        Navigator.pushNamed(context, '/setup-complete');
+                        context.go('/setup-complete');
                       }
                     },
                     style: ElevatedButton.styleFrom(

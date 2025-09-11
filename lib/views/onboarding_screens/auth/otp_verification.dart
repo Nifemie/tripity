@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'dart:async';
@@ -49,11 +50,7 @@ class OtpVerification extends ConsumerWidget {
 
       // Navigate to account setup after successful verification
       if (context.mounted) {
-        Navigator.pushNamedAndRemoveUntil(
-          context,
-          '/account-setup',
-          (route) => false, // This removes all previous routes from the stack
-        );
+        context.go('/account-setup');
       }
     } catch (error) {
       // Handle verification error
@@ -82,7 +79,7 @@ class OtpVerification extends ConsumerWidget {
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          onPressed: () => Navigator.pop(context),
+          onPressed: () => context.pop(),
           icon: const Icon(
             Icons.arrow_back_ios,
             color: Colors.black87,

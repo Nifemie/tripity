@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '/views/Home_screens/HomeScreen.dart';
-import '../../../routes/app_routes.dart';
+
+import 'package:go_router/go_router.dart';
 
 
 class SignInPage extends StatefulWidget {
@@ -29,7 +29,7 @@ class _SignInPageState extends State<SignInPage> {
         scrolledUnderElevation: 0,
         surfaceTintColor: Colors.transparent,
         leading: IconButton(
-          onPressed: () => Navigator.pop(context),
+          onPressed: () => context.pop(),
           icon: const Icon(
             Icons.arrow_back_ios,
             color: Color(0xFF111827),
@@ -129,7 +129,7 @@ class _SignInPageState extends State<SignInPage> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          Navigator.pushNamed(context, '/forgot-password');
+                          context.push('/forgot-password');
                         },
                         child: const Text(
                           'Forgot password?',
@@ -207,7 +207,7 @@ class _SignInPageState extends State<SignInPage> {
                 ),
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.pushNamedAndRemoveUntil(context, AppRoutes.home, (route) => false); // Handle sign in
+                    context.go('/HomeScreen'); // Handle sign in
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.transparent,
@@ -406,7 +406,7 @@ class _SignInPageState extends State<SignInPage> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.pushReplacementNamed(context, '/signup');
+                      context.go('/signup');
                     },
                     child: const Text(
                       'Sign Up',

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'views/splash/splash_screen.dart';
-import 'routes/app_routes.dart';
+import 'routes/router_config.dart';
 
 void main() {
   runApp(
@@ -16,9 +15,8 @@ class TripitifyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      initialRoute: AppRoutes.splash,
-      routes: AppRoutes.getRoutes(),
+    return MaterialApp.router(
+      routerConfig: router,
       title: 'Tripitify',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(

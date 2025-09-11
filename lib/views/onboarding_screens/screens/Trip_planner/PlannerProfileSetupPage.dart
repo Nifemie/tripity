@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tripitify/widgets/progress_bar.dart';
 import 'package:tripitify/providers/progress_provider.dart';
+import 'package:go_router/go_router.dart';
 
 // Providers
 
@@ -17,6 +18,7 @@ class PlannerProfileSetupPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final progressState = ref.watch(progressProvider);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -29,7 +31,7 @@ class PlannerProfileSetupPage extends ConsumerWidget {
           icon: const Icon(Icons.arrow_back_ios, color: Colors.black, size: 20),
           onPressed: () {
             ref.read(progressProvider.notifier).decrement();
-            Navigator.pop(context);
+            context.pop();
           },
         ),
         title: Text(
@@ -49,7 +51,10 @@ class PlannerProfileSetupPage extends ConsumerWidget {
           // Progress Bar
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24),
-            child: const ProgressBar(),
+            child: ProgressBar(
+              currentStep: progressState.currentStep,
+              totalSteps: progressState.totalSteps,
+            ),
           ),
           const SizedBox(height: 32),
 
@@ -352,7 +357,7 @@ class PlannerProfileSetupPage extends ConsumerWidget {
           child: TextFormField(
             textAlignVertical: TextAlignVertical.center,
             decoration: InputDecoration(
-              hintText: 'Enter Amount',
+              hintText: 'Enter no. of years',
               hintStyle: TextStyle(
                 color: Color(0xFF9CA3AF),
                 fontFamily: 'Instrument Sans',
@@ -362,7 +367,7 @@ class PlannerProfileSetupPage extends ConsumerWidget {
               border: InputBorder.none,
             ),
             keyboardType: TextInputType.number,
-            onChanged: (value) => ref.read(customRateProvider.notifier).state = value,
+            onChanged: (value) => ref.read(customYearsProvider.notifier).state = value,
           ),
         ),
       ],

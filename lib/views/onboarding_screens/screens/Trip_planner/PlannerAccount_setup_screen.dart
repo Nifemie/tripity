@@ -1,10 +1,10 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tripitify/providers/account_setup_provider.dart';
 import 'package:tripitify/widgets/account_setup_widgets.dart';
 import 'package:tripitify/widgets/progress_bar.dart';
 import 'package:tripitify/providers/progress_provider.dart';
+import 'package:go_router/go_router.dart';
 
 class PlannerAccountSetupScreen extends ConsumerWidget {
   const PlannerAccountSetupScreen({super.key});
@@ -19,11 +19,12 @@ class PlannerAccountSetupScreen extends ConsumerWidget {
     print('Use One-Time Passcode: ${accountSetupState.useOneTimePasscode}');
 
     ref.read(progressProvider.notifier).increment();
-    Navigator.pushNamed(context, '/planner-profile-setup');
+    context.push('/planner-profile-setup');
   }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final progressState = ref.watch(progressProvider);
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -38,7 +39,7 @@ class PlannerAccountSetupScreen extends ConsumerWidget {
                   GestureDetector(
                     onTap: () {
                       ref.read(progressProvider.notifier).decrement();
-                      Navigator.pop(context);
+                      context.pop();
                     },
                     child: const Icon(
                       Icons.arrow_back_ios,
@@ -54,7 +55,10 @@ class PlannerAccountSetupScreen extends ConsumerWidget {
                 ],
               ),
               const SizedBox(height: 16),
-              const ProgressBar(),
+              ProgressBar(
+                currentStep: progressState.currentStep,
+                totalSteps: progressState.totalSteps,
+              ),
               const SizedBox(height: 32),
               const Text(
                 'Create your account',

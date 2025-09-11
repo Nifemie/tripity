@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:geolocator/geolocator.dart';
-import '../../../routes/app_routes.dart';
+import 'package:go_router/go_router.dart';
+
 
 class IntroPage extends StatefulWidget {
   const IntroPage({super.key});
@@ -327,7 +328,7 @@ class _IntroPageState extends State<IntroPage>
     ? () {
 
       // Navigate to signup screen
-      Navigator.pushNamed(context, AppRoutes.signup);
+      context.go('/signup');
     }
         : null,
     style: ElevatedButton.styleFrom(

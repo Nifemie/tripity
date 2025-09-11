@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'otp_verification.dart';
-import '../../../routes/app_routes.dart';
+
+
 import '../../../utils/validators.dart';
 // DON'T import signin.dart - this is causing the crash
 
@@ -34,16 +35,13 @@ class _SignUpState extends State<SignUp> {
       return;
     }
 
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => OtpVerification(email: email)),
-    );
+    context.push('/otp-verification', extra: email);
   }
 
   // FIXED: Use named route navigation instead of direct widget import
   void _navigateToSignIn() {
     try {
-      Navigator.pushReplacementNamed(context, AppRoutes.signin);
+      context.go('/signin');
     } catch (e) {
       print('Navigation error: $e');
       ScaffoldMessenger.of(context).showSnackBar(

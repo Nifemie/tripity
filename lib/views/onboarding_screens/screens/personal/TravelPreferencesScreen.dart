@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../../screens/role_selection_screen.dart';
+import '../../../../providers/auth_providers.dart';
 import 'package:tripitify/widgets/progress_bar.dart';
 import 'package:tripitify/providers/progress_provider.dart';
+import 'package:go_router/go_router.dart';
+import '../../screens/role_selection_screen.dart';
 
 // State providers for travel preferences
 final selectedInterestsProvider = StateProvider<Set<String>>((ref) => {});
@@ -23,14 +25,13 @@ final isPreferencesValidProvider = Provider<bool>((ref) {
 });
 
 class TravelPreferencesScreen extends ConsumerWidget {
-  const TravelPreferencesScreen({super.key});
+  final UserRole? role;
+  const TravelPreferencesScreen({super.key, this.role});
 
   void _handleContinue(BuildContext context, WidgetRef ref) {
     final selectedInterests = ref.read(selectedInterestsProvider);
     final travelFrequency = ref.read(travelFrequencyProvider);
     final budgetRange = ref.read(budgetRangeProvider);
-
-    final role = ModalRoute.of(context)!.settings.arguments as UserRole?;
 
     print('Travel Preferences:');
     print('Interests: $selectedInterests');
@@ -39,7 +40,7 @@ class TravelPreferencesScreen extends ConsumerWidget {
 
     // Navigate to next screen
     ref.read(progressProvider.notifier).increment();
-    Navigator.pushNamed(context, '/purpose', arguments: role);
+    context.push('/purpose', extra: role);
   }
 
   @override
@@ -48,6 +49,7 @@ class TravelPreferencesScreen extends ConsumerWidget {
     final travelFrequency = ref.watch(travelFrequencyProvider);
     final budgetRange = ref.watch(budgetRangeProvider);
     final isFormValid = ref.watch(isPreferencesValidProvider);
+    final progressState = ref.watch(progressProvider);
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -66,7 +68,7 @@ class TravelPreferencesScreen extends ConsumerWidget {
                     GestureDetector(
                       onTap: () {
                         ref.read(progressProvider.notifier).decrement();
-                        Navigator.pop(context);
+                        context.pop();
                       },
                       child: const Icon(
                         Icons.arrow_back_ios,
@@ -91,7 +93,10 @@ class TravelPreferencesScreen extends ConsumerWidget {
                 const SizedBox(height: 16),
 
                 // Progress bar - all steps completed
-                const ProgressBar(),
+                ProgressBar(
+                  currentStep: progressState.currentStep,
+                  totalSteps: progressState.totalSteps,
+                ),
 
                 const SizedBox(height: 32),
 
@@ -171,26 +176,30 @@ class TravelPreferencesScreen extends ConsumerWidget {
                   width: double.infinity,
                   height: 52,
                   margin: const EdgeInsets.only(bottom: 32),
-                  decoration: isFormValid
-                      ? BoxDecoration(
-                          borderRadius: BorderRadius.circular(9999),
-                          gradient: const LinearGradient(
-                            begin: Alignment(-0.0421, -1.0),
-                            end: Alignment(1.0712, 1.0),
-                            colors: [
-                              Color(0xFF3B82F6), // Primary Blue 500
-                              Color(0xFF2563EB), // Primary Blue 600
-                              Color(0xFF1E40AF), // Primary Blue 800
-                            ],
-                            stops: [0.0, 0.5145, 1.0712],
+                  decoration:
+                      isFormValid
+                          ? BoxDecoration(
+                            borderRadius: BorderRadius.circular(9999),
+                            gradient: const LinearGradient(
+                              begin: Alignment(-0.0421, -1.0),
+                              end: Alignment(1.0712, 1.0),
+                              colors: [
+                                Color(0xFF3B82F6), // Primary Blue 500
+                                Color(0xFF2563EB), // Primary Blue 600
+                                Color(0xFF1E40AF), // Primary Blue 800
+                              ],
+                              stops: [0.0, 0.5145, 1.0712],
+                            ),
+                          )
+                          : BoxDecoration(
+                            borderRadius: BorderRadius.circular(9999),
+                            color: const Color(0xFFE5E7EB),
                           ),
-                        )
-                      : BoxDecoration(
-                          borderRadius: BorderRadius.circular(9999),
-                          color: const Color(0xFFE5E7EB),
-                        ),
                   child: ElevatedButton(
-                    onPressed: isFormValid ? () => _handleContinue(context, ref) : null,
+                    onPressed:
+                        isFormValid
+                            ? () => _handleContinue(context, ref)
+                            : null,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.transparent,
                       foregroundColor: Colors.white,
@@ -201,7 +210,10 @@ class TravelPreferencesScreen extends ConsumerWidget {
                       ),
                       disabledBackgroundColor: Colors.transparent,
                       disabledForegroundColor: const Color(0xFF9CA3AF),
-                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 24,
+                        vertical: 16,
+                      ),
                     ),
                     child: const Text(
                       'Continue',

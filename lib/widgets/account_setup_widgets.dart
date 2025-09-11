@@ -1,7 +1,7 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tripitify/providers/account_setup_provider.dart';
+import 'package:go_router/go_router.dart';
 
 class AppStyles {
   static const Color primaryBlue500 = Color(0xFF3B82F6);
@@ -69,7 +69,7 @@ class AccountSetupScreenHeader extends StatelessWidget {
     return Row(
       children: [
         GestureDetector(
-          onTap: () => Navigator.pop(context),
+          onTap: () => context.pop(),
           child: const Icon(
             Icons.arrow_back_ios,
             size: 20,

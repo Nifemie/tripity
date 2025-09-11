@@ -3,8 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:tripitify/views/Trips_screen/Upcoming_trip.dart';
 import 'package:tripitify/views/home_screens/buttom_nav.dart';
-import 'package:tripitify/views/home_screens/search_screen.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tripitify/widgets/home_widgets/quick_action_card.dart';
 import 'package:tripitify/models/home_screen/destination.dart';
 import 'package:tripitify/widgets/home_widgets/destination_card.dart';
@@ -18,7 +19,7 @@ import 'package:tripitify/widgets/home_widgets/welcome_banner.dart';
 import 'package:tripitify/widgets/home_widgets/quick_tip_section.dart';
 import 'package:tripitify/models/home_screen/location_state.dart';
 import 'package:tripitify/widgets/home_widgets/top_bar.dart';
-
+import '../Trips_screen/Trip_screen.dart';
 
 //find the models and widgets that make up this homescreen in the /lib/widget and lib/models
 
@@ -199,6 +200,14 @@ class HomeScreen extends ConsumerStatefulWidget {
 class _HomeScreenState extends ConsumerState<HomeScreen> {
   int _currentIndex = 0;
 
+  final List<Widget> _screens = [
+    const HomeTabPage(),
+    const Center(child: Text('Explore')),
+    const TripPage(),
+    const Center(child: Text('Booking')),
+    const Center(child: Text('More')),
+  ];
+
   void _onNavigationTap(int index) {
     setState(() {
       _currentIndex = index;
@@ -207,84 +216,90 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final locationState = ref.watch(locationProvider);
-    final currentTrip = ref.watch(currentTripProvider);
-    final destinations = ref.watch(destinationsProvider);
-    final upcomingTrips = ref.watch(upcomingTripsProvider);
-    final userName = ref.watch(userNameProvider);
-
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Top Bar with Location, Notification, and Traveller
-                const TopBar(),
-
-                const SizedBox(height: 20),
-
-                // Welcome Banner
-                WelcomeBanner(userName: userName),
-
-                const SizedBox(height: 24),
-
-                // Quick Actions Title
-                const Text(
-                  "Quick Actions",
-                  style: TextStyle(
-                    fontFamily: 'Instrument Sans',
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black87,
-                  ),
-                ),
-
-                const SizedBox(height: 16),
-
-                // Quick Actions Grid
-                _buildQuickActionsGrid(),
-
-                const SizedBox(height: 24),
-
-                // Trip Countdown Card
-                TripCountdownCard(trip: currentTrip),
-
-                const SizedBox(height: 32),
-
-                // Popular Destinations Section
-                _buildPopularDestinationsSection(destinations),
-
-                const SizedBox(height: 32),
-
-                // Upcoming Trips Section
-                _buildUpcomingTripsSection(upcomingTrips),
-
-                const SizedBox(height: 32),
-
-                // Quick Tip Section
-                const QuickTipSection(),
-
-                const SizedBox(height: 32),
-
-                // Trip Planner Section
-                _buildTripPlannerSection(),
-              ],
-            ),
-          ),
-        ),
-      ),
+      body: _screens[_currentIndex],
       bottomNavigationBar: BottomNavigationComponent(
         currentIndex: _currentIndex,
         onTap: _onNavigationTap,
       ),
     );
   }
+}
 
-  
+class HomeTabPage extends ConsumerWidget {
+  const HomeTabPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final destinations = ref.watch(destinationsProvider);
+    final upcomingTrips = ref.watch(upcomingTripsProvider);
+    final userName = ref.watch(userNameProvider);
+    final currentTrip = ref.watch(currentTripProvider);
+
+    return SafeArea(
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Top Bar with Location, Notification, and Traveller
+              const TopBar(),
+
+              const SizedBox(height: 20),
+
+              // Welcome Banner
+              WelcomeBanner(userName: userName),
+
+              const SizedBox(height: 24),
+
+              // Quick Actions Title
+              const Text(
+                "Quick Actions",
+                style: TextStyle(
+                  fontFamily: 'Instrument Sans',
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.black87,
+                ),
+              ),
+
+              const SizedBox(height: 16),
+
+              // Quick Actions Grid
+              _buildQuickActionsGrid(context),
+
+              const SizedBox(height: 24),
+
+              // Trip Countdown Card
+              TripCountdownCard(trip: currentTrip),
+
+              const SizedBox(height: 32),
+
+              // Popular Destinations Section
+              _buildPopularDestinationsSection(destinations),
+
+              const SizedBox(height: 32),
+
+              // Upcoming Trips Section
+              _buildUpcomingTripsSection(upcomingTrips),
+
+              const SizedBox(height: 32),
+
+              // Quick Tip Section
+              const QuickTipSection(),
+
+              const SizedBox(height: 32),
+
+              // Trip Planner Section
+              _buildTripPlannerSection(),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 
   Widget _buildTripPlannerSection() {
     final tripPlanners = [
@@ -400,8 +415,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     );
   }
 
-  
-
   Widget _buildUpcomingTripsSection(List<UpcomingTrip> trips) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -462,13 +475,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     );
   }
 
-  
-
-  
-
-  
-
-  Widget _buildQuickActionsGrid() {
+  Widget _buildQuickActionsGrid(BuildContext context) {
     return Column(
       children: [
         // First Row
@@ -480,10 +487,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 // Replace with your SVG path
                 title: "Plan a Trip",
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const SearchScreen()),
-                  );
+                  context.push('/search');
                 },
               ),
             ),
@@ -494,10 +498,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 // Replace with your SVG path
                 title: "Find Trip Planner",
                 onTap: () {
-                  Navigator.push(
-                    context,
-                  MaterialPageRoute(builder: (context) => const SearchScreen()),
-                  );
+                  context.push('/search');
                 },
               ),
             ),
@@ -554,9 +555,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       ],
     );
   }
-
-
-  
 
   Widget _buildPopularDestinationsSection(List<Destination> destinations) {
     return Column(
@@ -617,7 +615,4 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       ],
     );
   }
-
-  
-  
 }
