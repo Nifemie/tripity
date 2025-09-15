@@ -9,6 +9,7 @@ class Destination {
   final String temperature;
   final bool hasImage;
   final String? imagePath;
+  final int? travellersCount;
 
   const Destination({
     required this.name,
@@ -21,5 +22,6 @@ class Destination {
     required this.temperature,
     required this.hasImage,
     this.imagePath,
+    this.travellersCount,
   });
 }

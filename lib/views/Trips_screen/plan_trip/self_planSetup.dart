@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tripitify/widgets/Trip_plans_widgets/travel_type_card.dart';
 import 'package:tripitify/widgets/Trip_plans_widgets/interest_chip.dart';
 import 'package:tripitify/widgets/Trip_plans_widgets/date_field.dart';
@@ -121,7 +122,7 @@ class TripBasicDetailsPage extends ConsumerWidget {
           _buildProgressBar(state.currentStep),
           Expanded(
             child: SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 20.0),
+              padding: const EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 24.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -138,7 +139,7 @@ class TripBasicDetailsPage extends ConsumerWidget {
                   _buildTravelTypeSection(state.selectedTravelType, notifier.updateTravelType),
                   const SizedBox(height: 32),
                   _buildInterestsSection(state.selectedInterests, notifier.toggleInterest),
-                  const SizedBox(height: 100), // Space for bottom buttons
+                  
                 ],
               ),
             ),
@@ -179,7 +180,7 @@ class TripBasicDetailsPage extends ConsumerWidget {
       elevation: 0,
       leading: IconButton(
         icon: const Icon(Icons.arrow_back, color: Color(0xFF111827)),
-        onPressed: () => Navigator.pop(context),
+        onPressed: () => context.pop(),
       ),
       title: Text(
         'Basic Details',
@@ -509,45 +510,39 @@ class TripBasicDetailsPage extends ConsumerWidget {
           Expanded(
             child: Container(
               height: 52,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(9999),
+                gradient: const LinearGradient(
+                  begin: Alignment(-0.04, -1.0),
+                  end: Alignment(1.0, 1.0),
+                  colors: [
+                    Color(0xFF3B82F6),
+                    Color(0xFF2563EB),
+                    Color(0xFF1E40AF),
+                  ],
+                  stops: [0.0, 0.51, 1.0],
+                ),
+              ),
               child: ElevatedButton(
                 onPressed: () {
                   notifier.nextStep();
-                  // Navigate to next page or show success
                 },
                 style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.transparent,
+                  shadowColor: Colors.transparent,
                   elevation: 0,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(9999), // Full border radius
+                    borderRadius: BorderRadius.circular(9999),
                   ),
                   padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                ).copyWith(
-                  backgroundColor: MaterialStateProperty.all(Colors.transparent),
                 ),
-                child: Ink(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(9999),
-                    gradient: const LinearGradient(
-                      begin: Alignment(-0.04, -1.0), // Approximating 109deg
-                      end: Alignment(1.0, 1.0),
-                      colors: [
-                        Color(0xFF3B82F6), // Primary Blue 500
-                        Color(0xFF2563EB), // Primary Blue 600
-                        Color(0xFF1E40AF), // Primary Blue 800
-                      ],
-                      stops: [0.0, 0.51, 1.0], // Approximating -4.21%, 51.45%, 107.12%
-                    ),
-                  ),
-                  child: Container(
-                    alignment: Alignment.center,
-                    child: Text(
-                      'Continue',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontFamily: 'Instrument Sans',
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
+                child: const Text(
+                  'Continue',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontFamily: 'Instrument Sans',
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
               ),

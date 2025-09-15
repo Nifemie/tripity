@@ -1,6 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:tripitify/models/home_screen/trip_planner.dart';
+import 'package:tripitify/widgets/home_widgets/trip_planner_card.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
@@ -11,6 +14,46 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   final TextEditingController _searchController = TextEditingController();
+  bool _showTripPlanner = false;
+
+  final tripPlanners = [
+    const TripPlanner(
+      name: "Joseph Fubara",
+      rating: 4.9,
+      reviews: 127,
+      location: "Paris, France",
+      specialties: ["Romantic", "Wellness & Relaxation"],
+      tripsPlanned: 54,
+      responseTime: "< 1 hours",
+      price: 75,
+      isVerified: true,
+      isAcceptingClients: true,
+      imagePath: 'assets/images/Home/Ellipse.svg',
+    ),
+    const TripPlanner(
+      name: "Maria Rodriguez",
+      rating: 4.8,
+      reviews: 87,
+      location: "Barcelona, Spain",
+      specialties: ["Nature", "Photography", "Culture & History"],
+      tripsPlanned: 89,
+      responseTime: "< 2 hours",
+      price: 60,
+      isVerified: true,
+      isAcceptingClients: true,
+      imagePath: null,
+    ),
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    _searchController.addListener(() {
+      setState(() {
+        _showTripPlanner = _searchController.text.isNotEmpty;
+      });
+    });
+  }
 
   @override
   void dispose() {
@@ -39,7 +82,7 @@ class _SearchScreenState extends State<SearchScreen> {
             ),
             child: Center(
               child: SvgPicture.asset(
-                'assets/icons/back_arrow.svg', // Add your own back arrow SVG here
+                'assets/images/Home/backArrow.svg',
                 width: 24,
                 height: 24,
               ),
@@ -65,6 +108,11 @@ class _SearchScreenState extends State<SearchScreen> {
               ),
               child: Row(
                 children: [
+                  const Icon(
+                    CupertinoIcons.search,
+                    color: Color(0xFF6B7280),
+                  ),
+                  const SizedBox(width: 8),
                   Expanded(
                     child: TextField(
                       controller: _searchController,
@@ -86,26 +134,45 @@ class _SearchScreenState extends State<SearchScreen> {
                       ),
                     ),
                   ),
+                  if (_searchController.text.isNotEmpty)
+                    GestureDetector(
+                      onTap: () {
+                        _searchController.clear();
+                      },
+                      child: const Icon(
+                        CupertinoIcons.clear_circled_solid,
+                        color: Color(0xFF6B7280),
+                        size: 20,
+                      ),
+                    ),
                 ],
               ),
             ),
           ),
           // Rest of the body content
-          const Expanded(
-            child: Center(
-              child: Text(
-                'Search results will appear here',
-                style: TextStyle(
-                  color: Color(0xFF6B7280),
-                  fontSize: 16,
-                ),
-              ),
-            ),
+          Expanded(
+            child: _showTripPlanner
+                ? ListView.separated(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    shrinkWrap: true,
+                    itemCount: tripPlanners.length,
+                    separatorBuilder: (context, index) => const SizedBox(height: 12),
+                    itemBuilder: (context, index) {
+                      return TripPlannerCard(planner: tripPlanners[index]);
+                    },
+                  )
+                : const Center(
+                    child: Text(
+                      'Search results will appear here',
+                      style: TextStyle(
+                        color: Color(0xFF6B7280),
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
           ),
         ],
       ),
     );
   }
 }
-
-// Usage example:

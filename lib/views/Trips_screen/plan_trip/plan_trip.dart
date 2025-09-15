@@ -101,7 +101,7 @@ class PlanNewTripPage extends ConsumerWidget {
               isEnabled: tripPlanningState.selectedType != null,
               onPressed: () {
                 if (tripPlanningState.selectedType == PlanningType.planItMyself) {
-                  context.go('/self-plan-setup');
+                  context.push('/self-plan-setup');
                 } else if (tripPlanningState.selectedType == PlanningType.useTripPlanner) {
                   // Handle continue action for trip planner
                   print('Continue with: ${tripPlanningState.selectedType}');

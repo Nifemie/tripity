@@ -73,6 +73,7 @@ flutter:
     - assets/images/signin_icons/
     - assets/images/Home/
     - assets/images/Trips/
+    - assets/images/explore/
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

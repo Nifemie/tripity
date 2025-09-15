@@ -30,7 +30,7 @@ class _BottomNavigationComponentState extends State<BottomNavigationComponent> {
       label: 'Trips',
     ),
     NavigationItem(
-      svgPath: 'assets/images/Home/Calendar_icon.svg', // Replace with your actual path
+      svgPath: 'assets/images/Home/Bookings.svg', // Replace with your actual path
       label: 'Booking',
     ),
     NavigationItem(

@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tripitify/models/home_screen/location_state.dart';
-import 'package:tripitify/views/home_screens/HomeScreen.dart';
+import '../../controllers/home_controller.dart';
 
 class TopBar extends ConsumerWidget {
   const TopBar({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final locationState = ref.watch(locationProvider);
+    final locationState = ref.watch(homeControllerProvider).locationState;
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -17,7 +17,7 @@ class TopBar extends ConsumerWidget {
         // Location Section
         Flexible(
           child: GestureDetector(
-            onTap: () => ref.read(locationProvider.notifier).refreshLocation(),
+            onTap: () => ref.read(homeControllerProvider.notifier).refreshLocation(),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [

@@ -19,6 +19,7 @@ import 'package:tripitify/views/home_screens/HomeScreen.dart';
 import 'package:tripitify/views/Trips_screen/plan_trip/plan_trip.dart';
 import 'package:tripitify/views/home_screens/search_screen.dart';
 import 'package:tripitify/views/Trips_screen/plan_trip/self_planSetup.dart';
+import 'package:tripitify/views/Explore_screen/Trip_view.dart';
 
 final GoRouter router = GoRouter(
   routes: <GoRoute>[
@@ -103,6 +104,10 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: '/self-plan-setup',
       builder: (BuildContext context, GoRouterState state) => const TripBasicDetailsPage(),
+    ),
+    GoRoute(
+      path: '/trip-view',
+      builder: (BuildContext context, GoRouterState state) => const TravelTipDetailPage(),
     ),
   ],
 );
