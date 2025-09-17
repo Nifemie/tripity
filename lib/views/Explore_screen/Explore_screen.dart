@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:tripitify/views/Explore_screen/destination_screens/destinationDetails_screen.dart';
 import 'package:tripitify/widgets/Explore_widgets/explore_widgets.dart';
 import 'package:tripitify/widgets/home_widgets/destination_card.dart';
 import 'package:tripitify/models/home_screen/destination.dart';
@@ -49,7 +50,7 @@ class DiscoverDestinationScreen extends ConsumerWidget {
     final List<Destination> popularDestinations = [
       Destination(
         name: 'Paris, France',
-        description: 'The city of love with its iconic Eiffel Tower and charming streets.',
+        description: 'The city of light awaits with its romantic atmosphere and world-class cuisine',
         imagePath: 'assets/images/explore/france.png',
         rating: '4.7',
         country: 'France',
@@ -311,7 +312,27 @@ class DiscoverDestinationScreen extends ConsumerWidget {
                 padding: const EdgeInsets.only(right: 16), // Add padding to the end
                 itemBuilder: (context, index) {
                   // Note: showTravellersCount is not passed, so it defaults to false
-                  return DestinationCard(destination: popularDestinations[index]);
+                  return DestinationCard(
+                    destination: popularDestinations[index],
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => DestinationDetailScreen(
+                            imagePath: popularDestinations[index].imagePath ?? '',
+                            destinationName: popularDestinations[index].name,
+                            country: popularDestinations[index].country,
+                            description: popularDestinations[index].description,
+                            rating: double.parse(popularDestinations[index].rating),
+                            aboutTitle: 'About ${popularDestinations[index].name.split(',').first}',
+                            aboutDescription: popularDestinations[index].name == 'Paris, France'
+                                ? 'Paris, the City of Light, has been a center of art, fashion, culture, and cuisine for centuries. Founded by the Parisii tribe around 250 BC, it became the capital of France in 508 AD. The city flourished during the Renaissance and became the European center of fashion and decorative arts during the 18th and 19th centuries.'
+                                : popularDestinations[index].description,
+                          ),
+                        ),
+                      );
+                    },
+                  );
                 },
               ),
             ),

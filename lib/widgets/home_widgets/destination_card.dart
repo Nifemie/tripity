@@ -5,8 +5,9 @@ import 'package:tripitify/models/home_screen/destination.dart';
 class DestinationCard extends StatelessWidget {
   final Destination destination;
   final bool showTravellersCount;
+  final VoidCallback? onTap;
 
-  const DestinationCard({Key? key, required this.destination, this.showTravellersCount = false}) : super(key: key);
+  const DestinationCard({Key? key, required this.destination, this.showTravellersCount = false, this.onTap}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -307,9 +308,7 @@ class DestinationCard extends StatelessWidget {
                       borderRadius: BorderRadius.all(Radius.circular(9999)),
                     ),
                     child: ElevatedButton(
-                      onPressed: () {
-                        // Add your navigation or action here
-                      },
+                      onPressed: onTap,
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.transparent,
                         shadowColor: Colors.transparent,
