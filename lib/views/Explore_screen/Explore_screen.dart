@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:tripitify/views/Explore_screen/destination_screens/destinationDetails_screen.dart';
+import 'package:tripitify/views/Explore_screen/destination_screens/tabs/destinationDetails_screen.dart';
 import 'package:tripitify/widgets/Explore_widgets/explore_widgets.dart';
 import 'package:tripitify/widgets/home_widgets/destination_card.dart';
 import 'package:tripitify/models/home_screen/destination.dart';

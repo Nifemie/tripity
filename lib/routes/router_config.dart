@@ -18,7 +18,7 @@ import 'package:tripitify/views/onboarding_screens/screens/Trip_planner/PlannerS
 import 'package:tripitify/views/home_screens/HomeScreen.dart';
 import 'package:tripitify/views/Trips_screen/plan_trip/plan_trip.dart';
 import 'package:tripitify/views/home_screens/search_screen.dart';
-import 'package:tripitify/views/Trips_screen/plan_trip/self_planSetup.dart';
+import 'package:tripitify/views/Trips_screen/plan_trip/self_plan/self_planSetup.dart';
 import 'package:tripitify/views/Explore_screen/Trip_view.dart';
 
 final GoRouter router = GoRouter(

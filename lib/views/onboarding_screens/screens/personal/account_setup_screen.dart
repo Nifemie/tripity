@@ -38,7 +38,7 @@ class AccountSetupScreen extends ConsumerWidget {
               const SizedBox(height: 16),
               const AccountSetupScreenHeader(),
               const SizedBox(height: 16),
-              ProgressBar(
+              TripProgressBar(
                 currentStep: progressState.currentStep,
                 totalSteps: progressState.totalSteps,
               ),

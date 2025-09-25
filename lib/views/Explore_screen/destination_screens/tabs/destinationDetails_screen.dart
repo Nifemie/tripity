@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'dart:ui';
+import 'overview.dart';
+import '../../../../widgets/Explore_widgets/actions_button.dart';
+import 'highlights.dart';
+import 'events.dart';
+import 'experience.dart';
 
 // State provider for selected tab
 final selectedTabProvider = StateProvider<int>((ref) => 0);
@@ -34,7 +39,7 @@ class DestinationDetailScreen extends ConsumerWidget {
         children: [
           // Background image with blur effect at bottom
           Container(
-            height: MediaQuery.of(context).size.height * 0.6,
+            height: MediaQuery.of(context).size.height * 0.5,
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: AssetImage(imagePath),
@@ -83,10 +88,12 @@ class DestinationDetailScreen extends ConsumerWidget {
                               color: Colors.black.withOpacity(0.24),
                               borderRadius: BorderRadius.circular(12),
                             ),
-                            child: const Icon(
-                              Icons.arrow_back_ios,
-                              color: Colors.white,
-                              size: 20,
+                            child: Center(
+                              child: const Icon(
+                                Icons.arrow_back_ios,
+                                color: Colors.white,
+                                size: 20,
+                              ),
                             ),
                           ),
                         ),
@@ -127,7 +134,7 @@ class DestinationDetailScreen extends ConsumerWidget {
           ),
 
           Positioned(
-            bottom: MediaQuery.of(context).size.height * 0.4 + 20,
+            bottom: MediaQuery.of(context).size.height * 0.5 + 20,
             left: 16,
             right: 16,
             child: Column(
@@ -180,12 +187,10 @@ class DestinationDetailScreen extends ConsumerWidget {
           ),
 
           // Bottom content
-          DraggableScrollableSheet(
-            initialChildSize: 0.4,
-            minChildSize: 0.4,
-            maxChildSize: 0.8,
-            builder: (BuildContext context, ScrollController scrollController) {
-              return Container(
+          Column(
+            children: [
+              SizedBox(height: MediaQuery.of(context).size.height * 0.5),
+              Container(
                 decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
@@ -194,37 +199,55 @@ class DestinationDetailScreen extends ConsumerWidget {
                   ),
                 ),
                 child: SingleChildScrollView(
-                  controller: scrollController,
-                  child: Column(
-                    children: [
-                      SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                          child: Row(
-                            children: [
-                              _buildTabItem('Overview', 0, selectedTab, ref),
-                              const SizedBox(width: 24),
-                              _buildTabItem('Highlights', 1, selectedTab, ref),
-                              const SizedBox(width: 24),
-                              _buildTabItem('Events', 2, selectedTab, ref),
-                              const SizedBox(width: 24),
-                              _buildTabItem('Experience', 3, selectedTab, ref),
-                            ],
-                          ),
-                        ),
-                      ),
-
-                      // Content based on selected tab
-                      if (selectedTab == 0)
-                        _buildOverviewContent()
-                      else
-                        SizedBox(height: 200), // Placeholder for other tabs
-                    ],
+                  scrollDirection: Axis.horizontal,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                    child: Row(
+                      children: [
+                        _buildTabItem('Overview', 0, selectedTab, ref),
+                        const SizedBox(width: 24),
+                        _buildTabItem('Highlights', 1, selectedTab, ref),
+                        const SizedBox(width: 24),
+                        _buildTabItem('Events', 2, selectedTab, ref),
+                        const SizedBox(width: 24),
+                        _buildTabItem('Experience', 3, selectedTab, ref),
+                      ],
+                    ),
                   ),
                 ),
-              );
-            },
+              ),
+              Expanded(
+                child: Container(
+                  color: Colors.white,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        if (selectedTab == 0)
+                          _buildOverviewContent()
+                        else if (selectedTab == 1)
+                          const TopHighlightsWidget()
+                        else if (selectedTab == 2)
+                          const EventsWidget()
+                        else if (selectedTab == 3)
+                          const ExperienceWidget()
+                        else
+                          const SizedBox(height: 200), // Placeholder for other tabs
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              ActionButtonsWidget(
+                onPlanTripPressed: () {
+                  print('Plan a Trip Here pressed');
+                  // Handle plan trip action
+                },
+                onBrowseOptionsPressed: () {
+                  print('Browse Travel Options pressed');
+                  // Handle browse options action
+                },
+              ),
+            ],
           ),
         ],
       ),
@@ -263,46 +286,50 @@ class DestinationDetailScreen extends ConsumerWidget {
   }
 
   Widget _buildOverviewContent() {
-    return Container(
-      width: double.infinity,
-      margin: const EdgeInsets.all(16),
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: const Color(0xFFF3F4F6)),
-        color: Colors.white,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            aboutTitle,
-            style: const TextStyle(
-              color: Color(0xFF111827),
-              fontFamily: 'InstrumentSans',
-              fontSize: 14,
-              fontWeight: FontWeight.w500,
-              height: 1.5,
-            ),
+    return Column(
+      children: [
+        Container(
+          width: double.infinity,
+          margin: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(24),
+            border: Border.all(color: const Color(0xFFF3F4F6)),
+            color: Colors.white,
           ),
-
-          const SizedBox(height: 16),
-
-          Text(
-            aboutDescription,
-            style: TextStyle(
-              color: Color(0xFF6B7280),
-              fontFamily: 'InstrumentSans',
-              fontSize: 12,
-              fontWeight: FontWeight.w400,
-              height: 1.5,
-            ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                aboutTitle,
+                style: const TextStyle(
+                  color: Color(0xFF111827),
+                  fontFamily: 'InstrumentSans',
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  height: 1.5,
+                ),
+              ),
+              const SizedBox(height: 16),
+              Text(
+                aboutDescription,
+                style: TextStyle(
+                  color: Color(0xFF6B7280),
+                  fontFamily: 'InstrumentSans',
+                  fontSize: 12,
+                  fontWeight: FontWeight.w400,
+                  height: 1.5,
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+        const OverviewScreen(),
+      ],
     );
   }
 }
+
 
 
 

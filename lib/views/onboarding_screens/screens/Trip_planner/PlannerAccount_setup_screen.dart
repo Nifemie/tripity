@@ -55,7 +55,7 @@ class PlannerAccountSetupScreen extends ConsumerWidget {
                 ],
               ),
               const SizedBox(height: 16),
-              ProgressBar(
+              TripProgressBar(
                 currentStep: progressState.currentStep,
                 totalSteps: progressState.totalSteps,
               ),

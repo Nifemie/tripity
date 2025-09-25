@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
-class ProgressBar extends StatelessWidget {
-  const ProgressBar({
-    Key? key,
-    required this.currentStep,
-    required this.totalSteps,
-  }) : super(key: key);
-
+class TripProgressBar extends StatelessWidget {
   final int currentStep;
   final int totalSteps;
+
+  const TripProgressBar({
+    Key? key,
+    required this.currentStep,
+    this.totalSteps = 4,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

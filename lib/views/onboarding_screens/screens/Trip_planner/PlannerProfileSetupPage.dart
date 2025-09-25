@@ -51,7 +51,7 @@ class PlannerProfileSetupPage extends ConsumerWidget {
           // Progress Bar
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24),
-            child: ProgressBar(
+            child: TripProgressBar(
               currentStep: progressState.currentStep,
               totalSteps: progressState.totalSteps,
             ),

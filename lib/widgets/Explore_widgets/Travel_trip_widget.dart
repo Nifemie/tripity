@@ -70,16 +70,13 @@ class TravelTipsWidget extends ConsumerWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         // Header Section
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: ExploreHeaderSection(
-            title: 'Travel Tips & Guides',
-            subtitle: 'Quick Tips for Smart Travellers',
-            onViewAllTap: () {
-              // Handle view more action
-              print('View More tapped');
-            },
-          ),
+        ExploreHeaderSection(
+          title: 'Travel Tips & Guides',
+          subtitle: 'Quick Tips for Smart Travellers',
+          onViewAllTap: () {
+            // Handle view more action
+            print('View More tapped');
+          },
         ),
 
         // Scrollable Cards Section
@@ -87,7 +84,6 @@ class TravelTipsWidget extends ConsumerWidget {
           height: 280,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            padding: const EdgeInsets.symmetric(horizontal: 16),
             itemCount: travelTips.length,
             itemBuilder: (context, index) {
               final tip = travelTips[index];

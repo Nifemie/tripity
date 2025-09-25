@@ -62,7 +62,7 @@ class PurposeScreen extends ConsumerWidget {
                 const SizedBox(height: 16),
 
                 // Progress bar - all steps completed
-                ProgressBar(
+                TripProgressBar(
                   currentStep: progressState.currentStep,
                   totalSteps: progressState.totalSteps,
                 ),

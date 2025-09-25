@@ -54,7 +54,7 @@ class RoleSelectionScreen extends ConsumerWidget {
               ),
               const SizedBox(height: 16),
               // Progress bar - connected segments
-              ProgressBar(
+              TripProgressBar(
                 currentStep: progressState.currentStep,
                 totalSteps: progressState.totalSteps,
               ),
