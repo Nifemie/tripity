@@ -103,8 +103,7 @@ class PlanNewTripPage extends ConsumerWidget {
                 if (tripPlanningState.selectedType == PlanningType.planItMyself) {
                   context.push('/self-plan-setup');
                 } else if (tripPlanningState.selectedType == PlanningType.useTripPlanner) {
-                  // Handle continue action for trip planner
-                  print('Continue with: ${tripPlanningState.selectedType}');
+                  context.push('/search-planner');
                 }
               },
             ),

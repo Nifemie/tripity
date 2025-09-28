@@ -6,6 +6,9 @@ import 'package:tripitify/widgets/Trip_plans_widgets/interest_chip.dart';
 import 'package:tripitify/widgets/Trip_plans_widgets/date_field.dart';
 import 'package:tripitify/widgets/Trip_plans_widgets/custom_text_field.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:tripitify/widgets/trip_reusable_buttons.dart';
+import 'package:tripitify/widgets/trip_progress_bar.dart';
+import 'package:tripitify/providers/plan_trip_provider.dart';
 
 
 // State models
@@ -16,7 +19,6 @@ class TripBasicDetailsState {
   final DateTime? endDate;
   final String selectedTravelType;
   final List<String> selectedInterests;
-  final int currentStep;
 
   const TripBasicDetailsState({
     this.tripTitle = '',
@@ -25,7 +27,6 @@ class TripBasicDetailsState {
     this.endDate,
     this.selectedTravelType = 'Solo',
     this.selectedInterests = const [],
-    this.currentStep = 1,
   });
 
   TripBasicDetailsState copyWith({
@@ -35,7 +36,6 @@ class TripBasicDetailsState {
     DateTime? endDate,
     String? selectedTravelType,
     List<String>? selectedInterests,
-    int? currentStep,
   }) {
     return TripBasicDetailsState(
       tripTitle: tripTitle ?? this.tripTitle,
@@ -44,7 +44,6 @@ class TripBasicDetailsState {
       endDate: endDate ?? this.endDate,
       selectedTravelType: selectedTravelType ?? this.selectedTravelType,
       selectedInterests: selectedInterests ?? this.selectedInterests,
-      currentStep: currentStep ?? this.currentStep,
     );
   }
 
@@ -92,17 +91,7 @@ class TripBasicDetailsNotifier extends StateNotifier<TripBasicDetailsState> {
     state = state.copyWith(selectedInterests: currentInterests);
   }
 
-  void nextStep() {
-    if (state.currentStep < 4) {
-      state = state.copyWith(currentStep: state.currentStep + 1);
-    }
-  }
-
-  void previousStep() {
-    if (state.currentStep > 1) {
-      state = state.copyWith(currentStep: state.currentStep - 1);
-    }
-  }
+  
 }
 
 // Main page widget
@@ -113,13 +102,14 @@ class TripBasicDetailsPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(tripBasicDetailsProvider);
     final notifier = ref.read(tripBasicDetailsProvider.notifier);
+    final currentStep = ref.watch(selfPlanStepProvider);
 
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: _buildAppBar(context, state.currentStep),
+      appBar: _buildAppBar(context, currentStep),
       body: Column(
         children: [
-          _buildProgressBar(state.currentStep),
+          TripProgressBar(currentStep: currentStep),
           Expanded(
             child: SingleChildScrollView(
               padding: const EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 24.0),
@@ -146,32 +136,17 @@ class TripBasicDetailsPage extends ConsumerWidget {
           ),
         ],
       ),
-      bottomNavigationBar: _buildBottomButtons(context, notifier),
-    );
-  }
-
-  Widget _buildProgressBar(int currentStep) {
-    return Container(
-      height: 8,
-      margin: const EdgeInsets.symmetric(horizontal: 24.0),
-      child: Row(
-        children: List.generate(4, (index) {
-          return Expanded(
-            child: Container(
-              height: 8,
-              margin: EdgeInsets.only(right: index < 3 ? 4 : 0),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(100),
-                color: index < currentStep
-                    ? const Color(0xFF3B82F6)
-                    : const Color(0xFFE5E7EB),
-              ),
-            ),
-          );
-        }),
+      bottomNavigationBar: BottomButtons(
+        onSaveForLater: () {},
+        onContinue: () {
+          ref.read(selfPlanStepProvider.notifier).state++;
+          context.push('/trip-preference');
+        },
       ),
     );
   }
+
+  
 
   PreferredSizeWidget _buildAppBar(BuildContext context, int currentStep) {
     return AppBar(
@@ -466,92 +441,7 @@ class TripBasicDetailsPage extends ConsumerWidget {
     );
   }
 
-  Widget _buildBottomButtons(BuildContext context, TripBasicDetailsNotifier notifier) {
-    return Container(
-      padding: const EdgeInsets.all(24),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.05),
-            offset: const Offset(0, -1),
-            blurRadius: 3,
-          ),
-        ],
-      ),
-      child: Row(
-        children: [
-          Expanded(
-            child: Container(
-              height: 52,
-              child: ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFFF3F4F6), // Gray background
-                  elevation: 0,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(9999), // Full border radius
-                  ),
-                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                ),
-                child: Text(
-                  'Save for Later',
-                  style: TextStyle(
-                    color: const Color(0xFF374151),
-                    fontFamily: 'Instrument Sans',
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ),
-            ),
-          ),
-          const SizedBox(width: 8), // 8px gap
-          Expanded(
-            child: Container(
-              height: 52,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(9999),
-                gradient: const LinearGradient(
-                  begin: Alignment(-0.04, -1.0),
-                  end: Alignment(1.0, 1.0),
-                  colors: [
-                    Color(0xFF3B82F6),
-                    Color(0xFF2563EB),
-                    Color(0xFF1E40AF),
-                  ],
-                  stops: [0.0, 0.51, 1.0],
-                ),
-              ),
-              child: ElevatedButton(
-                onPressed: () {
-                  notifier.nextStep();
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.transparent,
-                  shadowColor: Colors.transparent,
-                  elevation: 0,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(9999),
-                  ),
-                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                ),
-                child: const Text(
-                  'Continue',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontFamily: 'Instrument Sans',
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  
   
 
   void _selectDate(Function(DateTime) onDateSelected) {

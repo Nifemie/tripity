@@ -20,6 +20,11 @@ import 'package:tripitify/views/Trips_screen/plan_trip/plan_trip.dart';
 import 'package:tripitify/views/home_screens/search_screen.dart';
 import 'package:tripitify/views/Trips_screen/plan_trip/self_plan/self_planSetup.dart';
 import 'package:tripitify/views/Explore_screen/Trip_view.dart';
+import 'package:tripitify/views/Trips_screen/plan_trip/self_plan/trip_preference.dart';
+import 'package:tripitify/views/Trips_screen/plan_trip/self_plan/Itinerary.dart';
+import 'package:tripitify/views/Trips_screen/plan_trip/self_plan/TripSummary.dart';
+import 'package:tripitify/views/Trips_screen/plan_trip/self_plan/complete_tripsetup.dart';
+import 'package:tripitify/views/Trips_screen/plan_trip/trip_Planner/search_planner.dart';
 
 final GoRouter router = GoRouter(
   routes: <GoRoute>[
@@ -104,6 +109,26 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: '/self-plan-setup',
       builder: (BuildContext context, GoRouterState state) => const TripBasicDetailsPage(),
+    ),
+    GoRoute(
+      path: '/trip-preference',
+      builder: (BuildContext context, GoRouterState state) => const TripPreferencesScreen(),
+    ),
+    GoRoute(
+      path: '/itinerary',
+      builder: (BuildContext context, GoRouterState state) => const ItineraryScreen(),
+    ),
+    GoRoute(
+      path: '/trip-summary',
+      builder: (BuildContext context, GoRouterState state) => const TripSummaryScreen(),
+    ),
+    GoRoute(
+      path: '/trip-ready',
+      builder: (BuildContext context, GoRouterState state) => const TripReadyScreen(),
+    ),
+    GoRoute(
+      path: '/search-planner',
+      builder: (BuildContext context, GoRouterState state) => const DestinationSelectionScreen(),
     ),
     GoRoute(
       path: '/trip-view',

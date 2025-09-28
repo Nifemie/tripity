@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:tripitify/widgets/trip_progress_bar.dart';
+import 'package:tripitify/widgets/trip_reusable_buttons.dart';
+import 'package:tripitify/providers/plan_trip_provider.dart';
 
 // State classes
 class TravelStyle {
@@ -111,32 +115,37 @@ class TripPreferencesScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(tripPreferencesProvider);
     final notifier = ref.read(tripPreferencesProvider.notifier);
+    final currentStep = ref.watch(selfPlanStepProvider);
 
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
+        surfaceTintColor: Colors.white,
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
-          onPressed: () => Navigator.of(context).pop(),
+          onPressed: () {
+            ref.read(selfPlanStepProvider.notifier).state--;
+            Navigator.of(context).pop();
+          },
         ),
         title: const Text(
           'Trip Preferences',
           style: TextStyle(
             color: Colors.black,
             fontFamily: 'Instrument Sans',
-            fontSize: 16,
+            fontSize: 20,
             fontWeight: FontWeight.w600,
           ),
         ),
         centerTitle: false,
-        actions: const [
+        actions: [
           Padding(
-            padding: EdgeInsets.only(right: 16.0),
+            padding: const EdgeInsets.only(right: 16.0),
             child: Text(
-              '2/4',
-              style: TextStyle(
+              '$currentStep/4',
+              style: const TextStyle(
                 color: Color(0xFF6B7280),
                 fontFamily: 'Instrument Sans',
                 fontSize: 14,
@@ -146,44 +155,61 @@ class TripPreferencesScreen extends ConsumerWidget {
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(24.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Description
-            const Text(
-              'Set your budget, including all expenses and preferences',
-              style: TextStyle(
-                color: Color(0xFF4B5563),
-                fontFamily: 'Instrument Sans',
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
-                height: 1.5,
+      body: Column(
+        children: [
+          TripProgressBar(currentStep: currentStep),
+          Expanded(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(24.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Description
+                  const Text(
+                    'Set your budget, including all expenses and preferences',
+                    style: TextStyle(
+                      color: Color(0xFF4B5563),
+                      fontFamily: 'Instrument Sans',
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      height: 1.5,
+                    ),
+                  ),
+                  const SizedBox(height: 24),
+
+                  // Travel Style Section
+                  _buildTravelStyleSection(state, notifier, context),
+                  const SizedBox(height: 32),
+
+                  // Trip Budget Section
+                  _buildTripBudgetSection(state, notifier, context),
+                  const SizedBox(height: 32),
+
+                  // Accommodation Preference Section
+                  _buildAccommodationSection(state, notifier, context),
+                  const SizedBox(height: 32),
+
+                  // Transportation Mode Section
+                  _buildTransportationSection(state, notifier, context),
+                  const SizedBox(height: 32),
+
+                  // Personal Note Section
+                  _buildPersonalNoteSection(state, notifier),
+                ],
               ),
             ),
-            const SizedBox(height: 24),
-
-            // Travel Style Section
-            _buildTravelStyleSection(state, notifier, context),
-            const SizedBox(height: 32),
-
-            // Trip Budget Section
-            _buildTripBudgetSection(state, notifier, context),
-            const SizedBox(height: 32),
-
-            // Accommodation Preference Section
-            _buildAccommodationSection(state, notifier, context),
-            const SizedBox(height: 32),
-
-            // Transportation Mode Section
-            _buildTransportationSection(state, notifier),
-            const SizedBox(height: 32),
-
-            // Personal Note Section
-            _buildPersonalNoteSection(state, notifier),
-          ],
-        ),
+          ),
+        ],
+      ),
+      bottomNavigationBar: BottomButtons(
+        onSaveForLater: () {
+          ref.read(selfPlanStepProvider.notifier).state--;
+          Navigator.of(context).pop();
+        },
+        onContinue: () {
+          ref.read(selfPlanStepProvider.notifier).state++;
+          context.push('/itinerary');
+        },
       ),
     );
   }
@@ -477,7 +503,7 @@ class TripPreferencesScreen extends ConsumerWidget {
                       style: const TextStyle(
                         color: Color(0xFF6B7280),
                         fontFamily: 'Instrument Sans',
-                        fontSize: 12,
+                        fontSize: 10,
                         fontWeight: FontWeight.w400,
                         height: 1.5,
                       ),
@@ -492,7 +518,7 @@ class TripPreferencesScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildTransportationSection(TripPreferencesState state, TripPreferencesNotifier notifier) {
+  Widget _buildTransportationSection(TripPreferencesState state, TripPreferencesNotifier notifier, BuildContext context) {
     final transportationModes = [
       TransportationMode(name: 'Flight', icon: Icons.flight),
       TransportationMode(name: 'Car', icon: Icons.directions_car),
@@ -525,14 +551,15 @@ class TripPreferencesScreen extends ConsumerWidget {
           ),
         ),
         const SizedBox(height: 16),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        Wrap(
+          spacing: 8,
+          runSpacing: 8,
           children: transportationModes.map((transport) {
             final isSelected = state.selectedTransportation.contains(transport.name);
             return GestureDetector(
               onTap: () => notifier.toggleTransportation(transport.name),
               child: Container(
-                width: 85,
+                width: (MediaQuery.of(context).size.width - 48 - 24) / 4,
                 padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),

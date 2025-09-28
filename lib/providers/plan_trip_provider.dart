@@ -14,3 +14,5 @@ class TripPlanningNotifier extends StateNotifier<TripPlanningState> {
     state = state.copyWith(selectedType: type);
   }
 }
+
+final selfPlanStepProvider = StateProvider<int>((ref) => 1);
