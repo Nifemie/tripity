@@ -10,6 +10,11 @@ class TripPlanner {
   final bool isVerified;
   final bool isAcceptingClients;
   final String? imagePath;
+  final String about;
+  final String experience;
+  final List<String> destinationSpecialties;
+  final List<String> travelExpertise;
+  final List<String> languages;
 
   const TripPlanner({
     required this.name,
@@ -23,5 +28,10 @@ class TripPlanner {
     required this.isVerified,
     required this.isAcceptingClients,
     this.imagePath,
+    required this.about,
+    required this.experience,
+    required this.destinationSpecialties,
+    required this.travelExpertise,
+    required this.languages,
   });
 }

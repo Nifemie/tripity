@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tripitify/views/Trips_screen/plan_trip/trip_Planner/plannerList_search.dart';
 
 // State Management
 class DestinationSelectionState {
@@ -246,7 +247,7 @@ class DestinationSelectionScreen extends ConsumerWidget {
                 height: 52,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(9999),
-                  gradient: state.selectedDestination != null
+                  gradient: (state.selectedDestination != null || state.searchQuery.isNotEmpty)
                       ? const LinearGradient(
                     begin: Alignment(-0.04, -1.0),
                     end: Alignment(1.07, 1.0),
@@ -258,16 +259,22 @@ class DestinationSelectionScreen extends ConsumerWidget {
                     stops: [0.0, 0.51, 1.0],
                   )
                       : null,
-                  color: state.selectedDestination == null
+                  color: (state.selectedDestination == null && state.searchQuery.isEmpty)
                       ? const Color(0xFFE5E7EB)
                       : null,
                 ),
                 child: ElevatedButton(
-                  onPressed: state.selectedDestination != null
+                  onPressed: (state.selectedDestination != null || state.searchQuery.isNotEmpty)
                       ? () {
-                    // Find planners logic
-                    print('Finding planners for: ${state.selectedDestination}');
-                  }
+                          // If no destination is selected by tag, use the search query
+                          if (state.selectedDestination == null) {
+                            ref.read(destinationProvider.notifier).selectDestination(state.searchQuery);
+                          }
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const TripPlannersScreen()),
+                          );
+                        }
                       : null,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.transparent,
@@ -280,7 +287,7 @@ class DestinationSelectionScreen extends ConsumerWidget {
                   child: Text(
                     'Find Planners for This Destination',
                     style: TextStyle(
-                      color: state.selectedDestination != null
+                      color: (state.selectedDestination != null || state.searchQuery.isNotEmpty)
                           ? Colors.white
                           : const Color(0xFF9CA3AF),
                       fontSize: 16,

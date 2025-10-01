@@ -102,10 +102,10 @@ final GoRouter router = GoRouter(
       path: '/plan-new-trip',
       builder: (BuildContext context, GoRouterState state) => const PlanNewTripPage(),
     ),
-    GoRoute(
-      path: '/search',
-      builder: (BuildContext context, GoRouterState state) => const SearchScreen(),
-    ),
+    // GoRoute(
+    //   path: '/search',
+    //   builder: (BuildContext context, GoRouterState state) => const SearchScreen(),
+    // ),
     GoRoute(
       path: '/self-plan-setup',
       builder: (BuildContext context, GoRouterState state) => const TripBasicDetailsPage(),
