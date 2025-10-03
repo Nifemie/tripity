@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tripitify/models/home_screen/trip_planner.dart';
 import 'package:tripitify/views/Trips_screen/plan_trip/trip_Planner/tabs/PlannerOverview.dart';
 import 'package:tripitify/views/Trips_screen/plan_trip/trip_Planner/tabs/plannerTripPlanned.dart'; // Import TripsPlannedScreen
@@ -93,8 +94,7 @@ class TripPlannerProfileScreen extends ConsumerWidget {
                 print('Chat button pressed');
               },
               onRequestTripPressed: () {
-                // Handle request trip button press
-                print('Request trip button pressed');
+                context.push('/self-plan-setup?fromPlanner=true');
               },
             ),
           ),

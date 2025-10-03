@@ -25,6 +25,7 @@ import 'package:tripitify/views/Trips_screen/plan_trip/self_plan/Itinerary.dart'
 import 'package:tripitify/views/Trips_screen/plan_trip/self_plan/TripSummary.dart';
 import 'package:tripitify/views/Trips_screen/plan_trip/self_plan/complete_tripsetup.dart';
 import 'package:tripitify/views/Trips_screen/plan_trip/trip_Planner/search_planner.dart';
+import 'package:tripitify/views/Trips_screen/plan_trip/trip_Planner/planner_payment.dart';
 
 final GoRouter router = GoRouter(
   routes: <GoRoute>[
@@ -108,19 +109,31 @@ final GoRouter router = GoRouter(
     // ),
     GoRoute(
       path: '/self-plan-setup',
-      builder: (BuildContext context, GoRouterState state) => const TripBasicDetailsPage(),
+      builder: (BuildContext context, GoRouterState state) {
+        final fromPlanner = state.uri.queryParameters['fromPlanner'] == 'true';
+        return TripBasicDetailsPage(fromPlanner: fromPlanner);
+      },
     ),
     GoRoute(
       path: '/trip-preference',
-      builder: (BuildContext context, GoRouterState state) => const TripPreferencesScreen(),
+      builder: (BuildContext context, GoRouterState state) {
+        final fromPlanner = state.extra as bool? ?? false;
+        return TripPreferencesScreen(fromPlanner: fromPlanner);
+      },
     ),
     GoRoute(
       path: '/itinerary',
-      builder: (BuildContext context, GoRouterState state) => const ItineraryScreen(),
+      builder: (BuildContext context, GoRouterState state) {
+        final fromPlanner = state.extra as bool? ?? false;
+        return ItineraryScreen(fromPlanner: fromPlanner);
+      },
     ),
     GoRoute(
       path: '/trip-summary',
-      builder: (BuildContext context, GoRouterState state) => const TripSummaryScreen(),
+      builder: (BuildContext context, GoRouterState state) {
+        final fromPlanner = state.extra as bool? ?? false;
+        return TripSummaryScreen(fromPlanner: fromPlanner);
+      },
     ),
     GoRoute(
       path: '/trip-ready',
@@ -133,6 +146,10 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: '/trip-view',
       builder: (BuildContext context, GoRouterState state) => const TravelTipDetailPage(),
+    ),
+    GoRoute(
+      path: '/planner-payment',
+      builder: (BuildContext context, GoRouterState state) => const PaymentConfirmationScreen(),
     ),
   ],
 );

@@ -96,7 +96,8 @@ class TripBasicDetailsNotifier extends StateNotifier<TripBasicDetailsState> {
 
 // Main page widget
 class TripBasicDetailsPage extends ConsumerWidget {
-  const TripBasicDetailsPage({Key? key}) : super(key: key);
+  final bool fromPlanner;
+  const TripBasicDetailsPage({Key? key, this.fromPlanner = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -140,7 +141,7 @@ class TripBasicDetailsPage extends ConsumerWidget {
         onSaveForLater: () {},
         onContinue: () {
           ref.read(selfPlanStepProvider.notifier).state++;
-          context.push('/trip-preference');
+          context.push('/trip-preference', extra: fromPlanner);
         },
       ),
     );

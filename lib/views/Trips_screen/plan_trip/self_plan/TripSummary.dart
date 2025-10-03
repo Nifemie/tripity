@@ -106,7 +106,8 @@ final tripSummaryProvider = Provider<TripSummaryState>((ref) {
 });
 
 class TripSummaryScreen extends ConsumerWidget {
-  const TripSummaryScreen({Key? key}) : super(key: key);
+  final bool fromPlanner;
+  const TripSummaryScreen({Key? key, this.fromPlanner = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -126,7 +127,7 @@ class TripSummaryScreen extends ConsumerWidget {
             size: 20,
           ),
           onPressed: () {
-            ref.read(selfPlanStepProvider.notifier).state--;
+            ref.read(selfPlanStepProvider.notifier).state = 2;
             Navigator.of(context).pop();
           },
         ),
@@ -156,7 +157,7 @@ class TripSummaryScreen extends ConsumerWidget {
       ),
       body: Column(
         children: [
-          TripProgressBar(currentStep: currentStep),
+          TripProgressBar(currentStep: currentStep, totalSteps: 4),
           const SizedBox(height: 32),
 
           Expanded(
@@ -406,7 +407,11 @@ class TripSummaryScreen extends ConsumerWidget {
           // Edit trip logic
         },
         onContinue: () {
-          context.push('/trip-ready');
+          if (fromPlanner) {
+            context.push('/planner-payment');
+          } else {
+            context.push('/trip-ready');
+          }
         },
         saveText: 'Edit Trip',
         continueText: 'Finalize Trip Plan',

@@ -62,7 +62,8 @@ final itineraryProvider = StateNotifierProvider<ItineraryNotifier, ItineraryStat
 
 
 class ItineraryScreen extends ConsumerWidget {
-  const ItineraryScreen({Key? key}) : super(key: key);
+  final bool fromPlanner;
+  const ItineraryScreen({Key? key, this.fromPlanner = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -372,7 +373,7 @@ class ItineraryScreen extends ConsumerWidget {
         },
         onContinue: () {
           ref.read(selfPlanStepProvider.notifier).state++;
-          context.push('/trip-summary');
+          context.push('/trip-summary', extra: fromPlanner);
         },
       ),
     );

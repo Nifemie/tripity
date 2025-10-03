@@ -109,7 +109,8 @@ final tripPreferencesProvider = StateNotifierProvider<TripPreferencesNotifier, T
 );
 
 class TripPreferencesScreen extends ConsumerWidget {
-  const TripPreferencesScreen({Key? key}) : super(key: key);
+  final bool fromPlanner;
+  const TripPreferencesScreen({Key? key, this.fromPlanner = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -126,7 +127,7 @@ class TripPreferencesScreen extends ConsumerWidget {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
           onPressed: () {
-            ref.read(selfPlanStepProvider.notifier).state--;
+            ref.read(selfPlanStepProvider.notifier).state = 1;
             Navigator.of(context).pop();
           },
         ),
@@ -157,7 +158,7 @@ class TripPreferencesScreen extends ConsumerWidget {
       ),
       body: Column(
         children: [
-          TripProgressBar(currentStep: currentStep),
+          TripProgressBar(currentStep: currentStep, totalSteps: 4),
           Expanded(
             child: SingleChildScrollView(
               padding: const EdgeInsets.all(24.0),
@@ -208,7 +209,11 @@ class TripPreferencesScreen extends ConsumerWidget {
         },
         onContinue: () {
           ref.read(selfPlanStepProvider.notifier).state++;
-          context.push('/itinerary');
+          if (fromPlanner) {
+            context.push('/trip-summary', extra: fromPlanner);
+          } else {
+            context.push('/itinerary', extra: fromPlanner);
+          }
         },
       ),
     );
