@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tripitify/providers/plan_trip_provider.dart';
 import 'package:tripitify/widgets/trip_progress_bar.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class PaymentConfirmationScreen extends ConsumerWidget {
   final String plannerName;
   final String planningFee;
   final String deductedFrom;
   final bool isSecured;
+  final String plannerImage;
 
   const PaymentConfirmationScreen({
     Key? key,
@@ -15,6 +17,7 @@ class PaymentConfirmationScreen extends ConsumerWidget {
     this.planningFee = '\$75',
     this.deductedFrom = 'Tripify Wallet',
     this.isSecured = true,
+    this.plannerImage = 'assets/images/Trips/planner_avatar.png',
   }) : super(key: key);
 
   @override
@@ -69,7 +72,7 @@ class PaymentConfirmationScreen extends ConsumerWidget {
             // Secure Your Planning Session
             const Text(
               'Secure Your Planning Session',
-              textAlign: TextAlign.center,
+              textAlign: TextAlign.start,
               style: TextStyle(
                 color: Color(0xFF111827),
                 fontFamily: 'Instrument Sans',
@@ -262,15 +265,15 @@ class PaymentConfirmationScreen extends ConsumerWidget {
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              const Icon(
-                                Icons.check_circle,
-                                size: 16,
-                                color: Color(0xFF3B82F6),
+                              SvgPicture.asset(
+                                'assets/images/Trips/Shield_Check.svg',
+                                width: 24,
+                                height: 24,
                               ),
                               const SizedBox(width: 4),
-                              Text(
+                              const Text(
                                 'Secured',
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: Color(0xFF3B82F6),
                                   fontFamily: 'Instrument Sans',
                                   fontSize: 12,
@@ -283,34 +286,106 @@ class PaymentConfirmationScreen extends ConsumerWidget {
                         ),
                       ],
                     ),
+                  ],
+                ),
+              ),
+            ),
 
-                    const SizedBox(height: 16),
+            const SizedBox(height: 16),
 
-                    // Info Message
-                    Container(
-                      padding: const EdgeInsets.all(12),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFFEF3C7),
-                        borderRadius: BorderRadius.circular(8),
+            // Info Message (Outside Card)
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFFFEDD5),
+                  borderRadius: BorderRadius.circular(9999),
+                ),
+                child: const Text(
+                  'Funds will only be released when you approve the trip plan.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Color(0xFFF97316),
+                    fontFamily: 'Instrument Sans',
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
+                    height: 1.5,
+                  ),
+                ),
+              ),
+            ),
+
+            const SizedBox(height: 16),
+
+            // Arrow Down Icon
+            SvgPicture.asset(
+              'assets/images/Trips/Round_Arrow_Down.svg',
+              width: 24,
+              height: 24,
+            ),
+
+            const SizedBox(height: 16),
+
+            // Planner Card
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(24),
+                  color: const Color(0xFFF3F4F6),
+                ),
+                child: Row(
+                  children: [
+                    // Planner Image
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: Image.asset(
+                        plannerImage,
+                        width: 48,
+                        height: 48,
+                        fit: BoxFit.cover,
                       ),
-                      child: Row(
+                    ),
+
+                    const SizedBox(width: 8),
+
+                    // Planner Details
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Icon(
-                            Icons.info_outline,
-                            size: 20,
-                            color: Color(0xFFF59E0B),
-                          ),
-                          const SizedBox(width: 8),
-                          Expanded(
-                            child: Text(
-                              'Funds will only be released when you approve the trip plan.',
-                              style: const TextStyle(
-                                color: Color(0xFFD97706),
-                                fontFamily: 'Instrument Sans',
-                                fontSize: 12,
-                                fontWeight: FontWeight.w400,
-                                height: 1.5,
+                          Row(
+                            children: [
+                              Text(
+                                plannerName,
+                                style: const TextStyle(
+                                  color: Color(0xFF111827),
+                                  fontFamily: 'Instrument Sans',
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                  height: 1.5,
+                                ),
                               ),
+                              const SizedBox(width: 4),
+                              SvgPicture.asset(
+                                'assets/images/Trips/Verified_Check.svg',
+                                width: 16,
+                                height: 16,
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 2),
+                          const Text(
+                            'Trip Planner',
+                            style: TextStyle(
+                              color: Color(0xFF6B7280),
+                              fontFamily: 'Instrument Sans',
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                              height: 1.5,
                             ),
                           ),
                         ],
@@ -327,12 +402,4 @@ class PaymentConfirmationScreen extends ConsumerWidget {
       ),
     );
   }
-}
-
-// Example Usage
-void main() {
-  runApp(const MaterialApp(
-    home: PaymentConfirmationScreen(),
-    debugShowCheckedModeBanner: false,
-  ));
 }

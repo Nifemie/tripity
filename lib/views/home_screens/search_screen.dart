@@ -28,7 +28,7 @@
 //       price: 75,
 //       isVerified: true,
 //       isAcceptingClients: true,
-//       imagePath: 'assets/images/Home/Ellipse.svg',
+//       imagePath: 'assets/images/Home/blue_circle.svg',
 //     ),
 //     const TripPlanner(
 //       name: "Maria Rodriguez",

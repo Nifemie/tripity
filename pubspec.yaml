@@ -74,6 +74,7 @@ flutter:
     - assets/images/Home/
     - assets/images/Trips/
     - assets/images/explore/
+    - assets/images/Bookings/
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

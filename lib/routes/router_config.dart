@@ -26,6 +26,7 @@ import 'package:tripitify/views/Trips_screen/plan_trip/self_plan/TripSummary.dar
 import 'package:tripitify/views/Trips_screen/plan_trip/self_plan/complete_tripsetup.dart';
 import 'package:tripitify/views/Trips_screen/plan_trip/trip_Planner/search_planner.dart';
 import 'package:tripitify/views/Trips_screen/plan_trip/trip_Planner/planner_payment.dart';
+import 'package:tripitify/views/Booking/bookings.dart';
 
 final GoRouter router = GoRouter(
   routes: <GoRoute>[
