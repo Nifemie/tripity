@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-
 // ==================== MODELS ====================
 
 class FlightCard {
@@ -108,10 +107,7 @@ class AirlineHeader extends StatelessWidget {
               height: 44,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(44),
-                child: Image.asset(
-                  airlineLogoUrl,
-                  fit: BoxFit.cover,
-                ),
+                child: Image.asset(airlineLogoUrl, fit: BoxFit.cover),
               ),
             ),
             const SizedBox(width: 12),
@@ -165,18 +161,16 @@ class AirlineHeader extends StatelessWidget {
             // Handle favorite
           },
           child: Container(
-            width: 32,
-            height: 32,
-            decoration: BoxDecoration(
+            width: 40,
+            height: 40,
+            padding: const EdgeInsets.all(8),
+            decoration: const BoxDecoration(
               shape: BoxShape.circle,
-              border: Border.all(
-                color: const Color(0xff3F4F6),
-                width: 1,
-              ),
+              color: Color(0xFFF3F4F6),
             ),
             child: const Icon(
               Icons.favorite_border,
-              size: 16,
+              size: 20,
               color: Color(0xFF9CA3AF),
             ),
           ),
@@ -250,10 +244,7 @@ class RouteSection extends StatelessWidget {
                   const SizedBox(width: 8),
                   // Divider line
                   Expanded(
-                    child: Container(
-                      height: 1,
-                      color: const Color(0xFFE5E7EB),
-                    ),
+                    child: Container(height: 1, color: const Color(0xFFE5E7EB)),
                   ),
                   const SizedBox(width: 8),
                   // Airplane icon
@@ -262,17 +253,14 @@ class RouteSection extends StatelessWidget {
                     width: 16,
                     height: 16,
                     colorFilter: const ColorFilter.mode(
-                      Color(0xFF6B7280),
+                      Color(0xFF3B82F6),
                       BlendMode.srcIn,
                     ),
                   ),
                   const SizedBox(width: 8),
                   // Divider line
                   Expanded(
-                    child: Container(
-                      height: 1,
-                      color: const Color(0xFFE5E7EB),
-                    ),
+                    child: Container(height: 1, color: const Color(0xFFE5E7EB)),
                   ),
                   const SizedBox(width: 8),
                   // Blue circle
@@ -325,45 +313,34 @@ class RouteSection extends StatelessWidget {
 class TagsRow extends StatelessWidget {
   final List<String> tags;
 
-  const TagsRow({
-    Key? key,
-    required this.tags,
-  }) : super(key: key);
+  const TagsRow({Key? key, required this.tags}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Row(
-      children: List.generate(
-        tags.length,
-            (index) {
-          return Flexible(
-            child: Container(
-              margin: EdgeInsets.only(
-                right: index < tags.length - 1 ? 8 : 0,
-              ),
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(9999),
-                border: Border.all(
-                  color: const Color(0xFFF3F4F6),
-                  width: 1,
-                ),
-              ),
-              child: Text(
-                tags[index],
-                style: const TextStyle(
-                  fontFamily: 'Instrument Sans',
-                  fontSize: 12,
-                  fontWeight: FontWeight.w400,
-                  color: Color(0xFF6B7280),
-                  height: 1.5,
-                ),
-                overflow: TextOverflow.ellipsis,
-              ),
+      children: List.generate(tags.length, (index) {
+        return Flexible(
+          child: Container(
+            margin: EdgeInsets.only(right: index < tags.length - 1 ? 8 : 0),
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(9999),
+              border: Border.all(color: const Color(0xFFF3F4F6), width: 1),
             ),
-          );
-        },
-      ),
+            child: Text(
+              tags[index],
+              style: const TextStyle(
+                fontFamily: 'Instrument Sans',
+                fontSize: 12,
+                fontWeight: FontWeight.w400,
+                color: Color(0xFF6B7280),
+                height: 1.5,
+              ),
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+        );
+      }),
     );
   }
 }
@@ -419,12 +396,7 @@ class TimeSection extends StatelessWidget {
         const SizedBox(width: 12),
 
         // Horizontal Line
-        Expanded(
-          child: Container(
-            height: 1,
-            color: const Color(0xFFE5E7EB),
-          ),
-        ),
+        Expanded(child: Container(height: 1, color: const Color(0xFFE5E7EB))),
 
         const SizedBox(width: 12),
 
@@ -433,23 +405,20 @@ class TimeSection extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(9999),
-            border: Border.all(
-              color: const Color(0xFFF3F4F6),
-              width: 1,
-            ),
+            border: Border.all(color: const Color(0xFFF3F4F6), width: 1),
             color: const Color(0xFFF3F4F6),
           ),
           child: Row(
             children: [
               SvgPicture.asset(
-                          'assets/images/explore/Clock.svg',
-                          width: 16,
-                          height: 16,
-                          colorFilter: const ColorFilter.mode(
-                            Color(0xFF6B7280),
-                            BlendMode.srcIn,
-                          ),
-                        ),
+                'assets/images/Bookings/Clock.svg',
+                width: 16,
+                height: 16,
+                colorFilter: const ColorFilter.mode(
+                  Color(0xFF6B7280),
+                  BlendMode.srcIn,
+                ),
+              ),
               const SizedBox(width: 4),
               Text(
                 duration,
@@ -468,12 +437,7 @@ class TimeSection extends StatelessWidget {
         const SizedBox(width: 12),
 
         // Horizontal Line
-        Expanded(
-          child: Container(
-            height: 1,
-            color: const Color(0xFFE5E7EB),
-          ),
-        ),
+        Expanded(child: Container(height: 1, color: const Color(0xFFE5E7EB))),
 
         const SizedBox(width: 12),
 
@@ -513,10 +477,7 @@ class TimeSection extends StatelessWidget {
 class PriceSection extends StatelessWidget {
   final double price;
 
-  const PriceSection({
-    Key? key,
-    required this.price,
-  }) : super(key: key);
+  const PriceSection({Key? key, required this.price}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -555,10 +516,7 @@ class PriceSection extends StatelessWidget {
 class FlightCard_Widget extends ConsumerWidget {
   final FlightCard flight;
 
-  const FlightCard_Widget({
-    Key? key,
-    required this.flight,
-  }) : super(key: key);
+  const FlightCard_Widget({Key? key, required this.flight}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -576,10 +534,7 @@ class FlightCard_Widget extends ConsumerWidget {
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(24),
-          border: Border.all(
-            color: const Color(0xFFF3F4F6),
-            width: 1,
-          ),
+          border: Border.all(color: const Color(0xFFF3F4F6), width: 1),
           color: Colors.white,
           boxShadow: [
             BoxShadow(
@@ -643,17 +598,14 @@ class FlightCardsScroll extends ConsumerWidget {
       scrollDirection: Axis.horizontal,
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Row(
-        children: List.generate(
-          flights.length,
-              (index) {
-            return Padding(
-              padding: EdgeInsets.only(
-                right: index < flights.length - 1 ? 16 : 0,
-              ),
-              child: FlightCard_Widget(flight: flights[index]),
-            );
-          },
-        ),
+        children: List.generate(flights.length, (index) {
+          return Padding(
+            padding: EdgeInsets.only(
+              right: index < flights.length - 1 ? 16 : 0,
+            ),
+            child: FlightCard_Widget(flight: flights[index]),
+          );
+        }),
       ),
     );
   }

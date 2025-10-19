@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 
 // ==================== MODELS ====================
 
@@ -125,10 +126,7 @@ class SectionHeader extends StatelessWidget {
 class CategoryCard extends ConsumerWidget {
   final Category category;
 
-  const CategoryCard({
-    Key? key,
-    required this.category,
-  }) : super(key: key);
+  const CategoryCard({Key? key, required this.category}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -142,6 +140,26 @@ class CategoryCard extends ConsumerWidget {
 
         // Call custom callback if provided
         category.onTap?.call();
+
+        // Navigate to TransportPage if transport category is selected
+        if (category.id == 'transport') {
+          context.push('/transport');
+        }
+
+        // Navigate to StaysPage if stays category is selected
+        if (category.id == 'stays') {
+          context.push('/stays');
+        }
+
+        // Navigate to ExperiencesPage if experiences category is selected
+        if (category.id == 'experiences') {
+          context.push('/experiences');
+        }
+
+        // Navigate to EventsPage if events category is selected
+        if (category.id == 'events') {
+          context.push('/events');
+        }
 
         // Log selection
         print('Selected category: ${category.label}');
@@ -186,7 +204,6 @@ class CategoryCard extends ConsumerWidget {
             ),
 
             const SizedBox(height: 20), // 20px gap
-
             // Label Text
             Text(
               category.label,
@@ -250,13 +267,13 @@ class CategoryGrid extends ConsumerWidget {
   // Responsive helper methods
   double _getHorizontalSpacing(double screenWidth) {
     if (screenWidth > 1200) return 48.0; // Desktop
-    if (screenWidth > 600) return 32.0;  // Tablet
+    if (screenWidth > 600) return 32.0; // Tablet
     return 16.0; // Mobile
   }
 
   double _getCardWidth(double screenWidth) {
     if (screenWidth > 1200) return 220.0; // Desktop
-    if (screenWidth > 600) return 200.0;  // Tablet
+    if (screenWidth > 600) return 200.0; // Tablet
     return 187.0; // Mobile (original design)
   }
 
@@ -352,10 +369,8 @@ class CategorySectionExample extends ConsumerWidget {
 class ResponsiveCategoryCard extends ConsumerWidget {
   final Category category;
 
-  const ResponsiveCategoryCard({
-    Key? key,
-    required this.category,
-  }) : super(key: key);
+  const ResponsiveCategoryCard({Key? key, required this.category})
+    : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

@@ -45,15 +45,15 @@ class BookingPage extends ConsumerWidget {
                     // Flight Section
                     const FlightSection(
                       title: 'Ready to take off?',
-                      subtitle: 'Book your next adventure with Delta, JFK, CXI, and so on. Flight cards are here to get you started.',
+                      subtitle: 'Since you explored New York City, here are top flight deals from Milan.',
                     ),
 
                     const SizedBox(height: 32),
 
                     // Hotel Section
                     const HotelSection(
-                      title: 'Why is the place (that rhymes stays)',
-                      subtitle: 'Based on your interest in New York. These options are curated for you.',
+                      title: 'Stay in the heart of the city that never sleeps',
+                      subtitle: 'Based on your interest in New York City, these stays are trending right now..',
                     ),
 
                     const SizedBox(height: 32),
@@ -100,7 +100,7 @@ class BookingPage extends ConsumerWidget {
               ),
               child: Center(
                 child: SvgPicture.asset(
-                  'assets/images/Bookings/cart.svg',
+                  'assets/images/Bookings/cart2.svg',
                   width: 20,
                   height: 20,
                   colorFilter: const ColorFilter.mode(

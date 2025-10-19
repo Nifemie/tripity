@@ -27,12 +27,19 @@ import 'package:tripitify/views/Trips_screen/plan_trip/self_plan/complete_tripse
 import 'package:tripitify/views/Trips_screen/plan_trip/trip_Planner/search_planner.dart';
 import 'package:tripitify/views/Trips_screen/plan_trip/trip_Planner/planner_payment.dart';
 import 'package:tripitify/views/Booking/bookings.dart';
+import 'package:tripitify/views/Booking/transport.dart';
+import 'package:tripitify/views/Booking/stays.dart';
+import 'package:tripitify/views/Booking/stays_details.dart';
+import 'package:tripitify/views/Booking/experiences.dart';
+import 'package:tripitify/views/Booking/events.dart';
+import 'package:tripitify/views/Booking/experience_details.dart';
 
 final GoRouter router = GoRouter(
   routes: <GoRoute>[
     GoRoute(
       path: '/',
-      builder: (BuildContext context, GoRouterState state) => const SplashScreen(),
+      builder:
+          (BuildContext context, GoRouterState state) => const SplashScreen(),
     ),
     GoRoute(
       path: '/intro',
@@ -44,11 +51,14 @@ final GoRouter router = GoRouter(
     ),
     GoRoute(
       path: '/signin',
-      builder: (BuildContext context, GoRouterState state) => const SignInPage(),
+      builder:
+          (BuildContext context, GoRouterState state) => const SignInPage(),
     ),
     GoRoute(
       path: '/forgot-password',
-      builder: (BuildContext context, GoRouterState state) => const ForgotPasswordScreen(),
+      builder:
+          (BuildContext context, GoRouterState state) =>
+              const ForgotPasswordScreen(),
     ),
     GoRoute(
       path: '/otp-verification',
@@ -59,7 +69,9 @@ final GoRouter router = GoRouter(
     ),
     GoRoute(
       path: '/account-setup',
-      builder: (BuildContext context, GoRouterState state) => const RoleSelectionScreen(),
+      builder:
+          (BuildContext context, GoRouterState state) =>
+              const RoleSelectionScreen(),
     ),
     GoRoute(
       path: '/account-setup-details',
@@ -70,31 +82,43 @@ final GoRouter router = GoRouter(
     ),
     GoRoute(
       path: '/travel-preferences',
-      builder: (BuildContext context, GoRouterState state) => const TravelPreferencesScreen(),
+      builder:
+          (BuildContext context, GoRouterState state) =>
+              const TravelPreferencesScreen(),
     ),
     GoRoute(
       path: '/purpose',
-      builder: (BuildContext context, GoRouterState state) => const PurposeScreen(),
+      builder:
+          (BuildContext context, GoRouterState state) => const PurposeScreen(),
     ),
     GoRoute(
       path: '/setup-complete',
-      builder: (BuildContext context, GoRouterState state) => const SetupComplete(),
+      builder:
+          (BuildContext context, GoRouterState state) => const SetupComplete(),
     ),
     GoRoute(
       path: '/planner-account-setup',
-      builder: (BuildContext context, GoRouterState state) => const PlannerAccountSetupScreen(),
+      builder:
+          (BuildContext context, GoRouterState state) =>
+              const PlannerAccountSetupScreen(),
     ),
     GoRoute(
       path: '/planner-profile-setup',
-      builder: (BuildContext context, GoRouterState state) => const PlannerProfileSetupPage(),
+      builder:
+          (BuildContext context, GoRouterState state) =>
+              const PlannerProfileSetupPage(),
     ),
     GoRoute(
       path: '/planner-travel-preferences',
-      builder: (BuildContext context, GoRouterState state) => const PlannerTravelPreferencesScreen(),
+      builder:
+          (BuildContext context, GoRouterState state) =>
+              const PlannerTravelPreferencesScreen(),
     ),
     GoRoute(
       path: '/planner-setup-complete',
-      builder: (BuildContext context, GoRouterState state) => const PlannerSetupComplete(),
+      builder:
+          (BuildContext context, GoRouterState state) =>
+              const PlannerSetupComplete(),
     ),
     GoRoute(
       path: '/HomeScreen',
@@ -102,7 +126,9 @@ final GoRouter router = GoRouter(
     ),
     GoRoute(
       path: '/plan-new-trip',
-      builder: (BuildContext context, GoRouterState state) => const PlanNewTripPage(),
+      builder:
+          (BuildContext context, GoRouterState state) =>
+              const PlanNewTripPage(),
     ),
     // GoRoute(
     //   path: '/search',
@@ -138,19 +164,59 @@ final GoRouter router = GoRouter(
     ),
     GoRoute(
       path: '/trip-ready',
-      builder: (BuildContext context, GoRouterState state) => const TripReadyScreen(),
+      builder:
+          (BuildContext context, GoRouterState state) =>
+              const TripReadyScreen(),
     ),
     GoRoute(
       path: '/search-planner',
-      builder: (BuildContext context, GoRouterState state) => const DestinationSelectionScreen(),
+      builder:
+          (BuildContext context, GoRouterState state) =>
+              const DestinationSelectionScreen(),
     ),
     GoRoute(
       path: '/trip-view',
-      builder: (BuildContext context, GoRouterState state) => const TravelTipDetailPage(),
+      builder:
+          (BuildContext context, GoRouterState state) =>
+              const TravelTipDetailPage(),
     ),
     GoRoute(
       path: '/planner-payment',
-      builder: (BuildContext context, GoRouterState state) => const PaymentConfirmationScreen(),
+      builder:
+          (BuildContext context, GoRouterState state) =>
+              const PaymentConfirmationScreen(),
+    ),
+    GoRoute(
+      path: '/transport',
+      builder:
+          (BuildContext context, GoRouterState state) => const TransportPage(),
+    ),
+    GoRoute(
+      path: '/stays',
+      builder: (BuildContext context, GoRouterState state) => const StaysPage(),
+    ),
+    GoRoute(
+      path: '/experiences',
+      builder:
+          (BuildContext context, GoRouterState state) =>
+              const ExperiencesPage(),
+    ),
+    GoRoute(
+      path: '/events',
+      builder:
+          (BuildContext context, GoRouterState state) => const EventsPage(),
+    ),
+    GoRoute(
+      path: '/experience-details',
+      builder:
+          (BuildContext context, GoRouterState state) =>
+              const ExperienceDetailsPage(),
+    ),
+    GoRoute(
+      path: '/stays-details',
+      builder:
+          (BuildContext context, GoRouterState state) =>
+              const StaysDetailsPage(),
     ),
   ],
 );

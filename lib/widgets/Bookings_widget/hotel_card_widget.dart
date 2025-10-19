@@ -16,6 +16,7 @@ class HotelCard {
   final double pricePerNight;
   final String imageUrl;
   final bool isTrending;
+  final String? distance; // e.g., '0.3 km from Buckingham Palace'
   final VoidCallback? onTap;
 
   const HotelCard({
@@ -29,6 +30,7 @@ class HotelCard {
     required this.pricePerNight,
     required this.imageUrl,
     this.isTrending = false,
+    this.distance,
     this.onTap,
   });
 }
@@ -55,6 +57,7 @@ final hotelsProvider = Provider<List<HotelCard>>((ref) {
       pricePerNight: 720.0,
       imageUrl: 'assets/images/Bookings/Plazza.png',
       isTrending: true,
+      // No distance in base provider - will be added only in stays.dart
     ),
     HotelCard(
       id: 'hotel_2',
@@ -65,8 +68,9 @@ final hotelsProvider = Provider<List<HotelCard>>((ref) {
       rating: 4.6,
       tags: ['Luxury', 'Fine Dining', 'Concierge', '+2'],
       pricePerNight: 650.0,
-      imageUrl: 'assets/images/Bookings/Plazza.png',
-      isTrending: false,
+      imageUrl: 'assets/images/Bookings/The_plazzion.png',
+      isTrending: true,
+      // No distance in base provider - will be added only in stays.dart
     ),
   ];
 });
@@ -97,7 +101,10 @@ class HotelImageOverlay extends ConsumerWidget {
           width: MediaQuery.of(context).size.width * 0.8,
           height: 200,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(16),
+              topRight: Radius.circular(16),
+            ),
             image: DecorationImage(
               image: AssetImage(imageUrl),
               fit: BoxFit.cover,
@@ -109,7 +116,10 @@ class HotelImageOverlay extends ConsumerWidget {
         Positioned.fill(
           child: Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(24),
+                topRight: Radius.circular(24),
+              ),
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
@@ -151,6 +161,7 @@ class HotelImageOverlay extends ConsumerWidget {
                       ),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           SvgPicture.asset(
                             'assets/images/explore/Fire.svg',
@@ -161,7 +172,7 @@ class HotelImageOverlay extends ConsumerWidget {
                               BlendMode.srcIn,
                             ),
                           ),
-                          const SizedBox(width: 8),
+                          const SizedBox(width: 4),
                           const Text(
                             'Trending',
                             style: TextStyle(
@@ -169,7 +180,7 @@ class HotelImageOverlay extends ConsumerWidget {
                               fontSize: 12,
                               fontWeight: FontWeight.w500,
                               color: Colors.white,
-                              height: 1.5,
+                              height: 1.0,
                             ),
                           ),
                         ],
@@ -202,9 +213,10 @@ class HotelImageOverlay extends ConsumerWidget {
                         child: Icon(
                           isFavorite ? Icons.favorite : Icons.favorite_border,
                           size: 20,
-                          color: isFavorite
-                              ? const Color(0xFFEF4444)
-                              : Colors.white,
+                          color:
+                              isFavorite
+                                  ? const Color(0xFFEF4444)
+                                  : Colors.white,
                         ),
                       ),
                     ),
@@ -227,6 +239,7 @@ class HotelInfoSection extends StatelessWidget {
   final String location;
   final int reviewCount;
   final double rating;
+  final String? distance;
 
   const HotelInfoSection({
     Key? key,
@@ -235,6 +248,7 @@ class HotelInfoSection extends StatelessWidget {
     required this.location,
     required this.reviewCount,
     required this.rating,
+    this.distance,
   }) : super(key: key);
 
   @override
@@ -265,7 +279,7 @@ class HotelInfoSection extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 SvgPicture.asset(
-                  'assets/images/explore/Star.svg',
+                  'assets/images/Bookings/Star.svg',
                   width: 14,
                   height: 14,
                   colorFilter: const ColorFilter.mode(
@@ -308,7 +322,7 @@ class HotelInfoSection extends StatelessWidget {
           children: [
             // Location Icon
             SvgPicture.asset(
-              'assets/images/Bookings/Location.svg',
+              'assets/images/Bookings/location.svg',
               width: 16,
               height: 16,
               colorFilter: const ColorFilter.mode(
@@ -320,28 +334,34 @@ class HotelInfoSection extends StatelessWidget {
 
             // Location Text
             Text(
-                location,
-                style: const TextStyle(
-                  fontFamily: 'Instrument Sans',
-                  fontSize: 12,
-                  fontWeight: FontWeight.w400,
-                  color: Color(0xFF6B7280),
-                  height: 1.5,
-                ),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
+              location,
+              style: const TextStyle(
+                fontFamily: 'Instrument Sans',
+                fontSize: 12,
+                fontWeight: FontWeight.w400,
+                color: Color(0xFF6B7280),
+                height: 1.5,
               ),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
 
             // Vertical Divider
             const SizedBox(width: 12),
-            Container(
-              width: 1,
-              height: 16,
-              color: const Color(0xFFE5E7EB),
-            ),
+            Container(width: 1, height: 16, color: const Color(0xFFE5E7EB)),
             const SizedBox(width: 12),
 
             // Review Count
+            SvgPicture.asset(
+              'assets/images/Bookings/Dialog.svg',
+              width: 16,
+              height: 16,
+              colorFilter: const ColorFilter.mode(
+                Color(0xFF6B7280),
+                BlendMode.srcIn,
+              ),
+            ),
+            const SizedBox(width: 6),
             Text(
               '($reviewCount)',
               style: const TextStyle(
@@ -354,6 +374,31 @@ class HotelInfoSection extends StatelessWidget {
             ),
           ],
         ),
+
+        // Distance (if provided)
+        if (distance != null) ...[
+          const SizedBox(height: 8),
+          Row(
+            children: [
+              const Icon(
+                Icons.location_on_outlined,
+                size: 16,
+                color: Color(0xFF6B7280),
+              ),
+              const SizedBox(width: 6),
+              Text(
+                distance!,
+                style: const TextStyle(
+                  fontFamily: 'Instrument Sans',
+                  fontSize: 12,
+                  fontWeight: FontWeight.w400,
+                  color: Color(0xFF6B7280),
+                  height: 1.5,
+                ),
+              ),
+            ],
+          ),
+        ],
       ],
     );
   }
@@ -364,42 +409,33 @@ class HotelInfoSection extends StatelessWidget {
 class HotelTagsRow extends StatelessWidget {
   final List<String> tags;
 
-  const HotelTagsRow({
-    Key? key,
-    required this.tags,
-  }) : super(key: key);
+  const HotelTagsRow({Key? key, required this.tags}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Wrap(
       spacing: 8,
       runSpacing: 8,
-      children: List.generate(
-        tags.length,
-            (index) {
-          return Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(9999),
-              border: Border.all(
-                color: const Color(0xFFF3F4F6),
-                width: 1,
-              ),
-              color: Colors.white,
+      children: List.generate(tags.length, (index) {
+        return Container(
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(9999),
+            border: Border.all(color: const Color(0xFFF3F4F6), width: 1),
+            color: Color(0xffF3F4F6),
+          ),
+          child: Text(
+            tags[index],
+            style: const TextStyle(
+              fontFamily: 'Instrument Sans',
+              fontSize: 12,
+              fontWeight: FontWeight.w400,
+              color: Color(0xFF6B7280),
+              height: 1.5,
             ),
-            child: Text(
-              tags[index],
-              style: const TextStyle(
-                fontFamily: 'Instrument Sans',
-                fontSize: 12,
-                fontWeight: FontWeight.w400,
-                color: Color(0xFF6B7280),
-                height: 1.5,
-              ),
-            ),
-          );
-        },
-      ),
+          ),
+        );
+      }),
     );
   }
 }
@@ -409,10 +445,8 @@ class HotelTagsRow extends StatelessWidget {
 class HotelPriceSection extends StatelessWidget {
   final double pricePerNight;
 
-  const HotelPriceSection({
-    Key? key,
-    required this.pricePerNight,
-  }) : super(key: key);
+  const HotelPriceSection({Key? key, required this.pricePerNight})
+    : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -451,10 +485,7 @@ class HotelPriceSection extends StatelessWidget {
 class HotelCard_Widget extends ConsumerWidget {
   final HotelCard hotel;
 
-  const HotelCard_Widget({
-    Key? key,
-    required this.hotel,
-  }) : super(key: key);
+  const HotelCard_Widget({Key? key, required this.hotel}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -470,10 +501,7 @@ class HotelCard_Widget extends ConsumerWidget {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(16),
-           border: Border.all(
-          color: Colors.grey.shade300,
-          width: 1.0,
-        ),
+          border: Border.all(color: Colors.grey.shade300, width: 1.0),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -488,30 +516,31 @@ class HotelCard_Widget extends ConsumerWidget {
 
             // Hotel Info Section
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal:16.0),
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: HotelInfoSection(
                 title: hotel.title,
                 description: hotel.description,
                 location: hotel.location,
                 reviewCount: hotel.reviewCount,
                 rating: hotel.rating,
+                distance: hotel.distance,
               ),
             ),
             const SizedBox(height: 16),
 
             // Tags Row
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal:16.0),
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: HotelTagsRow(tags: hotel.tags),
             ),
             const SizedBox(height: 16),
 
             // Price Section
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal:16.0),
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: HotelPriceSection(pricePerNight: hotel.pricePerNight),
             ),
-             const SizedBox(height: 16),
+            const SizedBox(height: 16),
           ],
         ),
       ),
@@ -535,9 +564,7 @@ class HotelCardsScroll extends ConsumerWidget {
         itemCount: hotels.length,
         itemBuilder: (context, index) {
           return Padding(
-            padding: EdgeInsets.only(
-              left: index == 0 ? 16 : 0,
-            ),
+            padding: EdgeInsets.only(left: index == 0 ? 16 : 0),
             child: HotelCard_Widget(hotel: hotels[index]),
           );
         },
@@ -552,11 +579,8 @@ class HotelSection extends ConsumerWidget {
   final String title;
   final String? subtitle;
 
-  const HotelSection({
-    Key? key,
-    this.title = 'Popular Stays',
-    this.subtitle,
-  }) : super(key: key);
+  const HotelSection({Key? key, this.title = 'Popular Stays', this.subtitle})
+    : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
