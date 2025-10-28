@@ -80,19 +80,43 @@ class StaysDetailsPage extends ConsumerWidget {
 
                       // Photo Gallery
                       _buildPhotoGallery(),
-                      const SizedBox(height: 24),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 24.0),
+                        child: Divider(
+                          color: Color(0xFFE5E7EB),
+                          height: 1,
+                        ),
+                      ),
 
                       // Amenities
                       _buildAmenities(),
-                      const SizedBox(height: 24),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 24.0),
+                        child: Divider(
+                          color: Color(0xFFE5E7EB),
+                          height: 1,
+                        ),
+                      ),
 
                       // Highlights
                       _buildHighlights(),
-                      const SizedBox(height: 24),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 24.0),
+                        child: Divider(
+                          color: Color(0xFFE5E7EB),
+                          height: 1,
+                        ),
+                      ),
 
                       // Important Information
                       _buildImportantInfo(),
-                      const SizedBox(height: 24),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 24.0),
+                        child: Divider(
+                          color: Color(0xFFE5E7EB),
+                          height: 1,
+                        ),
+                      ),
 
                       // Recent Reviews
                       _buildRecentReviews(ref),
@@ -381,7 +405,7 @@ class StaysDetailsPage extends ConsumerWidget {
                   decoration: BoxDecoration(
                     image: const DecorationImage(
                       image: AssetImage(
-                        'assets/images/Bookings/stays/RITZ.png',
+                        'assets/images/Bookings/ritz1.png',
                       ),
                       fit: BoxFit.cover,
                     ),
@@ -398,7 +422,7 @@ class StaysDetailsPage extends ConsumerWidget {
                   decoration: BoxDecoration(
                     image: const DecorationImage(
                       image: AssetImage(
-                        'assets/images/Bookings/stays/RITZ.png',
+                        'assets/images/Bookings/ritz2.png',
                       ),
                       fit: BoxFit.cover,
                     ),
@@ -415,7 +439,7 @@ class StaysDetailsPage extends ConsumerWidget {
                   decoration: BoxDecoration(
                     image: const DecorationImage(
                       image: AssetImage(
-                        'assets/images/Bookings/stays/RITZ.png',
+                        'assets/images/Bookings/ritz3.png',
                       ),
                       fit: BoxFit.cover,
                     ),
@@ -586,10 +610,11 @@ class StaysDetailsPage extends ConsumerWidget {
         Expanded(
           child: Text(
             value,
+            textAlign: TextAlign.right,
             style: const TextStyle(
               fontFamily: 'Instrument Sans',
-              fontSize: 14,
-              fontWeight: FontWeight.w400,
+              fontSize: 11,
+              fontWeight: FontWeight.w600,
               color: Color(0xFF6B7280),
               height: 1.5,
             ),
@@ -660,35 +685,35 @@ class StaysDetailsPage extends ConsumerWidget {
         border: Border.all(color: const Color(0xFFF3F4F6), width: 1),
         color: Colors.white,
       ),
-      child: Column(
+      child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              // Avatar
-              Container(
-                width: 40,
-                height: 40,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: const Color(0xFFF3F4F6),
-                ),
-                child: Center(
-                  child: Text(
-                    review.avatar,
-                    style: const TextStyle(
-                      fontFamily: 'Instrument Sans',
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      color: Color(0xFF111827),
-                    ),
-                  ),
+          // Avatar
+          Container(
+            width: 40,
+            height: 40,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: const Color(0xFFF3F4F6),
+            ),
+            child: Center(
+              child: Text(
+                review.avatar,
+                style: const TextStyle(
+                  fontFamily: 'Instrument Sans',
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  color: Color(0xFF111827),
                 ),
               ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+            ),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
                   children: [
                     Text(
                       review.reviewerName,
@@ -700,6 +725,7 @@ class StaysDetailsPage extends ConsumerWidget {
                         height: 1.5,
                       ),
                     ),
+                    const SizedBox(width: 8),
                     Row(
                       children: List.generate(5, (index) {
                         return Padding(
@@ -716,18 +742,18 @@ class StaysDetailsPage extends ConsumerWidget {
                     ),
                   ],
                 ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 12),
-          Text(
-            review.reviewText,
-            style: const TextStyle(
-              fontFamily: 'Instrument Sans',
-              fontSize: 14,
-              fontWeight: FontWeight.w400,
-              color: Color(0xFF6B7280),
-              height: 1.5,
+                const SizedBox(height: 12),
+                Text(
+                  review.reviewText,
+                  style: const TextStyle(
+                    fontFamily: 'Instrument Sans',
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                    color: Color(0xFF6B7280),
+                    height: 1.5,
+                  ),
+                ),
+              ],
             ),
           ),
         ],

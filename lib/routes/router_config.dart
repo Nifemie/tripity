@@ -33,6 +33,12 @@ import 'package:tripitify/views/Booking/stays_details.dart';
 import 'package:tripitify/views/Booking/experiences.dart';
 import 'package:tripitify/views/Booking/events.dart';
 import 'package:tripitify/views/Booking/experience_details.dart';
+import 'package:tripitify/views/Booking/booking_details.dart';
+import 'package:tripitify/views/Booking/personal_details.dart';
+import 'package:tripitify/views/Booking/Bookings_payment.dart';
+import 'package:tripitify/views/Booking/booking_confirmed.dart';
+import 'package:tripitify/views/Booking/add_to_trip.dart';
+import 'package:tripitify/views/Booking/Booking_trip-confirmation.dart';
 
 final GoRouter router = GoRouter(
   routes: <GoRoute>[
@@ -217,6 +223,47 @@ final GoRouter router = GoRouter(
       builder:
           (BuildContext context, GoRouterState state) =>
               const StaysDetailsPage(),
+    ),
+    GoRoute(
+      path: '/booking-details',
+      builder:
+          (BuildContext context, GoRouterState state) =>
+              const BookingDetailsPage(),
+    ),
+    GoRoute(
+      path: '/personal-details',
+      builder:
+          (BuildContext context, GoRouterState state) =>
+              const PersonalDetailsPage(),
+    ),
+    GoRoute(
+      path: '/payment-confirmation',
+      builder:
+          (BuildContext context, GoRouterState state) =>
+              const PaymentConfirmationPage(),
+    ),
+    GoRoute(
+      path: '/booking-confirmed',
+      builder:
+          (BuildContext context, GoRouterState state) =>
+              const BookingConfirmedPage(),
+    ),
+    GoRoute(
+      path: '/add-to-trip',
+      builder:
+          (BuildContext context, GoRouterState state) => const AddToTripPage(),
+    ),
+    GoRoute(
+      path: '/trip-confirmation',
+      builder: (BuildContext context, GoRouterState state) {
+        final extra = state.extra as Map<String, String>?;
+        return BookingTripConfirmationPage(
+          tripName: extra?['tripName'] ?? 'European Getaway',
+          experienceName:
+              extra?['experienceName'] ??
+              'Paris Walking Tour: Montmartre & Artists',
+        );
+      },
     ),
   ],
 );

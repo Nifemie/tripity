@@ -21,6 +21,7 @@ import 'package:tripitify/widgets/home_widgets/quick_tip_section.dart';
 import 'package:tripitify/models/home_screen/location_state.dart';
 import 'package:tripitify/widgets/home_widgets/top_bar.dart';
 import '../Trips_screen/Trip_screen.dart';
+import '../more/more_screen.dart';
 import '../Booking/bookings.dart';
 import '../../widgets/home_widgets/experiences_card.dart';
 import '../../widgets/home_widgets/community.dart';
@@ -48,7 +49,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     const DiscoverDestinationScreen(),
     const TripPage(),
     const BookingPage(),
-    const Center(child: Text('More')),
+    const MoreScreen(),
   ];
 
   void _onNavigationTap(int index) {

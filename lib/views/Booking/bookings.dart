@@ -6,7 +6,7 @@ import '../../widgets/Bookings_widget/search_widget.dart';
 import '../../widgets/Bookings_widget/category_widget.dart';
 import '../../widgets/Bookings_widget/flight_card_widget.dart';
 import '../../widgets/Bookings_widget/hotel_card_widget.dart';
-
+import 'cart.dart';
 
 class BookingPage extends ConsumerWidget {
   const BookingPage({Key? key}) : super(key: key);
@@ -45,7 +45,8 @@ class BookingPage extends ConsumerWidget {
                     // Flight Section
                     const FlightSection(
                       title: 'Ready to take off?',
-                      subtitle: 'Since you explored New York City, here are top flight deals from Milan.',
+                      subtitle:
+                          'Since you explored New York City, here are top flight deals from Milan.',
                     ),
 
                     const SizedBox(height: 32),
@@ -53,7 +54,8 @@ class BookingPage extends ConsumerWidget {
                     // Hotel Section
                     const HotelSection(
                       title: 'Stay in the heart of the city that never sleeps',
-                      subtitle: 'Based on your interest in New York City, these stays are trending right now..',
+                      subtitle:
+                          'Based on your interest in New York City, these stays are trending right now..',
                     ),
 
                     const SizedBox(height: 32),
@@ -88,8 +90,11 @@ class BookingPage extends ConsumerWidget {
           // Cart Icon
           GestureDetector(
             onTap: () {
-              // Handle cart tap
-              print('Cart tapped');
+              // Navigate to Cart Page
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const CartPage()),
+              );
             },
             child: Container(
               width: 44,
@@ -254,4 +259,3 @@ class BookingPage extends ConsumerWidget {
 //     );
 //   }
 // }
-

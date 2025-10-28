@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 // ==================== QUANTITY PROVIDER ====================
 
@@ -21,8 +22,6 @@ class BookingFooter extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final quantity = ref.watch(bookingQuantityProvider);
-
     return Container(
       decoration: const BoxDecoration(
         color: Color(0xFFFFFFFF),
@@ -73,11 +72,8 @@ class BookingFooter extends ConsumerWidget {
               // Plus Button (Single)
               GestureDetector(
                 onTap: () {
-                  if (quantity < 15) {
-                    // Max 15 people
-                    ref.read(bookingQuantityProvider.notifier).state =
-                        quantity + 1;
-                  }
+                  // Navigate to Add to Trip page
+                  context.push('/add-to-trip');
                 },
                 child: Container(
                   width: 52,

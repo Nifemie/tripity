@@ -4,6 +4,7 @@ import 'package:tripitify/widgets/Bookings_widget/Events_tab.dart';
 import 'package:tripitify/widgets/Bookings_widget/event_card_widget.dart';
 import 'package:tripitify/widgets/Bookings_widget/custom_reusable_button.dart';
 import 'package:flutter_svg/svg.dart';
+import 'dart:ui';
 
 class EventsPage extends ConsumerWidget {
   const EventsPage({super.key});
@@ -185,23 +186,28 @@ class EventsPage extends ConsumerWidget {
                                     };
                                   }
                                 },
-                                child: Container(
-                                  width: 40,
-                                  height: 40,
-                                  padding: const EdgeInsets.all(8),
-                                  decoration: const BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: Color(0xFFF3F4F6),
-                                  ),
-                                  child: Icon(
-                                    isFavorite
-                                        ? Icons.favorite
-                                        : Icons.favorite_border,
-                                    size: 20,
-                                    color:
+                                child: ClipOval(
+                                  child: BackdropFilter(
+                                    filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+                                    child: Container(
+                                      width: 40,
+                                      height: 40,
+                                      padding: const EdgeInsets.all(8),
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: const Color(0x3D000000),
+                                      ),
+                                      child: Icon(
                                         isFavorite
-                                            ? const Color(0xFFEF4444)
-                                            : const Color(0xFF9CA3AF),
+                                            ? Icons.favorite
+                                            : Icons.favorite_border,
+                                        size: 20,
+                                        color:
+                                            isFavorite
+                                                ? const Color(0xFFEF4444)
+                                                : const Color(0xFF9CA3AF),
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
