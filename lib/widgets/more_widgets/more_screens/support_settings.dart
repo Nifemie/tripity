@@ -1,42 +1,45 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 
 // Support Data Model
 class SupportItem {
   final String title;
   final String subtitle;
   final String iconPath;
-  final VoidCallback? onTap;
+  final String? route;
+  final VoidCallback? customAction;
 
   const SupportItem({
     required this.title,
     required this.subtitle,
     required this.iconPath,
-    this.onTap,
+    this.route,
+    this.customAction,
   });
 }
 
 // Support items provider
 final supportItemsProvider = Provider<List<SupportItem>>((ref) {
   return [
-    SupportItem(
+    const SupportItem(
       title: 'Settings',
       subtitle: 'Manage app preferences and security',
-      iconPath: 'assets/nice/icons.svg',
-      onTap: () => print('Settings tapped'),
+      iconPath: 'assets/images/more/Settings.svg',
+      route: '/settings',
     ),
     SupportItem(
       title: 'Help & Support',
       subtitle: 'Get answers or contact support',
-      iconPath: 'assets/nice/icons.svg',
-      onTap: () => print('Help & Support tapped'),
+      iconPath: 'assets/images/more/Question_Circle.svg',
+      customAction: () => print('Help & Support tapped'),
     ),
     SupportItem(
       title: 'Invite Friends',
       subtitle: 'Share Triptify with others',
-      iconPath: 'assets/nice/icons.svg',
-      onTap: () => print('Invite Friends tapped'),
+      iconPath: 'assets/images/more/Share.svg',
+      customAction: () => print('Invite Friends tapped'),
     ),
   ];
 });
@@ -74,7 +77,16 @@ class SupportWidget extends ConsumerWidget {
 
             return Column(
               children: [
-                _SupportListTile(item: item),
+                _SupportListTile(
+                  item: item,
+                  onTap: () {
+                    if (item.route != null) {
+                      context.go(item.route!);
+                    } else if (item.customAction != null) {
+                      item.customAction!();
+                    }
+                  },
+                ),
                 if (!isLast)
                   const Padding(
                     padding: EdgeInsets.only(left: 68),
@@ -96,15 +108,19 @@ class SupportWidget extends ConsumerWidget {
 // Support List Tile
 class _SupportListTile extends StatelessWidget {
   final SupportItem item;
+  final VoidCallback onTap;
 
-  const _SupportListTile({required this.item});
+  const _SupportListTile({
+    required this.item,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Material(
       color: Colors.transparent,
       child: InkWell(
-        onTap: item.onTap,
+        onTap: onTap,
         borderRadius: BorderRadius.circular(24),
         child: Padding(
           padding: const EdgeInsets.all(16),

@@ -79,6 +79,7 @@ flutter:
     - assets/images/Bookings/stays/
     - assets/images/Bookings/experience/
     - assets/images/Bookings/events/
+    - assets/images/more/
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

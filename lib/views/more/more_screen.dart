@@ -6,6 +6,7 @@ import '../../widgets/more_widgets/more_screens/communication_widget.dart';
 import '../../widgets/more_widgets/more_screens/support_settings.dart';
 import '../../widgets/more_widgets/more_screens/profile_widget.dart';
 import '../../widgets/more_widgets/more_screens/Travel_management_widget.dart';
+import 'package:go_router/go_router.dart';
 
 
 class MoreScreen extends ConsumerWidget {
@@ -59,7 +60,7 @@ class MoreScreen extends ConsumerWidget {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             SvgPicture.asset(
-                              'assets/icons/vide.svg',
+                              'assets/images/more/Logout.svg',
                               width: 20,
                               height: 20,
                               colorFilter: const ColorFilter.mode(
@@ -86,12 +87,10 @@ class MoreScreen extends ConsumerWidget {
                 const SizedBox(height: 24),
 
                 // Profile Widget
-                const TravelProfileCard(
-                  // avatarUrl: 'https://i.pravatar.cc/150?img=12',
-                  // fullName: 'Benjamin Adeyemi',
-                  // email: 'ben.adeyemi@email.com',
-                  // tripsCompleted: 5,
-                  // memberSinceYear: 2025,
+                TravelProfileCard(
+                  onTap: () {
+                    context.go('/profile');  // or context.push('/profile')
+                  },
                 ),
 
                 const SizedBox(height: 24),

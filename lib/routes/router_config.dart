@@ -39,6 +39,8 @@ import 'package:tripitify/views/Booking/Bookings_payment.dart';
 import 'package:tripitify/views/Booking/booking_confirmed.dart';
 import 'package:tripitify/views/Booking/add_to_trip.dart';
 import 'package:tripitify/views/Booking/Booking_trip-confirmation.dart';
+import 'package:tripitify/views/more/settings.dart';
+import 'package:tripitify/views/more/profile_screen.dart';
 
 final GoRouter router = GoRouter(
   routes: <GoRoute>[
@@ -264,6 +266,16 @@ final GoRouter router = GoRouter(
               'Paris Walking Tour: Montmartre & Artists',
         );
       },
+    ),
+    GoRoute(
+      path: '/settings',
+      builder:
+          (BuildContext context, GoRouterState state) => const SettingsScreen(),
+    ),
+    GoRoute(
+      path: '/profile',
+      builder:
+          (BuildContext context, GoRouterState state) => const ProfileScreen(),
     ),
   ],
 );

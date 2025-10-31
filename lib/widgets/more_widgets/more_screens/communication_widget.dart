@@ -34,14 +34,14 @@ final communicationItemsProvider = Provider<List<CommunicationItem>>((ref) {
     CommunicationItem(
       title: 'Chats',
       subtitle: 'Messages with trip planners',
-      iconPath: 'assets/nice/icons.svg',
+      iconPath: 'assets/images/more/Chat_Dots.svg',
       newCount: chatsCount,
       onTap: () => print('Chats tapped'),
     ),
     CommunicationItem(
       title: 'Notifications',
       subtitle: 'Trip updates and alerts',
-      iconPath: 'assets/nice/icons.svg',
+      iconPath: 'assets/images/more/notification.svg',
       newCount: notificationsCount,
       onTap: () => print('Notifications tapped'),
     ),

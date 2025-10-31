@@ -1,47 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
-// Traveler Data Model
-class TravelerItem {
+// Advanced Data Model
+class AdvancedItem {
   final String title;
   final String subtitle;
-  final String iconPath;
+  final bool isDanger;
   final VoidCallback? onTap;
 
-  const TravelerItem({
+  const AdvancedItem({
     required this.title,
     required this.subtitle,
-    required this.iconPath,
+    this.isDanger = false,
     this.onTap,
   });
 }
 
-// Traveler items provider
-final travelerItemsProvider = Provider<List<TravelerItem>>((ref) {
+// Advanced items provider
+final advancedItemsProvider = Provider<List<AdvancedItem>>((ref) {
   return [
-    TravelerItem(
-      title: 'Travel Calendar',
-      subtitle: 'Sync with your trips',
-      iconPath: 'assets/images/more/Calendar.svg',
-      onTap: () => print('Travel Calendar tapped'),
+    AdvancedItem(
+      title: 'Clear Cache',
+      subtitle: 'Free up storage space',
+      isDanger: false,
+      onTap: () => print('Clear Cache tapped'),
     ),
-    TravelerItem(
-      title: 'Reviews & Ratings',
-      subtitle: 'Rate your experiences',
-      iconPath: 'assets/images/more/Star.svg',
-      onTap: () => print('Reviews & Ratings tapped'),
+    AdvancedItem(
+      title: 'Reset Settings',
+      subtitle: 'Reset all settings to defaults',
+      isDanger: true,
+      onTap: () => print('Reset Settings tapped'),
     ),
   ];
 });
 
-// Traveler Management Widget
-class TravelerManagement extends ConsumerWidget {
-  const TravelerManagement({Key? key}) : super(key: key);
+// Advanced Widget
+class AdvancedWidget extends ConsumerWidget {
+  const AdvancedWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final travelerItems = ref.watch(travelerItemsProvider);
+    final advancedItems = ref.watch(advancedItemsProvider);
 
     return Container(
       decoration: BoxDecoration(
@@ -61,22 +60,21 @@ class TravelerManagement extends ConsumerWidget {
       ),
       child: Column(
         children: List.generate(
-          travelerItems.length,
+          advancedItems.length,
               (index) {
-            final item = travelerItems[index];
-            final isLast = index == travelerItems.length - 1;
+            final item = advancedItems[index];
+            final isLast = index == advancedItems.length - 1;
 
             return Column(
               children: [
-                _TravelerListTile(item: item),
+                _AdvancedListTile(item: item),
                 if (!isLast)
-                  const Padding(
-                    padding: EdgeInsets.only(left: 68),
-                    child: Divider(
-                      height: 1,
-                      thickness: 1,
-                      color: Color(0xFFF3F4F6),
-                    ),
+                  const Divider(
+                    height: 1,
+                    thickness: 1,
+                    color: Color(0xFFF3F4F6),
+                    indent: 16,
+                    endIndent: 16,
                   ),
               ],
             );
@@ -87,11 +85,11 @@ class TravelerManagement extends ConsumerWidget {
   }
 }
 
-// Traveler List Tile
-class _TravelerListTile extends StatelessWidget {
-  final TravelerItem item;
+// Advanced List Tile
+class _AdvancedListTile extends StatelessWidget {
+  final AdvancedItem item;
 
-  const _TravelerListTile({required this.item});
+  const _AdvancedListTile({required this.item});
 
   @override
   Widget build(BuildContext context) {
@@ -104,28 +102,6 @@ class _TravelerListTile extends StatelessWidget {
           padding: const EdgeInsets.all(16),
           child: Row(
             children: [
-              // Icon Container
-              Container(
-                width: 40,
-                height: 40,
-                decoration: const BoxDecoration(
-                  color: Color(0xFFF3F4F6),
-                  shape: BoxShape.circle,
-                ),
-                child: Center(
-                  child: SvgPicture.asset(
-                    item.iconPath,
-                    width: 20,
-                    height: 20,
-                    colorFilter: const ColorFilter.mode(
-                      Color(0xFF111827),
-                      BlendMode.srcIn,
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(width: 12),
-
               // Text Content
               Expanded(
                 child: Column(
@@ -134,8 +110,10 @@ class _TravelerListTile extends StatelessWidget {
                   children: [
                     Text(
                       item.title,
-                      style: const TextStyle(
-                        color: Color(0xFF111827),
+                      style: TextStyle(
+                        color: item.isDanger
+                            ? const Color(0xFFEF4444)
+                            : const Color(0xFF111827),
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
                         height: 1.5,
@@ -164,6 +142,27 @@ class _TravelerListTile extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+// Example Usage
+class AdvancedWidgetExample extends ConsumerWidget {
+  const AdvancedWidgetExample({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Scaffold(
+      backgroundColor: const Color(0xFFF9FAFB),
+      appBar: AppBar(
+        title: const Text('Advanced'),
+        backgroundColor: Colors.white,
+        elevation: 0,
+      ),
+      body: const Padding(
+        padding: EdgeInsets.all(16),
+        child: AdvancedWidget(),
       ),
     );
   }

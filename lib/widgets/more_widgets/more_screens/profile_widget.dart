@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 // User Model
 class UserProfile {
@@ -157,14 +158,3 @@ class TravelProfileCard extends ConsumerWidget {
     );
   }
 }
-
-
-
-// How to update the profile (example):
-// ref.read(userProfileProvider.notifier).state = UserProfile(
-//   avatarUrl: 'new_url',
-//   fullName: 'New Name',
-//   email: 'new@email.com',
-//   tripsCompleted: 10,
-//   memberSinceYear: 2024,
-// );
