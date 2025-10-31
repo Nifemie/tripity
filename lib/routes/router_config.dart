@@ -1,3 +1,5 @@
+import 'package:tripitify/views/more/edit_profile.dart';
+import 'package:tripitify/views/more/edit_profile2.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter/material.dart';
 import 'package:tripitify/views/onboarding_screens/screens/personal/PurposeScreen.dart';
@@ -276,6 +278,18 @@ final GoRouter router = GoRouter(
       path: '/profile',
       builder:
           (BuildContext context, GoRouterState state) => const ProfileScreen(),
+    ),
+    GoRoute(
+      path: '/edit-profile',
+      builder:
+          (BuildContext context, GoRouterState state) =>
+              const EditProfilePage(),
+    ),
+    GoRoute(
+      path: '/edit-profile-2',
+      builder:
+          (BuildContext context, GoRouterState state) =>
+              const EditProfileStep2Page(),
     ),
   ],
 );
