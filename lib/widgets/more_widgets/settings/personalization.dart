@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'selection_dialog.dart';
 
 // Personalization Data Model
 class PersonalizationItem {
@@ -23,38 +24,103 @@ final languageProvider = StateProvider<String>((ref) => 'English (US)');
 // Currency provider
 final currencyProvider = StateProvider<String>((ref) => 'USD (\$)');
 
-// Personalization items provider
-final personalizationItemsProvider = Provider<List<PersonalizationItem>>((ref) {
-  final theme = ref.watch(themeProvider);
-  final language = ref.watch(languageProvider);
-  final currency = ref.watch(currencyProvider);
+// Theme options
+const List<String> themeOptions = [
+  'System default',
+  'Light',
+  'Dark',
+];
 
-  return [
-    PersonalizationItem(
-      title: 'Theme',
-      value: theme,
-      onTap: () => print('Theme tapped'),
-    ),
-    PersonalizationItem(
-      title: 'Language',
-      value: language,
-      onTap: () => print('Language tapped'),
-    ),
-    PersonalizationItem(
-      title: 'Currency',
-      value: currency,
-      onTap: () => print('Currency tapped'),
-    ),
-  ];
-});
+// Language options
+const List<String> languageOptions = [
+  'English (US)',
+  'English (UK)',
+  'Spanish',
+  'French',
+  'German',
+  'Portuguese',
+  'Italian',
+  'Chinese (Simplified)',
+  'Japanese',
+];
+
+// Currency options
+const List<String> currencyOptions = [
+  'USD (\$)',
+  'EUR (€)',
+  'GBP (£)',
+  'CAD (\$)',
+  'AUD (\$)',
+  'JPY (¥)',
+  'CNY (¥)',
+];
 
 // Personalization Widget
 class PersonalizationWidget extends ConsumerWidget {
-  const PersonalizationWidget({Key? key}) : super(key: key);
+  const PersonalizationWidget({super.key});
+
+  void _showThemeDialog(BuildContext context, WidgetRef ref) {
+    final currentTheme = ref.read(themeProvider);
+    showSelectionDialog(
+      context: context,
+      title: 'Choose Theme',
+      options: themeOptions,
+      selectedValue: currentTheme,
+      onSelected: (value) {
+        ref.read(themeProvider.notifier).state = value;
+      },
+    );
+  }
+
+  void _showLanguageDialog(BuildContext context, WidgetRef ref) {
+    final currentLanguage = ref.read(languageProvider);
+    showSelectionDialog(
+      context: context,
+      title: 'Choose Language',
+      options: languageOptions,
+      selectedValue: currentLanguage,
+      onSelected: (value) {
+        ref.read(languageProvider.notifier).state = value;
+      },
+    );
+  }
+
+  void _showCurrencyDialog(BuildContext context, WidgetRef ref) {
+    final currentCurrency = ref.read(currencyProvider);
+    showSelectionDialog(
+      context: context,
+      title: 'Choose Currency',
+      options: currencyOptions,
+      selectedValue: currentCurrency,
+      onSelected: (value) {
+        ref.read(currencyProvider.notifier).state = value;
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final personalizationItems = ref.watch(personalizationItemsProvider);
+    final theme = ref.watch(themeProvider);
+    final language = ref.watch(languageProvider);
+    final currency = ref.watch(currencyProvider);
+
+    final personalizationItems = [
+      PersonalizationItem(
+        title: 'Theme',
+        value: theme,
+        onTap: () => _showThemeDialog(context, ref),
+      ),
+      PersonalizationItem(
+        title: 'Language',
+        value: language,
+        onTap: () => _showLanguageDialog(context, ref),
+      ),
+      PersonalizationItem(
+        title: 'Currency',
+        value: currency,
+        onTap: () => _showCurrencyDialog(context, ref),
+      ),
+    ];
 
     return Container(
       decoration: BoxDecoration(
@@ -75,7 +141,7 @@ class PersonalizationWidget extends ConsumerWidget {
       child: Column(
         children: List.generate(
           personalizationItems.length,
-              (index) {
+          (index) {
             final item = personalizationItems[index];
             final isLast = index == personalizationItems.length - 1;
 

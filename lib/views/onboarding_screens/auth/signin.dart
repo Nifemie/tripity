@@ -3,7 +3,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:go_router/go_router.dart';
 
-
 class SignInPage extends StatefulWidget {
   const SignInPage({Key? key}) : super(key: key);
 
@@ -207,7 +206,7 @@ class _SignInPageState extends State<SignInPage> {
                 ),
                 child: ElevatedButton(
                   onPressed: () {
-                    context.go('/HomeScreen'); // Handle sign in
+                    context.push('/HomeScreen'); // Handle sign in
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.transparent,
@@ -275,7 +274,8 @@ class _SignInPageState extends State<SignInPage> {
                         onTap: () {},
                         borderRadius: BorderRadius.circular(9999),
                         child: Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 24, vertical: 16),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -318,7 +318,8 @@ class _SignInPageState extends State<SignInPage> {
                         onTap: () {},
                         borderRadius: BorderRadius.circular(9999),
                         child: Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 24, vertical: 16),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -361,7 +362,8 @@ class _SignInPageState extends State<SignInPage> {
                         onTap: () {},
                         borderRadius: BorderRadius.circular(9999),
                         child: Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 24, vertical: 16),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -406,7 +408,7 @@ class _SignInPageState extends State<SignInPage> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      context.go('/signup');
+                      context.push('/signup');
                     },
                     child: const Text(
                       'Sign Up',
@@ -457,7 +459,8 @@ class _SignInPageState extends State<SignInPage> {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-    SvgPicture.asset('assets/images/signin_icons/Letter.svg', width: 20, height: 20, color: Colors.grey.shade400),
+          SvgPicture.asset('assets/images/signin_icons/Letter.svg',
+              width: 20, height: 20, color: Colors.grey.shade400),
 
           const SizedBox(width: 12),
 
@@ -513,7 +516,8 @@ class _SignInPageState extends State<SignInPage> {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-  SvgPicture.asset('assets/images/signin_icons/Key.svg', width: 20, height: 20, color: Colors.grey.shade400),
+          SvgPicture.asset('assets/images/signin_icons/Key.svg',
+              width: 20, height: 20, color: Colors.grey.shade400),
 
           const SizedBox(width: 12),
 

@@ -117,8 +117,7 @@ class PaymentConfirmationPage extends ConsumerWidget {
                     const SizedBox(height: 12),
                     _buildPaymentMethods(ref, selectedPaymentMethod),
                     const SizedBox(height: 24),
-
-                    ],
+                  ],
                 ),
               ),
             ),
@@ -134,11 +133,13 @@ class PaymentConfirmationPage extends ConsumerWidget {
               ),
             ),
             child: SafeArea(
-              child: Column( // Changed to Column to hold both text and row of buttons
+              child: Column(
+                // Changed to Column to hold both text and row of buttons
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   _buildTermsText(), // Moved here
-                  const SizedBox(height: 16), // Spacing between text and buttons
+                  const SizedBox(
+                      height: 16), // Spacing between text and buttons
                   Row(
                     children: [
                       // Cancel Button
@@ -369,16 +370,14 @@ class PaymentConfirmationPage extends ConsumerWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(24),
               border: Border.all(
-                color:
-                    selectedMethod == 'wallet'
-                        ? const Color(0xFF3B82F6)
-                        : const Color(0xFFF3F4F6),
+                color: selectedMethod == 'wallet'
+                    ? const Color(0xFF3B82F6)
+                    : const Color(0xFFF3F4F6),
                 width: 1,
               ),
-              color:
-                  selectedMethod == 'wallet'
-                      ? const Color(0xFFEFF6FF)
-                      : const Color(0xFFF3F4F6),
+              color: selectedMethod == 'wallet'
+                  ? const Color(0xFFEFF6FF)
+                  : const Color(0xFFF3F4F6),
             ),
             child: Row(
               children: [
@@ -451,16 +450,14 @@ class PaymentConfirmationPage extends ConsumerWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(24),
               border: Border.all(
-                color:
-                    selectedMethod == 'online'
-                        ? const Color(0xFF3B82F6)
-                        : const Color(0xFFF3F4F6),
+                color: selectedMethod == 'online'
+                    ? const Color(0xFF3B82F6)
+                    : const Color(0xFFF3F4F6),
                 width: 1,
               ),
-              color:
-                  selectedMethod == 'online'
-                      ? const Color(0xFFEFF6FF)
-                      : const Color(0xFFF3F4F6),
+              color: selectedMethod == 'online'
+                  ? const Color(0xFFEFF6FF)
+                  : const Color(0xFFF3F4F6),
             ),
             child: Row(
               children: [
@@ -468,7 +465,8 @@ class PaymentConfirmationPage extends ConsumerWidget {
                 Container(
                   width: 48,
                   height: 48,
-                  decoration: const BoxDecoration( // Changed to const as color is now fixed
+                  decoration: const BoxDecoration(
+                    // Changed to const as color is now fixed
                     color: Colors.white, // Always white background
                     shape: BoxShape.circle,
                   ),
@@ -635,6 +633,6 @@ class PaymentConfirmationPage extends ConsumerWidget {
 
   void _confirmBooking(BuildContext context, WidgetRef ref) {
     // Navigate to booking confirmed page
-    context.go('/booking-confirmed');
+    context.push('/booking-confirmed');
   }
 }

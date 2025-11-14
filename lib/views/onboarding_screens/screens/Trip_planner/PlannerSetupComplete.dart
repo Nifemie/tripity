@@ -88,7 +88,7 @@ class PlannerSetupComplete extends ConsumerWidget {
                 ),
                 child: ElevatedButton(
                   onPressed: () {
-                    context.go('/HomeScreen');
+                    context.push('/HomeScreen');
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.transparent,

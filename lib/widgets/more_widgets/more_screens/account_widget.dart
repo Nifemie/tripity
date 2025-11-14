@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 
 // Account Data Model
 class AccountItem {
@@ -26,48 +27,43 @@ class AccountItem {
 // Wishlist count provider
 final wishlistCountProvider = StateProvider<int>((ref) => 2);
 
-// Account items provider
-final accountItemsProvider = Provider<List<AccountItem>>((ref) {
-  final wishlistCount = ref.watch(wishlistCountProvider);
-
-  return [
-    AccountItem(
-      title: 'Wishlist',
-      subtitle: 'Saved destinations & bookings',
-      iconPath: 'assets/images/more/Heart.svg',
-      badgeCount: wishlistCount,
-      onTap: () => print('Wishlist tapped'),
-    ),
-    AccountItem(
-      title: 'My Bookings',
-      subtitle: 'View all your reservations',
-      iconPath: 'assets/images/more/Calendar.svg',
-      onTap: () => print('My Bookings tapped'),
-    ),
-    AccountItem(
-      title: 'Wallet',
-      subtitle: 'Manage your payments and balances',
-      iconPath: 'assets/images/more/Wallet.svg',
-      onTap: () => print('Wallet tapped'),
-    ),
-    AccountItem(
-      title: 'Subscribe to Premium',
-      subtitle: 'Unlock more with Premium',
-      iconPath: 'assets/images/more/Box.svg',
-      hasGradient: true,
-      badgeText: 'Free',
-      onTap: () => print('Premium tapped'),
-    ),
-  ];
-});
-
 // Account Widget
 class AccountWidget extends ConsumerWidget {
   const AccountWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final accountItems = ref.watch(accountItemsProvider);
+    final wishlistCount = ref.watch(wishlistCountProvider);
+
+    final accountItems = [
+      AccountItem(
+        title: 'Wishlist',
+        subtitle: 'Saved destinations & bookings',
+        iconPath: 'assets/images/more/Heart.svg',
+        badgeCount: wishlistCount,
+        onTap: () => context.push('/wishlist'),
+      ),
+      AccountItem(
+        title: 'My Bookings',
+        subtitle: 'View all your reservations',
+        iconPath: 'assets/images/more/Calendar.svg',
+        onTap: () => context.push('/my-bookings'),
+      ),
+      AccountItem(
+        title: 'Wallet',
+        subtitle: 'Manage your payments and balances',
+        iconPath: 'assets/images/more/Wallet.svg',
+        onTap: () => context.push('/wallet'),
+      ),
+      AccountItem(
+        title: 'Subscribe to Premium',
+        subtitle: 'Unlock more with Premium',
+        iconPath: 'assets/images/more/Box.svg',
+        hasGradient: true,
+        badgeText: 'Free',
+        onTap: () => context.push('/subscription'),
+      ),
+    ];
 
     return Container(
       decoration: BoxDecoration(
@@ -88,7 +84,7 @@ class AccountWidget extends ConsumerWidget {
       child: Column(
         children: List.generate(
           accountItems.length,
-              (index) {
+          (index) {
             final item = accountItems[index];
             final isLast = index == accountItems.length - 1;
 
@@ -137,15 +133,15 @@ class _AccountListTile extends StatelessWidget {
                 decoration: BoxDecoration(
                   gradient: item.hasGradient
                       ? const LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    colors: [
-                      Color(0xFF3B82F6),
-                      Color(0xFF2563EB),
-                      Color(0xFF1E40AF),
-                    ],
-                    stops: [0.0, 0.51, 1.0],
-                  )
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [
+                            Color(0xFF3B82F6),
+                            Color(0xFF2563EB),
+                            Color(0xFF1E40AF),
+                          ],
+                          stops: [0.0, 0.51, 1.0],
+                        )
                       : null,
                   color: item.hasGradient ? null : const Color(0xFFF3F4F6),
                   shape: BoxShape.circle,

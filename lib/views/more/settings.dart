@@ -16,6 +16,7 @@ class SettingsScreen extends ConsumerWidget {
       backgroundColor: const Color(0xFFF9FAFB),
       appBar: AppBar(
         backgroundColor: Colors.white,
+        surfaceTintColor: Colors.white,
         elevation: 0,
         leading: IconButton(
           icon: const Icon(
@@ -28,7 +29,8 @@ class SettingsScreen extends ConsumerWidget {
               context.pop();
             } else {
               // Fallback to a specific route if can't pop
-              context.go('/more'); // Adjust this to your main/more screen route
+              context
+                  .push('/more'); // Adjust this to your main/more screen route
             }
           },
         ),

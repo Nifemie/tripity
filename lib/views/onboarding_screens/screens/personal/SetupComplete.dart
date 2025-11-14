@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
-
 class SetupComplete extends ConsumerWidget {
   const SetupComplete({Key? key}) : super(key: key);
 
@@ -89,7 +88,7 @@ class SetupComplete extends ConsumerWidget {
                 ),
                 child: ElevatedButton(
                   onPressed: () {
-                    context.go('/HomeScreen');
+                    context.push('/HomeScreen');
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.transparent,

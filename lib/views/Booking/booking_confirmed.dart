@@ -179,7 +179,8 @@ class BookingConfirmedPage extends ConsumerWidget {
                 const SizedBox(height: 24),
 
                 // Pricing Breakdown Section
-                _buildPricingBreakdownCard(basePrice, numberOfTravelers, serviceFee, totalPrice),
+                _buildPricingBreakdownCard(
+                    basePrice, numberOfTravelers, serviceFee, totalPrice),
                 const SizedBox(height: 24),
 
                 // What's Next Section
@@ -196,10 +197,11 @@ class BookingConfirmedPage extends ConsumerWidget {
                       child: CtaButton(
                         text: 'Continue Exploring',
                         onPressed: () {
-                          context.go('/experiences');
+                          context.push('/experiences');
                         },
                         isPrimary: false,
-                        customBackgroundColor: const Color(0xFFF3F4F6), // Set background color
+                        customBackgroundColor:
+                            const Color(0xFFF3F4F6), // Set background color
                       ),
                     ),
                     const SizedBox(width: 12),
@@ -209,7 +211,7 @@ class BookingConfirmedPage extends ConsumerWidget {
                       child: CtaButton(
                         text: 'Go to Home',
                         onPressed: () {
-                          context.go('/HomeScreen');
+                          context.push('/HomeScreen');
                         },
                       ),
                     ),
@@ -259,13 +261,15 @@ class BookingConfirmedPage extends ConsumerWidget {
           ),
         ],
       ),
-      child: Column( // Changed from Row to Column
+      child: Column(
+        // Changed from Row to Column
         crossAxisAlignment: CrossAxisAlignment.start, // Align title to start
         children: [
           // Booking Summary Title
           _buildSectionTitle('Booking Summary'), // Moved here
           const SizedBox(height: 12), // Spacing after title
-          Row( // Original content of the card
+          Row(
+            // Original content of the card
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Thumbnail Image
@@ -308,7 +312,8 @@ class BookingConfirmedPage extends ConsumerWidget {
                     ),
                     const SizedBox(height: 8),
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8, vertical: 4),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(6),
                       ),
@@ -391,9 +396,11 @@ class BookingConfirmedPage extends ConsumerWidget {
           const SizedBox(height: 12),
           _buildIconRow(Icons.access_time, 'Time', '10:00 AM – 12:30 PM'),
           const SizedBox(height: 12),
-          _buildIconRow(Icons.people_outline, 'Participants', '$travelers traveler${travelers > 1 ? 's' : ''}'),
+          _buildIconRow(Icons.people_outline, 'Participants',
+              '$travelers traveler${travelers > 1 ? 's' : ''}'),
           const SizedBox(height: 12),
-          _buildIconRow(Icons.location_on_outlined, 'Meeting Point', 'Montmartre District, Paris'),
+          _buildIconRow(Icons.location_on_outlined, 'Meeting Point',
+              'Montmartre District, Paris'),
         ],
       ),
     );
@@ -401,7 +408,8 @@ class BookingConfirmedPage extends ConsumerWidget {
 
   // ==================== PRICING BREAKDOWN CARD ====================
 
-  Widget _buildPricingBreakdownCard(double basePrice, int travelers, double serviceFee, double total) {
+  Widget _buildPricingBreakdownCard(
+      double basePrice, int travelers, double serviceFee, double total) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -416,7 +424,7 @@ class BookingConfirmedPage extends ConsumerWidget {
           ),
         ],
       ),
-        child: Column(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start, // Align title to start
         children: [
           // Pricing Breakdown Title
@@ -528,11 +536,14 @@ class BookingConfirmedPage extends ConsumerWidget {
       ),
       child: Column(
         children: [
-          _buildBulletPoint('Check your email for meeting point details.', 0), // Pass index 0
+          _buildBulletPoint(
+              'Check your email for meeting point details.', 0), // Pass index 0
           const SizedBox(height: 12),
-          _buildBulletPoint('Arrive 15 minutes before tour start time.', 1), // Pass index 1
+          _buildBulletPoint(
+              'Arrive 15 minutes before tour start time.', 1), // Pass index 1
           const SizedBox(height: 12),
-          _buildBulletPoint('Bring confirmation number and valid ID.', 2), // Pass index 2
+          _buildBulletPoint(
+              'Bring confirmation number and valid ID.', 2), // Pass index 2
         ],
       ),
     );
@@ -613,7 +624,8 @@ class BookingConfirmedPage extends ConsumerWidget {
     );
   }
 
-  Widget _buildBulletPoint(String text, int index) { // Added index parameter
+  Widget _buildBulletPoint(String text, int index) {
+    // Added index parameter
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -624,7 +636,8 @@ class BookingConfirmedPage extends ConsumerWidget {
             color: Color(0xFF3B82F6),
             shape: BoxShape.circle,
           ),
-          child: Center( // Wrap Text in Center to align
+          child: Center(
+            // Wrap Text in Center to align
             child: Text(
               '${index + 1}', // Display index + 1
               style: const TextStyle(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tripitify/models/home_screen/location_state.dart';
 import '../../controllers/home_controller.dart';
 
@@ -17,7 +18,8 @@ class TopBar extends ConsumerWidget {
         // Location Section
         Flexible(
           child: GestureDetector(
-            onTap: () => ref.read(homeControllerProvider.notifier).refreshLocation(),
+            onTap: () =>
+                ref.read(homeControllerProvider.notifier).refreshLocation(),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -64,10 +66,7 @@ class TopBar extends ConsumerWidget {
             // Notification Icon - Updated to use SVG
             GestureDetector(
               onTap: () {
-                // Handle notifications
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Notifications clicked!')),
-                );
+                context.push('/notifications');
               },
               child: Container(
                 width: 44,

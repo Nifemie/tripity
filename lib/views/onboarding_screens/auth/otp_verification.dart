@@ -50,7 +50,7 @@ class OtpVerification extends ConsumerWidget {
 
       // Navigate to account setup after successful verification
       if (context.mounted) {
-        context.go('/account-setup');
+        context.push('/account-setup');
       }
     } catch (error) {
       // Handle verification error
@@ -106,8 +106,7 @@ class OtpVerification extends ConsumerWidget {
             child: ConstrainedBox(
               // Ensures minimum height
               constraints: BoxConstraints(
-                minHeight:
-                    MediaQuery.of(context).size.height -
+                minHeight: MediaQuery.of(context).size.height -
                     MediaQuery.of(context).padding.top -
                     AppBar().preferredSize.height -
                     MediaQuery.of(context).padding.bottom,
@@ -171,10 +170,9 @@ class OtpVerification extends ConsumerWidget {
                           // Added Flexible to prevent overflow
                           child: Padding(
                             padding: EdgeInsets.symmetric(
-                              horizontal:
-                                  index == 0 || index == 5
-                                      ? 0
-                                      : 4, // Add horizontal padding except first and last
+                              horizontal: index == 0 || index == 5
+                                  ? 0
+                                  : 4, // Add horizontal padding except first and last
                             ),
                             child: _buildOtpField(index, ref),
                           ),
@@ -227,21 +225,19 @@ class OtpVerification extends ConsumerWidget {
                           ),
                         ),
                         GestureDetector(
-                          onTap:
-                              remainingSeconds == 0
-                                  ? () => _resendCode(ref)
-                                  : null,
+                          onTap: remainingSeconds == 0
+                              ? () => _resendCode(ref)
+                              : null,
                           child: Text(
                             'Resend',
                             style: TextStyle(
-                              color:
-                                  remainingSeconds == 0
-                                      ? const Color(
-                                        0xFF3B82F6,
-                                      ) // Primary-Blue-500 when enabled
-                                      : const Color(
-                                        0xFF9CA3AF,
-                                      ), // Gray when disabled
+                              color: remainingSeconds == 0
+                                  ? const Color(
+                                      0xFF3B82F6,
+                                    ) // Primary-Blue-500 when enabled
+                                  : const Color(
+                                      0xFF9CA3AF,
+                                    ), // Gray when disabled
                               fontFamily: 'Instrument Sans', // Font-Primary
                               fontSize: 16, // Font-Size-base
                               fontWeight: FontWeight.w500, // Font-Weight-medium
@@ -260,37 +256,35 @@ class OtpVerification extends ConsumerWidget {
                       width: double.infinity,
                       height: 52,
                       margin: const EdgeInsets.only(bottom: 40),
-                      decoration:
-                          isCodeComplete
-                              ? BoxDecoration(
-                                borderRadius: BorderRadius.circular(
-                                  9999,
-                                ), // Border-Radius-full
-                                gradient: const LinearGradient(
-                                  begin: Alignment(
-                                    -0.0421,
-                                    -1.0,
-                                  ), // 109deg equivalent
-                                  end: Alignment(1.0712, 1.0),
-                                  colors: [
-                                    Color(0xFF3B82F6), // Primary-Blue-500
-                                    Color(0xFF2563EB), // Primary-Blue-600
-                                    Color(0xFF1E40AF), // Primary-Blue-800
-                                  ],
-                                  stops: [0.0, 0.5145, 1.0712],
-                                ),
-                              )
-                              : BoxDecoration(
-                                borderRadius: BorderRadius.circular(9999),
-                                color: const Color(
-                                  0xFFE5E7EB,
-                                ), // Gray when disabled
+                      decoration: isCodeComplete
+                          ? BoxDecoration(
+                              borderRadius: BorderRadius.circular(
+                                9999,
+                              ), // Border-Radius-full
+                              gradient: const LinearGradient(
+                                begin: Alignment(
+                                  -0.0421,
+                                  -1.0,
+                                ), // 109deg equivalent
+                                end: Alignment(1.0712, 1.0),
+                                colors: [
+                                  Color(0xFF3B82F6), // Primary-Blue-500
+                                  Color(0xFF2563EB), // Primary-Blue-600
+                                  Color(0xFF1E40AF), // Primary-Blue-800
+                                ],
+                                stops: [0.0, 0.5145, 1.0712],
                               ),
+                            )
+                          : BoxDecoration(
+                              borderRadius: BorderRadius.circular(9999),
+                              color: const Color(
+                                0xFFE5E7EB,
+                              ), // Gray when disabled
+                            ),
                       child: ElevatedButton(
-                        onPressed:
-                            isCodeComplete
-                                ? () => _verifyCode(context, ref)
-                                : null,
+                        onPressed: isCodeComplete
+                            ? () => _verifyCode(context, ref)
+                            : null,
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.transparent,
                           foregroundColor: Colors.white,

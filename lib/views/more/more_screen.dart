@@ -89,7 +89,7 @@ class MoreScreen extends ConsumerWidget {
                 // Profile Widget
                 TravelProfileCard(
                   onTap: () {
-                    context.go('/profile');  // or context.push('/profile')
+                    context.push('/profile');  // or context.push('/profile')
                   },
                 ),
 

@@ -6,10 +6,8 @@ import '../../screens/role_selection_screen.dart';
 import 'package:tripitify/widgets/progress_bar.dart';
 import 'package:tripitify/providers/progress_provider.dart';
 
-
 // State provider for selected purpose
 final selectedPurposeProvider = StateProvider<int?>((ref) => null);
-
 
 class PurposeScreen extends ConsumerWidget {
   final UserRole? role;
@@ -105,40 +103,38 @@ class PurposeScreen extends ConsumerWidget {
                       subtitle: 'Short-term stays for your holiday.',
                       assetPath: 'assets/images/account_setup/Suitcase.svg',
                       isSelected: selectedPurpose == 0,
-                      onTap: () => ref.read(selectedPurposeProvider.notifier).state = 0,
+                      onTap: () =>
+                          ref.read(selectedPurposeProvider.notifier).state = 0,
                     ),
-
                     const SizedBox(height: 16),
-
                     PurposeOption(
                       index: 1,
                       title: 'Looking for a temporary stay',
                       subtitle: 'For work, study, or transitions.',
                       assetPath: 'assets/images/account_setup/Case.svg',
                       isSelected: selectedPurpose == 1,
-                      onTap: () => ref.read(selectedPurposeProvider.notifier).state = 1,
+                      onTap: () =>
+                          ref.read(selectedPurposeProvider.notifier).state = 1,
                     ),
-
                     const SizedBox(height: 16),
-
                     PurposeOption(
                       index: 2,
                       title: 'Considering a relocation',
                       subtitle: 'Find a new place to call home.',
                       assetPath: 'assets/images/account_setup/Home.svg',
                       isSelected: selectedPurpose == 2,
-                      onTap: () => ref.read(selectedPurposeProvider.notifier).state = 2,
+                      onTap: () =>
+                          ref.read(selectedPurposeProvider.notifier).state = 2,
                     ),
-
                     const SizedBox(height: 16),
-
                     PurposeOption(
                       index: 3,
                       title: 'Just exploring',
                       subtitle: 'Browse and see what\'s possible.',
                       assetPath: 'assets/images/account_setup/Compass.svg',
                       isSelected: selectedPurpose == 3,
-                      onTap: () => ref.read(selectedPurposeProvider.notifier).state = 3,
+                      onTap: () =>
+                          ref.read(selectedPurposeProvider.notifier).state = 3,
                     ),
                   ],
                 ),
@@ -164,11 +160,13 @@ class PurposeScreen extends ConsumerWidget {
                   ),
                   child: ElevatedButton(
                     onPressed: () {
-                      ref.read(progressProvider.notifier).increment(); // Increment before navigation
+                      ref
+                          .read(progressProvider.notifier)
+                          .increment(); // Increment before navigation
                       if (role == UserRole.both) {
-                        context.go('/planner-profile-setup');
+                        context.push('/planner-profile-setup');
                       } else {
-                        context.go('/setup-complete');
+                        context.push('/setup-complete');
                       }
                     },
                     style: ElevatedButton.styleFrom(
@@ -199,8 +197,6 @@ class PurposeScreen extends ConsumerWidget {
     );
   }
 }
-
-
 
 class PurposeOption extends StatelessWidget {
   final int index;

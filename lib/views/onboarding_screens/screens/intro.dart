@@ -3,7 +3,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:go_router/go_router.dart';
 
-
 class IntroPage extends StatefulWidget {
   const IntroPage({super.key});
 
@@ -53,110 +52,108 @@ class _IntroPageState extends State<IntroPage>
       backgroundColor: Colors.transparent,
       isDismissible: false,
       enableDrag: false,
-      builder:
-          (context) => SlideTransition(
+      builder: (context) => SlideTransition(
         position: _slideAnimation,
         child: Container(
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-          ),
-          padding: const EdgeInsets.all(24),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              // Blue dot indicator
-              SvgPicture.asset(
-                'assets/images/signup_icons/Map.svg',
-                width: 24,
-                height: 24,
-                colorFilter: const ColorFilter.mode(
-                  Color(0xFF3B82F6),
-                  BlendMode.srcIn,
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+            ),
+            padding: const EdgeInsets.all(24),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // Blue dot indicator
+                SvgPicture.asset(
+                  'assets/images/signup_icons/Map.svg',
+                  width: 24,
+                  height: 24,
+                  colorFilter: const ColorFilter.mode(
+                    Color(0xFF3B82F6),
+                    BlendMode.srcIn,
+                  ),
                 ),
-              ),
-              const SizedBox(height: 16),
+                const SizedBox(height: 16),
 
-              // Title
-              RichText(
-                textAlign: TextAlign.center,
-                text: const TextSpan(
-                  style: TextStyle(fontSize: 16, color: Color(0xFF111827)),
+                // Title
+                RichText(
+                  textAlign: TextAlign.center,
+                  text: const TextSpan(
+                    style: TextStyle(fontSize: 16, color: Color(0xFF111827)),
+                    children: [
+                      TextSpan(text: 'Allow '),
+                      TextSpan(
+                        text: 'Tripitify',
+                        style: TextStyle(
+                          color: Color(0xFF3B82F6),
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      TextSpan(text: ' access this device location?'),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 32),
+
+                // Buttons
+                Column(
                   children: [
-                    TextSpan(text: 'Allow '),
-                    TextSpan(
-                      text: 'Tripitify',
-                      style: TextStyle(
-                        color: Color(0xFF3B82F6),
-                        fontWeight: FontWeight.w600,
+                    SizedBox(
+                      width: double.infinity,
+                      child: TextButton(
+                        onPressed: () => _handleLocationPermission(true),
+                        style: TextButton.styleFrom(
+                          foregroundColor: const Color(0xFF3B82F6),
+                          padding: const EdgeInsets.symmetric(vertical: 12),
+                        ),
+                        child: const Text(
+                          'While using the app',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
                       ),
                     ),
-                    TextSpan(text: ' access this device location?'),
+                    SizedBox(
+                      width: double.infinity,
+                      child: TextButton(
+                        onPressed: () => _handleLocationPermission(false),
+                        style: TextButton.styleFrom(
+                          foregroundColor: const Color(0xFF3B82F6),
+                          padding: const EdgeInsets.symmetric(vertical: 12),
+                        ),
+                        child: const Text(
+                          'Only this time',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: double.infinity,
+                      child: TextButton(
+                        onPressed: () => _handleLocationPermission(null),
+                        style: TextButton.styleFrom(
+                          foregroundColor: const Color(0xFF3B82F6),
+                          padding: const EdgeInsets.symmetric(vertical: 12),
+                        ),
+                        child: const Text(
+                          'Don\'t allow',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
-              ),
-              const SizedBox(height: 32),
-
-              // Buttons
-              Column(
-                children: [
-                  SizedBox(
-                    width: double.infinity,
-                    child: TextButton(
-                      onPressed: () => _handleLocationPermission(true),
-                      style: TextButton.styleFrom(
-                        foregroundColor: const Color(0xFF3B82F6),
-                        padding: const EdgeInsets.symmetric(vertical: 12),
-                      ),
-                      child: const Text(
-                        'While using the app',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: double.infinity,
-                    child: TextButton(
-                      onPressed: () => _handleLocationPermission(false),
-                      style: TextButton.styleFrom(
-                        foregroundColor: const Color(0xFF3B82F6),
-                        padding: const EdgeInsets.symmetric(vertical: 12),
-                      ),
-                      child: const Text(
-                        'Only this time',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: double.infinity,
-                    child: TextButton(
-                      onPressed: () => _handleLocationPermission(null),
-                      style: TextButton.styleFrom(
-                        foregroundColor: const Color(0xFF3B82F6),
-                        padding: const EdgeInsets.symmetric(vertical: 12),
-                      ),
-                      child: const Text(
-                        'Don\'t allow',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 16),
-            ],
-          )
-        ),
+                const SizedBox(height: 16),
+              ],
+            )),
       ),
     );
   }
@@ -192,168 +189,166 @@ class _IntroPageState extends State<IntroPage>
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
           child: Column(
-              children: [
+            children: [
               // Top spacing
               const SizedBox(height: 30),
 
-          // Image section
-          Expanded(
-            flex: 3,
-            child: Center(
-              child: Image.asset(
-                'assets/images/intro1.png',
-                fit: BoxFit.contain,
-              ),
-            ),
-          ),
-
-          const SizedBox(height: 2),
-
-          // Content section
-          Expanded(
-            flex: 2,
-            child: Column(
-              children: [
-            // Text content moved closer to image
-            Column(
-            children: [
-            const Align(
-            alignment: Alignment.centerLeft,
-              child: Text(
-                'Plan Smarter. Travel Better with',
-                style: TextStyle(
-                  color: Color(0xFF111827),
-                  fontFamily: 'Instrument Sans',
-                  fontSize: 24,
-                  fontStyle: FontStyle.normal,
-                  fontWeight: FontWeight.w600,
-                  height: 33 / 24,
-                  letterSpacing: 0,
+              // Image section
+              Expanded(
+                flex: 3,
+                child: Center(
+                  child: Image.asset(
+                    'assets/images/intro1.png',
+                    fit: BoxFit.contain,
+                  ),
                 ),
               ),
-            ),
-            const Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                'Tripitify.',
-                style: TextStyle(
-                  color: Color(0xFF111827),
-                  fontFamily: 'Instrument Sans',
-                  fontSize: 24,
-                  fontStyle: FontStyle.normal,
-                  fontWeight: FontWeight.w600,
-                  height: 33 / 24,
-                  letterSpacing: 0,
+
+              const SizedBox(height: 2),
+
+              // Content section
+              Expanded(
+                flex: 2,
+                child: Column(
+                  children: [
+                    // Text content moved closer to image
+                    Column(
+                      children: [
+                        const Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            'Plan Smarter. Travel Better with',
+                            style: TextStyle(
+                              color: Color(0xFF111827),
+                              fontFamily: 'Instrument Sans',
+                              fontSize: 24,
+                              fontStyle: FontStyle.normal,
+                              fontWeight: FontWeight.w600,
+                              height: 33 / 24,
+                              letterSpacing: 0,
+                            ),
+                          ),
+                        ),
+                        const Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            'Tripitify.',
+                            style: TextStyle(
+                              color: Color(0xFF111827),
+                              fontFamily: 'Instrument Sans',
+                              fontSize: 24,
+                              fontStyle: FontStyle.normal,
+                              fontWeight: FontWeight.w600,
+                              height: 33 / 24,
+                              letterSpacing: 0,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+
+                    const SizedBox(height: 16),
+
+                    const Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        ' Planning a short trip or starting fresh in a new place? ',
+                        style: TextStyle(
+                          color: Color(0xFF4B5563),
+                          fontFamily: 'Instrument Sans',
+                          fontSize: 15,
+                          fontStyle: FontStyle.normal,
+                          height: 33 / 24,
+                          letterSpacing: 0,
+                        ),
+                      ),
+                    ),
+                    const Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        ' Were here to make it easy, personalized, organized,',
+                        style: TextStyle(
+                          color: Color(0xFF4B5563),
+                          fontFamily: 'Instrument Sans',
+                          fontSize: 15,
+                          fontStyle: FontStyle.normal,
+                          height: 33 / 24,
+                          letterSpacing: 0,
+                        ),
+                      ),
+                    ),
+
+                    const Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'and stress-free.',
+                        style: TextStyle(
+                          color: Color(0xFF4B5563),
+                          fontFamily: 'Instrument Sans',
+                          fontSize: 15,
+                          fontStyle: FontStyle.normal,
+                        ),
+                      ),
+                    ),
+
+                    const Spacer(),
+                  ],
                 ),
               ),
-            ),
+
+              // Get Started Button with gradient background
+              AnimatedOpacity(
+                opacity: _showGetStartedButton ? 1.0 : 0.0,
+                duration: const Duration(milliseconds: 300),
+                child: Container(
+                  width: double.infinity,
+                  height: 52,
+                  margin: const EdgeInsets.only(bottom: 40),
+                  decoration: BoxDecoration(
+                    gradient: const LinearGradient(
+                      begin: Alignment(-0.1, -0.5),
+                      end: Alignment(1.1, 0.5),
+                      colors: [
+                        Color(0xFF3B82F6), // Primary Blue 500
+                        Color(0xFF2563EB), // Primary Blue 600
+                        Color(0xFF1E40AF), // Primary Blue 800
+                      ],
+                      stops: [0.0, 0.51, 1.0],
+                    ),
+                    borderRadius: BorderRadius.circular(
+                      9999,
+                    ), // Full border radius
+                  ),
+                  child: ElevatedButton(
+                    onPressed: _showGetStartedButton
+                        ? () {
+                            // Navigate to signup screen
+                            context.push('/signup');
+                          }
+                        : null,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.transparent,
+                      shadowColor: Colors.transparent,
+                      foregroundColor: Colors.white,
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(9999),
+                      ),
+                    ),
+                    child: const Text(
+                      'Get Started',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
-
-          const SizedBox(height: 16),
-
-          const Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              ' Planning a short trip or starting fresh in a new place? ',
-              style: TextStyle(
-                color: Color(0xFF4B5563),
-                fontFamily: 'Instrument Sans',
-                fontSize: 15,
-                fontStyle: FontStyle.normal,
-                height: 33 / 24,
-                letterSpacing: 0,
-              ),
-            ),
-          ),
-          const Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-                ' Were here to make it easy, personalized, organized,',
-                style: TextStyle(
-                color: Color(0xFF4B5563),
-            fontFamily: 'Instrument Sans',
-            fontSize: 15,
-            fontStyle: FontStyle.normal,
-            height: 33 / 24,
-            letterSpacing: 0,
-          ),
         ),
       ),
-
-      const Align(
-        alignment: Alignment.centerLeft,
-        child: Text(
-          'and stress-free.',
-          style: TextStyle(
-            color: Color(0xFF4B5563),
-            fontFamily: 'Instrument Sans',
-            fontSize: 15,
-            fontStyle: FontStyle.normal,
-          ),
-        ),
-      ),
-
-      const Spacer(),
-      ],
-    ),
-    ),
-
-    // Get Started Button with gradient background
-    AnimatedOpacity(
-    opacity: _showGetStartedButton ? 1.0 : 0.0,
-    duration: const Duration(milliseconds: 300),
-    child: Container(
-    width: double.infinity,
-    height: 52,
-    margin: const EdgeInsets.only(bottom: 40),
-    decoration: BoxDecoration(
-    gradient: const LinearGradient(
-    begin: Alignment(-0.1, -0.5),
-    end: Alignment(1.1, 0.5),
-    colors: [
-    Color(0xFF3B82F6), // Primary Blue 500
-    Color(0xFF2563EB), // Primary Blue 600
-    Color(0xFF1E40AF), // Primary Blue 800
-    ],
-    stops: [0.0, 0.51, 1.0],
-    ),
-    borderRadius: BorderRadius.circular(
-    9999,
-    ), // Full border radius
-    ),
-    child: ElevatedButton(
-    onPressed:
-    _showGetStartedButton
-    ? () {
-
-      // Navigate to signup screen
-      context.go('/signup');
-    }
-        : null,
-    style: ElevatedButton.styleFrom(
-    backgroundColor: Colors.transparent,
-    shadowColor: Colors.transparent,
-    foregroundColor: Colors.white,
-    elevation: 0,
-    shape: RoundedRectangleBorder(
-    borderRadius: BorderRadius.circular(9999),
-    ),
-    ),
-    child: const Text(
-    'Get Started',
-    style: TextStyle(
-    fontSize: 16,
-    fontWeight: FontWeight.w600,
-    ),
-    ),
-    ),
-    ),
-    ),
-    ],
-    ),
-    ),
-    ),
     );
   }
 }

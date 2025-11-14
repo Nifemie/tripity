@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-
 import '../../../utils/validators.dart';
 // DON'T import signin.dart - this is causing the crash
 
@@ -41,7 +40,7 @@ class _SignUpState extends State<SignUp> {
   // FIXED: Use named route navigation instead of direct widget import
   void _navigateToSignIn() {
     try {
-      context.go('/signin');
+      context.push('/signin');
     } catch (e) {
       print('Navigation error: $e');
       ScaffoldMessenger.of(context).showSnackBar(
@@ -237,11 +236,10 @@ class _SignUpState extends State<SignUp> {
                             fontWeight: FontWeight.w500,
                             height: 17.5 / 14,
                           ),
-                          recognizer:
-                              TapGestureRecognizer()
-                                ..onTap = () {
-                                  print('Terms of Service tapped');
-                                },
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              print('Terms of Service tapped');
+                            },
                         ),
                         const TextSpan(text: ' and '),
                         TextSpan(
@@ -253,11 +251,10 @@ class _SignUpState extends State<SignUp> {
                             fontWeight: FontWeight.w500,
                             height: 17.5 / 14,
                           ),
-                          recognizer:
-                              TapGestureRecognizer()
-                                ..onTap = () {
-                                  print('Privacy Policy tapped');
-                                },
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              print('Privacy Policy tapped');
+                            },
                         ),
                       ],
                     ),
@@ -286,12 +283,11 @@ class _SignUpState extends State<SignUp> {
                             fontWeight: FontWeight.w600,
                             height: 24 / 16,
                           ),
-                          recognizer:
-                              TapGestureRecognizer()
-                                ..onTap = () {
-                                  print('Sign In tapped - using named route');
-                                  _navigateToSignIn();
-                                },
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              print('Sign In tapped - using named route');
+                              _navigateToSignIn();
+                            },
                         ),
                       ],
                     ),

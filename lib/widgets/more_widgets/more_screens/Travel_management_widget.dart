@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 
 // Traveler Data Model
 class TravelerItem {
@@ -17,31 +18,26 @@ class TravelerItem {
   });
 }
 
-// Traveler items provider
-final travelerItemsProvider = Provider<List<TravelerItem>>((ref) {
-  return [
-    TravelerItem(
-      title: 'Travel Calendar',
-      subtitle: 'Sync with your trips',
-      iconPath: 'assets/images/more/Calendar.svg',
-      onTap: () => print('Travel Calendar tapped'),
-    ),
-    TravelerItem(
-      title: 'Reviews & Ratings',
-      subtitle: 'Rate your experiences',
-      iconPath: 'assets/images/more/Star.svg',
-      onTap: () => print('Reviews & Ratings tapped'),
-    ),
-  ];
-});
-
 // Traveler Management Widget
 class TravelerManagement extends ConsumerWidget {
   const TravelerManagement({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final travelerItems = ref.watch(travelerItemsProvider);
+    final travelerItems = [
+      TravelerItem(
+        title: 'Travel Calendar',
+        subtitle: 'Sync with your trips',
+        iconPath: 'assets/images/more/Calendar.svg',
+        onTap: () => print('Travel Calendar tapped'),
+      ),
+      TravelerItem(
+        title: 'Reviews & Ratings',
+        subtitle: 'Rate your experiences',
+        iconPath: 'assets/images/more/Star.svg',
+        onTap: () => print('Reviews & Ratings tapped'),
+      ),
+    ];
 
     return Container(
       decoration: BoxDecoration(
@@ -62,7 +58,7 @@ class TravelerManagement extends ConsumerWidget {
       child: Column(
         children: List.generate(
           travelerItems.length,
-              (index) {
+          (index) {
             final item = travelerItems[index];
             final isLast = index == travelerItems.length - 1;
 

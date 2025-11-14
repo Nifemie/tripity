@@ -29,11 +29,11 @@ final supportItemsProvider = Provider<List<SupportItem>>((ref) {
       iconPath: 'assets/images/more/Settings.svg',
       route: '/settings',
     ),
-    SupportItem(
+    const SupportItem(
       title: 'Help & Support',
       subtitle: 'Get answers or contact support',
       iconPath: 'assets/images/more/Question_Circle.svg',
-      customAction: () => print('Help & Support tapped'),
+      route: '/help-support',
     ),
     SupportItem(
       title: 'Invite Friends',
@@ -71,7 +71,7 @@ class SupportWidget extends ConsumerWidget {
       child: Column(
         children: List.generate(
           supportItems.length,
-              (index) {
+          (index) {
             final item = supportItems[index];
             final isLast = index == supportItems.length - 1;
 
@@ -81,7 +81,7 @@ class SupportWidget extends ConsumerWidget {
                   item: item,
                   onTap: () {
                     if (item.route != null) {
-                      context.go(item.route!);
+                      context.push(item.route!);
                     } else if (item.customAction != null) {
                       item.customAction!();
                     }

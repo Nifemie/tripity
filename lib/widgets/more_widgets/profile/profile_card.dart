@@ -37,6 +37,7 @@ class ProfileHeaderWidget extends ConsumerWidget {
     final profileData = ref.watch(profileHeaderProvider);
 
     return Container(
+      width: double.infinity,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(24),
@@ -187,7 +188,7 @@ class ProfileHeaderExample extends ConsumerWidget {
             ElevatedButton(
               onPressed: () {
                 ref.read(profileHeaderProvider.notifier).state =
-                const ProfileHeaderData(
+                    const ProfileHeaderData(
                   avatarUrl: 'https://i.pravatar.cc/150?img=8',
                   fullName: 'John Doe',
                   memberSince: 'Member since 2024',

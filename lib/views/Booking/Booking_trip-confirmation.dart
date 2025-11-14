@@ -151,11 +151,11 @@ class BookingTripConfirmationPage extends ConsumerWidget {
 
   void _viewTripPlan(BuildContext context) {
     // Navigate to trip details/plan view
-    context.go('/trip-summary');
+    context.push('/trip-summary');
   }
 
   void _continueExploring(BuildContext context) {
     // Navigate back to experiences or home
-    context.go('/experiences');
+    context.push('/experiences');
   }
 }

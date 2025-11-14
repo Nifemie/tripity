@@ -36,22 +36,22 @@ final travelStatsProvider = Provider<List<TravelStat>>((ref) {
 
   return [
     TravelStat(
-      iconPath: 'assets/nice/icons.svg',
+      iconPath: 'assets/images/more/Flight.svg',
       count: tripsCompleted,
       label: 'Trips Completed',
     ),
     TravelStat(
-      iconPath: 'assets/nice/icons.svg',
+      iconPath: 'assets/images/more/Earth.svg',
       count: countriesVisited,
       label: 'Countries Visited',
     ),
     TravelStat(
-      iconPath: 'assets/nice/icons.svg',
+      iconPath: 'assets/images/more/Star.svg',
       count: reviewsWritten,
       label: 'Reviews Written',
     ),
     TravelStat(
-      iconPath: 'assets/nice/icons.svg',
+      iconPath: 'assets/images/more/Picture.svg',
       count: photosShared,
       label: 'Photos Shared',
     ),
@@ -86,7 +86,8 @@ class _TravelStatCard extends StatelessWidget {
   Widget build(BuildContext context) {
     // Calculate card width to fit 2 per row with proper spacing
     final screenWidth = MediaQuery.of(context).size.width;
-    final cardWidth = (screenWidth - 44) / 2; // 16 padding left + 16 right + 12 spacing
+    final cardWidth =
+        (screenWidth - 44) / 2; // 16 padding left + 16 right + 12 spacing
 
     return Container(
       width: cardWidth,

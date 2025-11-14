@@ -3,7 +3,6 @@ import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-
 class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({super.key});
 
@@ -65,7 +64,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
     await Future.delayed(const Duration(seconds: 5));
 
     if (mounted) {
-      context.go('/intro');
+      context.push('/intro');
     }
   }
 
@@ -97,7 +96,8 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                     children: [
                       // Vector line with animation - positioned lower and more to the left
                       Transform.translate(
-                        offset: const Offset(-100, 60), // Moved further left and down more
+                        offset: const Offset(
+                            -100, 60), // Moved further left and down more
                         child: AnimatedBuilder(
                           animation: _lineAnimation,
                           builder: (context, child) {
@@ -120,7 +120,8 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
 
                       // Static plane logo - positioned higher and more to the right to be at end of path
                       Transform.translate(
-                        offset: const Offset(30, -10), // Moved right and up to be at path end
+                        offset: const Offset(
+                            30, -10), // Moved right and up to be at path end
                         child: Image.asset(
                           'assets/images/splashplane.png',
                           width: 80,
