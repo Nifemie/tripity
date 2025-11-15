@@ -1,5 +1,10 @@
+import 'package:tripitify/views/more/Travel_calendar.dart';
+import 'package:tripitify/views/more/change_password.dart';
+import 'package:tripitify/views/more/chats.dart';
 import 'package:tripitify/views/more/edit_profile.dart';
 import 'package:tripitify/views/more/edit_profile2.dart';
+import 'package:tripitify/views/more/invite_friends.dart';
+import 'package:tripitify/views/more/rating_reviews.dart';
 import 'package:tripitify/views/more/wishlist.dart';
 import 'package:tripitify/views/more/my_bookings.dart';
 import 'package:tripitify/views/more/subscription.dart';
@@ -83,6 +88,16 @@ final GoRouter router = GoRouter(
           const ForgotPasswordScreen(),
     ),
     GoRoute(
+      path: '/change-password',
+      builder: (BuildContext context, GoRouterState state) =>
+          const ChangePasswordPage(),
+    ),
+     GoRoute(
+      path: '/chats',
+      builder: (BuildContext context, GoRouterState state) =>
+          const ChatsScreen(),
+    ),
+    GoRoute(
       path: '/otp-verification',
       builder: (BuildContext context, GoRouterState state) {
         final email = state.extra as String? ?? '';
@@ -93,6 +108,11 @@ final GoRouter router = GoRouter(
       path: '/account-setup',
       builder: (BuildContext context, GoRouterState state) =>
           const RoleSelectionScreen(),
+    ),
+    GoRoute(
+      path: '/travel-calendar',
+      builder: (BuildContext context, GoRouterState state) =>
+          const TravelCalendarScreen(),
     ),
     GoRoute(
       path: '/account-setup-details',
@@ -144,6 +164,11 @@ final GoRouter router = GoRouter(
       path: '/plan-new-trip',
       builder: (BuildContext context, GoRouterState state) =>
           const PlanNewTripPage(),
+    ),
+    GoRoute(
+      path: '/rating-review',
+      builder: (BuildContext context, GoRouterState state) =>
+          const RatingReviewsScreen(),
     ),
     // GoRoute(
     //   path: '/search',
@@ -353,6 +378,11 @@ final GoRouter router = GoRouter(
       path: '/notifications',
       builder: (BuildContext context, GoRouterState state) =>
           const NotificationsScreen(),
+    ),
+     GoRoute(
+      path: '/invite-friends',
+      builder: (BuildContext context, GoRouterState state) =>
+          const InviteFriendsScreen(),
     ),
   ],
 );

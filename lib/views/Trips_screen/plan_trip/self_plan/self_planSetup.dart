@@ -10,7 +10,6 @@ import 'package:tripitify/widgets/trip_reusable_buttons.dart';
 import 'package:tripitify/widgets/trip_progress_bar.dart';
 import 'package:tripitify/providers/plan_trip_provider.dart';
 
-
 // State models
 class TripBasicDetailsState {
   final String tripTitle;
@@ -54,7 +53,9 @@ class TripBasicDetailsState {
 }
 
 // Riverpod provider
-final tripBasicDetailsProvider = StateNotifierProvider<TripBasicDetailsNotifier, TripBasicDetailsState>((ref) {
+final tripBasicDetailsProvider =
+    StateNotifierProvider<TripBasicDetailsNotifier, TripBasicDetailsState>(
+        (ref) {
   return TripBasicDetailsNotifier();
 });
 
@@ -90,14 +91,13 @@ class TripBasicDetailsNotifier extends StateNotifier<TripBasicDetailsState> {
     }
     state = state.copyWith(selectedInterests: currentInterests);
   }
-
-  
 }
 
 // Main page widget
 class TripBasicDetailsPage extends ConsumerWidget {
   final bool fromPlanner;
-  const TripBasicDetailsPage({Key? key, this.fromPlanner = false}) : super(key: key);
+  const TripBasicDetailsPage({Key? key, this.fromPlanner = false})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -119,18 +119,21 @@ class TripBasicDetailsPage extends ConsumerWidget {
                 children: [
                   _buildSectionTitle("Let's start with the basics"),
                   const SizedBox(height: 24),
-                  _buildTripTitleField(state.tripTitle, notifier.updateTripTitle),
+                  _buildTripTitleField(
+                      state.tripTitle, notifier.updateTripTitle),
                   const SizedBox(height: 20),
-                  _buildDestinationField(state.destination, notifier.updateDestination),
+                  _buildDestinationField(
+                      state.destination, notifier.updateDestination),
                   const SizedBox(height: 24),
                   _buildDateFields(state, notifier),
                   const SizedBox(height: 24),
                   _buildTripDuration(state.tripDuration),
                   const SizedBox(height: 32),
-                  _buildTravelTypeSection(state.selectedTravelType, notifier.updateTravelType),
+                  _buildTravelTypeSection(
+                      state.selectedTravelType, notifier.updateTravelType),
                   const SizedBox(height: 32),
-                  _buildInterestsSection(state.selectedInterests, notifier.toggleInterest),
-                  
+                  _buildInterestsSection(
+                      state.selectedInterests, notifier.toggleInterest),
                 ],
               ),
             ),
@@ -147,15 +150,13 @@ class TripBasicDetailsPage extends ConsumerWidget {
     );
   }
 
-  
-
   PreferredSizeWidget _buildAppBar(BuildContext context, int currentStep) {
     return AppBar(
       backgroundColor: Colors.white,
       surfaceTintColor: Colors.white,
       elevation: 0,
       leading: IconButton(
-        icon: const Icon(Icons.arrow_back, color: Color(0xFF111827)),
+        icon: const Icon(Icons.arrow_back_ios_new, color: Color(0xFF111827)),
         onPressed: () => context.pop(),
       ),
       title: Text(
@@ -188,7 +189,6 @@ class TripBasicDetailsPage extends ConsumerWidget {
       ],
     );
   }
-  
 
   Widget _buildSectionTitle(String title) {
     return Text(
@@ -253,7 +253,8 @@ class TripBasicDetailsPage extends ConsumerWidget {
     );
   }
 
-  Widget _buildDateFields(TripBasicDetailsState state, TripBasicDetailsNotifier notifier) {
+  Widget _buildDateFields(
+      TripBasicDetailsState state, TripBasicDetailsNotifier notifier) {
     return Row(
       children: [
         Expanded(
@@ -314,7 +315,8 @@ class TripBasicDetailsPage extends ConsumerWidget {
     );
   }
 
-  Widget _buildTravelTypeSection(String selectedType, Function(String) onChanged) {
+  Widget _buildTravelTypeSection(
+      String selectedType, Function(String) onChanged) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -331,26 +333,32 @@ class TripBasicDetailsPage extends ConsumerWidget {
         const SizedBox(height: 16),
         Row(
           children: [
-            Expanded(child: TravelTypeCard(
+            Expanded(
+                child: TravelTypeCard(
               type: 'Solo',
               subtitle: 'Just me',
-              icon: SvgPicture.asset('assets/images/account_setup/User.svg', width: 24, height: 24),
+              icon: SvgPicture.asset('assets/images/account_setup/User.svg',
+                  width: 24, height: 24),
               isSelected: selectedType == 'Solo',
               onTap: () => onChanged('Solo'),
             )),
             const SizedBox(width: 12),
-            Expanded(child: TravelTypeCard(
+            Expanded(
+                child: TravelTypeCard(
               type: 'Couple',
               subtitle: 'Me + 1',
-              icon: SvgPicture.asset('assets/images/Trips/Hearts.svg', width: 24, height: 24),
+              icon: SvgPicture.asset('assets/images/Trips/Hearts.svg',
+                  width: 24, height: 24),
               isSelected: selectedType == 'Couple',
               onTap: () => onChanged('Couple'),
             )),
             const SizedBox(width: 12),
-            Expanded(child: TravelTypeCard(
+            Expanded(
+                child: TravelTypeCard(
               type: 'Family',
               subtitle: 'Family trip',
-              icon: SvgPicture.asset('assets/images/account_setup/Users.svg', width: 24, height: 24),
+              icon: SvgPicture.asset('assets/images/account_setup/Users.svg',
+                  width: 24, height: 24),
               isSelected: selectedType == 'Family',
               onTap: () => onChanged('Family'),
             )),
@@ -359,18 +367,22 @@ class TripBasicDetailsPage extends ConsumerWidget {
         const SizedBox(height: 12),
         Row(
           children: [
-            Expanded(child: TravelTypeCard(
+            Expanded(
+                child: TravelTypeCard(
               type: 'Group',
               subtitle: 'Group of friends',
-              icon: SvgPicture.asset('assets/images/account_setup/Users.svg', width: 24, height: 24),
+              icon: SvgPicture.asset('assets/images/account_setup/Users.svg',
+                  width: 24, height: 24),
               isSelected: selectedType == 'Group',
               onTap: () => onChanged('Group'),
             )),
             const SizedBox(width: 12),
-            Expanded(child: TravelTypeCard(
+            Expanded(
+                child: TravelTypeCard(
               type: 'Business',
               subtitle: 'Work travel',
-              icon: SvgPicture.asset('assets/images/account_setup/Camera.svg', width: 24, height: 24),
+              icon: SvgPicture.asset('assets/images/account_setup/Camera.svg',
+                  width: 24, height: 24),
               isSelected: selectedType == 'Business',
               onTap: () => onChanged('Business'),
             )),
@@ -382,7 +394,8 @@ class TripBasicDetailsPage extends ConsumerWidget {
     );
   }
 
-  Widget _buildInterestsSection(List<String> selectedInterests, Function(String) onToggle) {
+  Widget _buildInterestsSection(
+      List<String> selectedInterests, Function(String) onToggle) {
     const interests = ['Nature', 'Photography', 'Hiking', 'Food & Dining'];
 
     return Column(
@@ -415,10 +428,10 @@ class TripBasicDetailsPage extends ConsumerWidget {
           runSpacing: 12,
           children: [
             ...interests.map((interest) => InterestChip(
-              interest: interest,
-              isSelected: selectedInterests.contains(interest),
-              onTap: () => onToggle(interest),
-            )),
+                  interest: interest,
+                  isSelected: selectedInterests.contains(interest),
+                  onTap: () => onToggle(interest),
+                )),
             _buildAddInterestChip(),
           ],
         ),
@@ -431,7 +444,8 @@ class TripBasicDetailsPage extends ConsumerWidget {
       height: 44,
       width: 44,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(9999), // Full border radius to match the pills
+        borderRadius: BorderRadius.circular(
+            9999), // Full border radius to match the pills
         color: const Color(0xFF1F2937), // Dark background (Neutral Gray 800)
       ),
       child: const Icon(
@@ -441,9 +455,6 @@ class TripBasicDetailsPage extends ConsumerWidget {
       ),
     );
   }
-
-  
-  
 
   void _selectDate(Function(DateTime) onDateSelected) {
     // Implement date picker logic here

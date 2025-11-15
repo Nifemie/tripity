@@ -151,7 +151,7 @@ class NotificationsScreen extends ConsumerWidget {
         notificationsState.hasUnread && filteredNotifications.isNotEmpty;
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF9FAFB),
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Column(
           children: [
@@ -169,7 +169,7 @@ class NotificationsScreen extends ConsumerWidget {
                           width: 40,
                           height: 40,
                           decoration: BoxDecoration(
-                            color: const Color(0xFFF3F4F6),
+                            color: Colors.white,
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: const Icon(

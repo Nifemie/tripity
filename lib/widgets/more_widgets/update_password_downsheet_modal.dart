@@ -43,15 +43,11 @@ class UpdatePasswordDownsheetModal extends ConsumerWidget {
               Container(
                 width: 64,
                 height: 64,
-                decoration: const BoxDecoration(
-                  color: Color(0xFF3B82F6),
-                  shape: BoxShape.circle,
-                ),
                 child: Center(
                   child: SvgPicture.asset(
-                    'assets/images/Trips/success_icon.svg',
-                    width: 36,
-                    height: 36,
+                    'assets/images/Success.svg',
+                    width: 64,
+                    height: 64,
                   ),
                 ),
               ),

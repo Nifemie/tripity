@@ -29,10 +29,19 @@ class TripPlannersScreen extends ConsumerWidget {
         isAcceptingClients: true,
         price: 250,
         imagePath: 'assets/images/Trips/joseph.png',
-        about: 'Passionate about creating unforgettable African experiences. Specializing in wildlife safaris and cultural immersion.',
+        about:
+            'Passionate about creating unforgettable African experiences. Specializing in wildlife safaris and cultural immersion.',
         experience: '5+ years',
-        destinationSpecialties: ['Lagos, Nigeria', 'Nairobi, Kenya', 'Cape Town, South Africa'],
-        travelExpertise: ['Wildlife Safari', 'Cultural Immersion', 'Adventure Travel'],
+        destinationSpecialties: [
+          'Lagos, Nigeria',
+          'Nairobi, Kenya',
+          'Cape Town, South Africa'
+        ],
+        travelExpertise: [
+          'Wildlife Safari',
+          'Cultural Immersion',
+          'Adventure Travel'
+        ],
         languages: ['English', 'Yoruba'],
       ),
       TripPlanner(
@@ -47,9 +56,14 @@ class TripPlannersScreen extends ConsumerWidget {
         isAcceptingClients: true,
         price: 300,
         imagePath: 'assets/images/Trips/maria.png',
-        about: 'Explorer of historic cities and culinary delights. I design trips that feed your curiosity and your stomach.',
+        about:
+            'Explorer of historic cities and culinary delights. I design trips that feed your curiosity and your stomach.',
         experience: '4 years',
-        destinationSpecialties: ['Madrid, Spain', 'Rome, Italy', 'Lisbon, Portugal'],
+        destinationSpecialties: [
+          'Madrid, Spain',
+          'Rome, Italy',
+          'Lisbon, Portugal'
+        ],
         travelExpertise: ['Historical Tours', 'Culinary Trips', 'City Breaks'],
         languages: ['Spanish', 'English', 'Italian'],
       ),
@@ -65,10 +79,15 @@ class TripPlannersScreen extends ConsumerWidget {
         isAcceptingClients: false,
         price: 400,
         imagePath: 'assets/images/Trips/sarah.png',
-        about: 'Curator of bespoke luxury travel. From exclusive shopping trips to private art viewings, I create refined itineraries.',
+        about:
+            'Curator of bespoke luxury travel. From exclusive shopping trips to private art viewings, I create refined itineraries.',
         experience: '6 years',
         destinationSpecialties: ['London, UK', 'Paris, France', 'Milan, Italy'],
-        travelExpertise: ['Luxury Travel', 'Fashion & Shopping', 'Art & Culture'],
+        travelExpertise: [
+          'Luxury Travel',
+          'Fashion & Shopping',
+          'Art & Culture'
+        ],
         languages: ['English', 'French'],
       ),
       TripPlanner(
@@ -83,7 +102,8 @@ class TripPlannersScreen extends ConsumerWidget {
         isAcceptingClients: true,
         price: 350,
         imagePath: 'assets/images/Trips/christian.png',
-        about: 'Your guide to the city that never sleeps. I specialize in business travel with a side of vibrant nightlife.',
+        about:
+            'Your guide to the city that never sleeps. I specialize in business travel with a side of vibrant nightlife.',
         experience: '3 years',
         destinationSpecialties: ['New York, USA', 'Las Vegas, USA'],
         travelExpertise: ['Business Travel', 'Nightlife', 'Entertainment'],
@@ -103,7 +123,8 @@ class TripPlannersScreen extends ConsumerWidget {
             scrolledUnderElevation: 0,
             surfaceTintColor: Colors.white,
             leading: IconButton(
-              icon: const Icon(Icons.arrow_back, color: Color(0xFF111827)),
+              icon: const Icon(Icons.arrow_back_ios_new,
+                  color: Color(0xFF111827)),
               onPressed: () => Navigator.pop(context),
             ),
             title: const Text(
@@ -130,11 +151,13 @@ class TripPlannersScreen extends ConsumerWidget {
                 const FilterTabsWidget(),
                 const SizedBox(height: 20),
                 ListView.separated(
-                  padding: const EdgeInsets.only(bottom: 20), // Add some padding at the bottom
+                  padding: const EdgeInsets.only(
+                      bottom: 20), // Add some padding at the bottom
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: planners.length,
-                  separatorBuilder: (context, index) => const SizedBox(height: 16),
+                  separatorBuilder: (context, index) =>
+                      const SizedBox(height: 16),
                   itemBuilder: (context, index) {
                     final planner = planners[index];
                     return Padding(
@@ -144,7 +167,8 @@ class TripPlannersScreen extends ConsumerWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => TripPlannerProfileScreen(planner: planner),
+                              builder: (context) =>
+                                  TripPlannerProfileScreen(planner: planner),
                             ),
                           );
                         },
@@ -182,7 +206,8 @@ class SearchBarWidget extends ConsumerWidget {
           ),
         ),
         child: Padding(
-          padding: const EdgeInsets.only(left: 12, right: 16, top: 8, bottom: 8),
+          padding:
+              const EdgeInsets.only(left: 12, right: 16, top: 8, bottom: 8),
           child: Row(
             children: [
               const Icon(
@@ -287,7 +312,8 @@ class FilterChip extends StatelessWidget {
           color: isSelected ? const Color(0xFFEFF6FF) : const Color(0xFFF3F4F6),
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
-            color: isSelected ? const Color(0xFF3B82F6) : const Color(0xFFD1D5DB),
+            color:
+                isSelected ? const Color(0xFF3B82F6) : const Color(0xFFD1D5DB),
             width: 1,
           ),
         ),
@@ -295,7 +321,9 @@ class FilterChip extends StatelessWidget {
           child: Text(
             '$label ($count)',
             style: TextStyle(
-              color: isSelected ? const Color(0xFF3B82F6) : const Color(0xFF111827),
+              color: isSelected
+                  ? const Color(0xFF3B82F6)
+                  : const Color(0xFF111827),
               fontSize: 14,
               fontWeight: FontWeight.w500,
             ),

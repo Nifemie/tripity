@@ -161,7 +161,8 @@ class PaymentMethodCard extends StatelessWidget {
           color: isSelected ? const Color(0xFFF0F9FF) : const Color(0xFFF9FAFB),
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
-            color: isSelected ? const Color(0xFF3B82F6) : const Color(0xFFE5E7EB),
+            color:
+                isSelected ? const Color(0xFF3B82F6) : const Color(0xFFE5E7EB),
             width: isSelected ? 2 : 1,
           ),
         ),
@@ -254,7 +255,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Color(0xFF1F2937)),
+          icon: const Icon(Icons.arrow_back_ios_new, color: Color(0xFF1F2937)),
           onPressed: () => Navigator.pop(context),
         ),
       ),

@@ -237,7 +237,7 @@ class UpgradeSuccessScreen extends StatelessWidget {
                   Expanded(
                     child: GestureDetector(
                       onTap: () {
-                        context.go('/Homescreen');
+                        context.go('/HomeScreen');
                       },
                       child: Container(
                         width: 44,

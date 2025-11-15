@@ -18,7 +18,7 @@ class MyBookingsScreen extends ConsumerWidget {
     final selectedTab = ref.watch(bookingTabProvider);
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF9FAFB),
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Column(
           children: [
@@ -34,11 +34,6 @@ class MyBookingsScreen extends ConsumerWidget {
                       height: 40,
                       decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(
-                          color: const Color(0xFFF3F4F6),
-                          width: 1,
-                        ),
                       ),
                       child: const Icon(
                         Icons.arrow_back_ios_new,

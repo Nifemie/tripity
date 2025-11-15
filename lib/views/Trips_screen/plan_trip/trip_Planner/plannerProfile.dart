@@ -14,7 +14,8 @@ final selectedProfileTabProvider = StateProvider<String>((ref) => 'Overview');
 class TripPlannerProfileScreen extends ConsumerWidget {
   final TripPlanner planner;
 
-  const TripPlannerProfileScreen({Key? key, required this.planner}) : super(key: key);
+  const TripPlannerProfileScreen({Key? key, required this.planner})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -26,7 +27,7 @@ class TripPlannerProfileScreen extends ConsumerWidget {
         scrolledUnderElevation: 0, // Ensure no shadow when scrolled
         surfaceTintColor: Colors.transparent, // Prevent tinting when scrolled
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Color(0xFF111827)),
+          icon: const Icon(Icons.arrow_back_ios_new, color: Color(0xFF111827)),
           onPressed: () => Navigator.pop(context),
         ),
         title: const Text(
@@ -67,7 +68,8 @@ class TripPlannerProfileScreen extends ConsumerWidget {
                     // Tab Content
                     Consumer(
                       builder: (context, ref, child) {
-                        final selectedTab = ref.watch(selectedProfileTabProvider);
+                        final selectedTab =
+                            ref.watch(selectedProfileTabProvider);
                         if (selectedTab == 'Overview') {
                           return PlannerOverviewScreen(planner: planner);
                         } else if (selectedTab == 'Trips Planned') {
@@ -107,7 +109,8 @@ class TripPlannerProfileScreen extends ConsumerWidget {
 class ProfileHeaderSection extends StatelessWidget {
   final TripPlanner planner;
 
-  const ProfileHeaderSection({Key? key, required this.planner}) : super(key: key);
+  const ProfileHeaderSection({Key? key, required this.planner})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -119,20 +122,22 @@ class ProfileHeaderSection extends StatelessWidget {
           width: 60,
           height: 60,
           child: ClipOval(
-            child: planner.imagePath != null && planner.imagePath!.endsWith('.svg')
-                ? SvgPicture.asset(
-                    planner.imagePath!,
-                    fit: BoxFit.cover,
-                  )
-                : planner.imagePath != null
-                    ? Image.asset(
+            child:
+                planner.imagePath != null && planner.imagePath!.endsWith('.svg')
+                    ? SvgPicture.asset(
                         planner.imagePath!,
                         fit: BoxFit.cover,
                       )
-                    : Container(
-                        color: Colors.grey[300],
-                        child: Icon(Icons.person, color: Colors.grey[600], size: 30),
-                      ),
+                    : planner.imagePath != null
+                        ? Image.asset(
+                            planner.imagePath!,
+                            fit: BoxFit.cover,
+                          )
+                        : Container(
+                            color: Colors.grey[300],
+                            child: Icon(Icons.person,
+                                color: Colors.grey[600], size: 30),
+                          ),
           ),
         ),
 
@@ -372,13 +377,15 @@ class ProfileTabNavigation extends ConsumerWidget {
               },
               child: Container(
                 height: 44,
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
                   border: isSelected
                       ? Border.all(color: const Color(0xFF3B82F6), width: 1)
                       : null,
-                  color: isSelected ? const Color(0xFFEFF6FF) : Colors.transparent,
+                  color:
+                      isSelected ? const Color(0xFFEFF6FF) : Colors.transparent,
                 ),
                 child: Center(
                   child: Text(

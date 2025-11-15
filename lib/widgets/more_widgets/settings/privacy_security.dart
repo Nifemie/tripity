@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 // Privacy & Security Item Type
 enum PrivacyItemType {
@@ -22,22 +23,6 @@ class PrivacySecurityItem {
     this.isEnabled,
     this.onTap,
   });
-
-  PrivacySecurityItem copyWith({
-    String? title,
-    String? subtitle,
-    PrivacyItemType? type,
-    bool? isEnabled,
-    VoidCallback? onTap,
-  }) {
-    return PrivacySecurityItem(
-      title: title ?? this.title,
-      subtitle: subtitle ?? this.subtitle,
-      type: type ?? this.type,
-      isEnabled: isEnabled ?? this.isEnabled,
-      onTap: onTap ?? this.onTap,
-    );
-  }
 }
 
 // Two-Factor Authentication provider
@@ -49,47 +34,42 @@ final locationServicesProvider = StateProvider<bool>((ref) => true);
 // Activity Status provider
 final activityStatusProvider = StateProvider<bool>((ref) => true);
 
-// Privacy & Security items provider
-final privacySecurityItemsProvider = Provider<List<PrivacySecurityItem>>((ref) {
-  final twoFactorEnabled = ref.watch(twoFactorAuthProvider);
-  final locationEnabled = ref.watch(locationServicesProvider);
-  final activityEnabled = ref.watch(activityStatusProvider);
-
-  return [
-    PrivacySecurityItem(
-      title: 'Change Password',
-      subtitle: 'Update your account password',
-      type: PrivacyItemType.navigation,
-      onTap: () => print('Change Password tapped'),
-    ),
-    PrivacySecurityItem(
-      title: 'Two-Factor Authentication (2FA)',
-      subtitle: 'Add extra security to your account',
-      type: PrivacyItemType.toggle,
-      isEnabled: twoFactorEnabled,
-    ),
-    PrivacySecurityItem(
-      title: 'Location Services',
-      subtitle: 'Allow location access for better recommendations',
-      type: PrivacyItemType.toggle,
-      isEnabled: locationEnabled,
-    ),
-    PrivacySecurityItem(
-      title: 'Activity Status',
-      subtitle: 'Show when you\'re online',
-      type: PrivacyItemType.toggle,
-      isEnabled: activityEnabled,
-    ),
-  ];
-});
-
 // Privacy & Security Widget
 class PrivacySecurityWidget extends ConsumerWidget {
   const PrivacySecurityWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final privacyItems = ref.watch(privacySecurityItemsProvider);
+    final twoFactorEnabled = ref.watch(twoFactorAuthProvider);
+    final locationEnabled = ref.watch(locationServicesProvider);
+    final activityEnabled = ref.watch(activityStatusProvider);
+
+    final privacyItems = [
+      PrivacySecurityItem(
+        title: 'Change Password',
+        subtitle: 'Update your account password',
+        type: PrivacyItemType.navigation,
+        onTap: () => context.push('/change-password'),
+      ),
+      PrivacySecurityItem(
+        title: 'Two-Factor Authentication (2FA)',
+        subtitle: 'Add extra security to your account',
+        type: PrivacyItemType.toggle,
+        isEnabled: twoFactorEnabled,
+      ),
+      PrivacySecurityItem(
+        title: 'Location Services',
+        subtitle: 'Allow location access for better recommendations',
+        type: PrivacyItemType.toggle,
+        isEnabled: locationEnabled,
+      ),
+      PrivacySecurityItem(
+        title: 'Activity Status',
+        subtitle: 'Show when you\'re online',
+        type: PrivacyItemType.toggle,
+        isEnabled: activityEnabled,
+      ),
+    ];
 
     return Container(
       decoration: BoxDecoration(
@@ -110,7 +90,7 @@ class PrivacySecurityWidget extends ConsumerWidget {
       child: Column(
         children: List.generate(
           privacyItems.length,
-              (index) {
+          (index) {
             final item = privacyItems[index];
             final isLast = index == privacyItems.length - 1;
 
@@ -119,7 +99,6 @@ class PrivacySecurityWidget extends ConsumerWidget {
                 _PrivacySecurityListTile(
                   item: item,
                   onToggleChanged: (value) {
-                    // Update the corresponding provider
                     if (index == 1) {
                       ref.read(twoFactorAuthProvider.notifier).state = value;
                     } else if (index == 2) {
@@ -229,6 +208,10 @@ class PrivacySecurityWidgetExample extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final twoFactor = ref.watch(twoFactorAuthProvider);
+    final location = ref.watch(locationServicesProvider);
+    final activity = ref.watch(activityStatusProvider);
+
     return Scaffold(
       backgroundColor: const Color(0xFFF9FAFB),
       appBar: AppBar(
@@ -242,18 +225,9 @@ class PrivacySecurityWidgetExample extends ConsumerWidget {
           children: [
             const PrivacySecurityWidget(),
             const SizedBox(height: 16),
-            // Display current states
-            Consumer(
-              builder: (context, ref, child) {
-                final twoFactor = ref.watch(twoFactorAuthProvider);
-                final location = ref.watch(locationServicesProvider);
-                final activity = ref.watch(activityStatusProvider);
-
-                return Text(
-                  '2FA: $twoFactor | Location: $location | Activity: $activity',
-                  style: const TextStyle(fontSize: 12),
-                );
-              },
+            Text(
+              '2FA: $twoFactor | Location: $location | Activity: $activity',
+              style: const TextStyle(fontSize: 12),
             ),
           ],
         ),

@@ -36,11 +36,10 @@ final supportItemsProvider = Provider<List<SupportItem>>((ref) {
       route: '/help-support',
     ),
     SupportItem(
-      title: 'Invite Friends',
-      subtitle: 'Share Triptify with others',
-      iconPath: 'assets/images/more/Share.svg',
-      customAction: () => print('Invite Friends tapped'),
-    ),
+        title: 'Invite Friends',
+        subtitle: 'Share Triptify with others',
+        iconPath: 'assets/images/more/Share.svg',
+        route: '/invite-friends'),
   ];
 });
 

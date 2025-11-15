@@ -64,7 +64,8 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
     await Future.delayed(const Duration(seconds: 5));
 
     if (mounted) {
-      context.push('/intro');
+      // context.push('/intro');
+      context.push('/HomeScreen');
     }
   }
 

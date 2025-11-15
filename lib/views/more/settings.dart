@@ -20,7 +20,7 @@ class SettingsScreen extends ConsumerWidget {
         elevation: 0,
         leading: IconButton(
           icon: const Icon(
-            Icons.arrow_back,
+            Icons.arrow_back_ios_new,
             color: Color(0xFF111827),
           ),
           onPressed: () {

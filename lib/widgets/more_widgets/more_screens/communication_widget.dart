@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 
 // Communication Data Model
 class CommunicationItem {
@@ -25,36 +26,31 @@ final newChatsCountProvider = StateProvider<int>((ref) => 4);
 // New notifications count provider
 final newNotificationsCountProvider = StateProvider<int>((ref) => 2);
 
-// Communication items provider
-final communicationItemsProvider = Provider<List<CommunicationItem>>((ref) {
-  final chatsCount = ref.watch(newChatsCountProvider);
-  final notificationsCount = ref.watch(newNotificationsCountProvider);
-
-  return [
-    CommunicationItem(
-      title: 'Chats',
-      subtitle: 'Messages with trip planners',
-      iconPath: 'assets/images/more/Chat_Dots.svg',
-      newCount: chatsCount,
-      onTap: () => print('Chats tapped'),
-    ),
-    CommunicationItem(
-      title: 'Notifications',
-      subtitle: 'Trip updates and alerts',
-      iconPath: 'assets/images/more/notification.svg',
-      newCount: notificationsCount,
-      onTap: () => print('Notifications tapped'),
-    ),
-  ];
-});
-
 // Communication Widget
 class CommunicationWidget extends ConsumerWidget {
   const CommunicationWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final communicationItems = ref.watch(communicationItemsProvider);
+    final chatsCount = ref.watch(newChatsCountProvider);
+    final notificationsCount = ref.watch(newNotificationsCountProvider);
+
+    final communicationItems = [
+      CommunicationItem(
+        title: 'Chats',
+        subtitle: 'Messages with trip planners',
+        iconPath: 'assets/images/more/Chat_Dots.svg',
+        newCount: chatsCount,
+        onTap: () => context.push('/chats'),
+      ),
+      CommunicationItem(
+        title: 'Notifications',
+        subtitle: 'Trip updates and alerts',
+        iconPath: 'assets/images/more/notification.svg',
+        newCount: notificationsCount,
+        onTap: () => context.push('/notifications'),
+      ),
+    ];
 
     return Container(
       decoration: BoxDecoration(
@@ -75,7 +71,7 @@ class CommunicationWidget extends ConsumerWidget {
       child: Column(
         children: List.generate(
           communicationItems.length,
-              (index) {
+          (index) {
             final item = communicationItems[index];
             final isLast = index == communicationItems.length - 1;
 
@@ -226,7 +222,7 @@ class CommunicationWidgetExample extends ConsumerWidget {
           children: [
             const CommunicationWidget(),
             const SizedBox(height: 16),
-            // Example: Update counts
+
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [

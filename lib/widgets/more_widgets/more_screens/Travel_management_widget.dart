@@ -29,13 +29,13 @@ class TravelerManagement extends ConsumerWidget {
         title: 'Travel Calendar',
         subtitle: 'Sync with your trips',
         iconPath: 'assets/images/more/Calendar.svg',
-        onTap: () => print('Travel Calendar tapped'),
+        onTap: () => context.push('/travel-calendar')
       ),
       TravelerItem(
         title: 'Reviews & Ratings',
         subtitle: 'Rate your experiences',
         iconPath: 'assets/images/more/Star.svg',
-        onTap: () => print('Reviews & Ratings tapped'),
+        onTap: () => context.push('/rating-review')
       ),
     ];
 

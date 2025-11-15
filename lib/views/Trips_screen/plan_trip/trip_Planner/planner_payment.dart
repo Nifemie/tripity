@@ -28,7 +28,7 @@ class PaymentConfirmationScreen extends ConsumerWidget {
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Color(0xFF111827)),
+          icon: const Icon(Icons.arrow_back_ios_new, color: Color(0xFF111827)),
           onPressed: () {
             ref.read(selfPlanStepProvider.notifier).state = 3;
             Navigator.pop(context);
